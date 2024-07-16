@@ -1,12 +1,14 @@
 <script>
     import AppHeader from './components/AppHeader.vue'
     import AppHero from './components/AppHero.vue'
+    import AppMain from './components/AppMain.vue'
 
     export default {
       name: 'App',
       components: {
         AppHeader,
-        AppHero
+        AppHero,
+        AppMain
       }
     }
 </script>
@@ -15,13 +17,11 @@
   <div id="app">
     <AppHeader />
     <AppHero />
-    <main>
-      <!-- Il contenuto principale dell'app -->
-    </main>
+    <AppMain />
   </div>
 </template>
 
 
 <style>
-/* Aggiungi i tuoi stili personalizzati qui */
+
 </style>
