@@ -14,7 +14,7 @@ export const store = reactive({
         },
         {
             image: './src/assets/img/sushi.jpg',
-            text: 'Prova 3',
+            text: 'Lasciati prendere dal gusto comodamente da casa tua con Deliveboo!',
         },
     ],
 });

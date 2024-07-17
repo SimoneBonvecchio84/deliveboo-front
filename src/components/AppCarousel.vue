@@ -36,16 +36,18 @@ export default {
 </script>
 
 <template>
-    <div class="d-flex ms_div-img">
-        <div class="ms_carousel-container">
-            <h2>Prova</h2>
-            <transition name="slide" mode="out-in">
+    <div class="container py-5 w-50">
+        <div class="row" name="slide" mode="out-in">
+            <div class="col-6">
                 <div :key="currentFood" class="ms_carousel-slide">
-                    <img :src="foods[currentFood].image" alt="" class="ms_food-img" />
-                    <p class="ms_food-text">{{ foods[currentFood].text }}</p>
+                    <img :src="foods[currentFood].image" alt="" class="w-75" />
                 </div>
-            </transition>
+            </div>
+            <div class="col-6">
+                <h5 class="ms_food-text py-4">{{ foods[currentFood].text }}</h5>
+            </div>
         </div>
+        
     </div>
 </template>
 
@@ -61,7 +63,7 @@ export default {
     height: 600px;
 
     .ms_carousel-container {
-        width: 600px;
+        width: 900px;
         margin: auto;
         text-align: center;
         position: relative;
