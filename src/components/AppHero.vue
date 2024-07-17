@@ -1,22 +1,23 @@
 <script>
+import AppCarousel from '../components/AppCarousel.vue'
+import {store} from '../store'
+
 export default {
-    name: 'Hero'
+    components: {
+    AppCarousel,
+  },
+  data() {
+    return {
+      baseSrc: "http://127.0.0.1:8000/storage",
+      store,
+      name: 'Hero'
+    }
+  },
 }
 </script>
 
 <template>
-    <section class="hero">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-md-7 bg-white">
-                    <img src="../assets/img/hamburger.jpg" alt="Cibo" class="img-fluid">
-                </div>
-                <div class="col-12 col-md-5 text-center text-md-start">
-                    <h1>Ordina Comodamente da casa</h1>
-                </div>
-            </div>
-        </div>
-    </section>
+    <AppCarousel />
 </template>
 
 <style scoped>

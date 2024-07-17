@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios'
 import AppCard from '../components/AppCard.vue'
+import {store} from '../store'
 
 export default {
   components: {
@@ -11,7 +12,8 @@ export default {
       restaurantsList: [],
       typesList: [],
       selectedTypes: [],
-      baseSrc: "http://127.0.0.1:8000/storage"
+      baseSrc: "http://127.0.0.1:8000/storage",
+      store
     }
   },
   created() {
