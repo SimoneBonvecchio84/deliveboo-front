@@ -1,14 +1,16 @@
 <script>
     import AppHeader from './components/AppHeader.vue'
     import AppHero from './components/AppHero.vue'
-    import AppMain from './components/AppMain.vue'
+    import AppHomePage from './pages/AppHomePage.vue'
+    import ShowRestaurant from './pages/ShowRestaurant.vue'
 
     export default {
       name: 'App',
       components: {
         AppHeader,
         AppHero,
-        AppMain
+        AppHomePage,
+        ShowRestaurant
       }
     }
 </script>
@@ -17,7 +19,8 @@
   <div id="app">
     <AppHeader />
     <AppHero />
-    <AppMain />
+    <AppHomePage />
+    <ShowRestaurant />
   </div>
 </template>
 
