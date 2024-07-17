@@ -23,6 +23,13 @@ export default {
             this.interval = setInterval(() => {
                 this.currentFood = (this.currentFood + 1) % this.foods.length;
             }, 3000);
+        },
+        getImage(name) {
+            if (this.flag.includes(name)) {
+                return new URL(`../assets/img/${name}.png`, import.meta.url).href;
+            } else {
+                return new URL(`../assets/img/int.png`, import.meta.url).href;
+            }
         }
     }
 }

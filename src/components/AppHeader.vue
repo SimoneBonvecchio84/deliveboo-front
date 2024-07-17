@@ -8,15 +8,15 @@ export default {
   <header>
     <!-- Gestione NavBar -->
     <nav class="navbar navbar-expand-lg ">
-      <div class="container-fluid">
+      <div class="container ps-5 pe-5">
         <!-- logo -->
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <div class="navbar-brand d-flex align-items-center">
           <img
-            src="../assets/img/logo_esteso.png"
+            src="../assets/img/logo_top.png"
             alt="Logo"
             class="d-inline-block align-text-top"
           />
-        </a>
+        </div>
         <!-- logo -->
          <!-- Hamburger menu -->
         <button
@@ -41,7 +41,11 @@ export default {
 
           <!-- Lato destro Navbar -->
           <ul class="navbar-nav ml-auto">
+
             <!-- Link Di Registrazione  -->
+            <li class="nav-item">
+              <router-link :to = "{ name: 'home'  }" class="nav-link text-light" href="http://127.0.0.1:8000/login">Home</router-link>
+            </li>
             <li class="nav-item">
               <a class="nav-link text-light" href="http://127.0.0.1:8000/login">Login</a>
             </li>
@@ -51,17 +55,26 @@ export default {
               >
             </li>
             <!-- Link Di Registrazione  -->
+
           </ul>
+
         </div>
+        <!-- /hamburger menu -->
       </div>
     </nav>
      <!-- Gestione NavBar -->
   </header>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.navbar-brand{
+  width: 100%;
+  img{
+    width: 10%;
+  }
+}
 
- .navbar-expand-lg{
+.navbar-expand-lg{
   background-color: #ff0000; /* Colore dell'header  */
   color: white;
 }
@@ -74,7 +87,7 @@ export default {
   color: white;
 }
 
-.navbar-brand img {
-  height: 40px;      /* Gestione altezza logo */          
-}
+/* .navbar-brand img { */
+  /* height: 40px;      Gestione altezza logo           */
+/* } */
 </style>

@@ -1,27 +1,44 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from './pages/AppHomePage.vue';
+import AppHomePage from './pages/AppHomePage.vue';
 import ShowRestaurant from './pages/ShowRestaurant.vue';
 
 // modifica
-export const routes = [
+// export const routes = [
+//   ];
+// modifica
+
+// export const router = createRouter({
+//     history: createWebHistory(),
+//     routes: [
+//       {
+//         path: '/',
+//         name: 'home',
+//         component: Home
+//       },
+//       {
+//         path: '/showrestaurant/:slug',
+//         name: 'showrestaurant',
+//         component: ShowRestaurant,
+//         // props: true
+//       }
+//     ]
+// });
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: AppHomePage
     },
     {
-      path: '/restaurant/:slug',
-      name: 'show-restaurant',
+      path: '/showrestaurant/:slug',
+      name: 'showrestaurant',
       component: ShowRestaurant,
-      props: true
+      // props: true
     }
-  ];
-// modifica
-
-export const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-       
-      
-    ]
+  ],
 });
+
+export { router };

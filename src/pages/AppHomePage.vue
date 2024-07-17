@@ -1,11 +1,13 @@
 <script>
 import axios from 'axios'
-import AppCard from '../components/AppCard.vue'
 import {store} from '../store'
+import AppCard from '../components/AppCard.vue'
+import AppHero from '../components/AppHero.vue'
 
 export default {
   components: {
-    AppCard
+    AppCard,
+    AppHero
   },
   data() {
     return {
@@ -62,7 +64,8 @@ export default {
 </script>
 
 <template>
-
+  <AppHeader />
+  <AppHero />
   <!-- checkbox types -->
   <div class="container w-50 mt-5">
     <div class="row justify-content-center align-items-center">
@@ -83,9 +86,7 @@ export default {
       <!-- card -->
       <div v-for="curRestaurant in restaurantsList" :key="curRestaurant.id"
         class="card col-lg-3 col-md-4 col-sm-5 col-7 p-0">
-
-       <AppCard :cardObj="curRestaurant" />
-
+        <AppCard :cardObj="curRestaurant" />
       </div>
       <!-- /card -->
 

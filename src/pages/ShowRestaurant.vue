@@ -4,8 +4,8 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            restaurant: null, // Imposta inizialmente a null
-            baseSrc: "http://127.0.0.1:8000/storage/img/ImmaginiVarie"
+            restaurant: [],
+            baseSrc: "http://127.0.0.1:8000/storage"
         };
     },
     created() {
@@ -27,6 +27,7 @@ export default {
 </script>
 
 <template>
+
     <div class="container mt-5" v-if="restaurant">
         <h1>{{ restaurant.name }}</h1>
         <img :src="`${baseSrc}/${restaurant.image}`" alt="Restaurant image">
@@ -41,6 +42,7 @@ export default {
     <div v-else>
         <p>Loading...</p>
     </div>
+
 </template>
 
 

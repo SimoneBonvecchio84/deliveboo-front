@@ -1,4 +1,5 @@
 <script>
+    import { RouterView } from 'vue-router'
     import AppHeader from './components/AppHeader.vue'
     import AppHero from './components/AppHero.vue'
     import AppHomePage from './pages/AppHomePage.vue'
@@ -18,9 +19,8 @@
 <template>
   <div id="app">
     <AppHeader />
-    <AppHero />
-    <AppHomePage />
-    <ShowRestaurant />
+    <router-view></router-view>
+    <!-- <AppFooter /> -->
   </div>
 </template>
 
