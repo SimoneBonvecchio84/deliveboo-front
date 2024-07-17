@@ -13,6 +13,7 @@ export default {
 
 <template>
            
+    <router-link :to="{ name: 'showrestaurant', params: { slug: cardObj.slug } }" class="text-decoration-none">
         <div class="card ">
 
             <!-- image -->
@@ -48,6 +49,7 @@ export default {
             <!-- /card text -->
 
         </div>
+    </router-link>
         
     
 </template>
