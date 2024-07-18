@@ -79,7 +79,7 @@ export default {
 /* /Gestione Navbar e Logo  */
 /* Colore dell'header  */
 .navbar-expand-lg {
-  // background-color: #ff0000;
+  background-color: #ff0000;
   color: white;
   height: 130px;
   width: 100%;
