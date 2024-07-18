@@ -14,7 +14,7 @@ export default {
 <template>
            
     <router-link :to="{ name: 'showrestaurant', params: { slug: cardObj.slug } }" class="text-decoration-none">
-        <div class="card ">
+        <div class="card">
 
             <!-- image -->
             <img class="card-img-top w-100" :src="`${baseSrc}/${cardObj.image}`" alt="Card image cap">
@@ -22,6 +22,18 @@ export default {
 
             <!-- card text -->
             <div class="card-body d-flex flex-column p-0 ps-2 mt-2">
+
+                <!-- types -->
+                <ul v-if="cardObj.types && cardObj.types.length > 0" class="list-unstyled badge bg-primary pl-3">
+                    <li v-for="(type, index) in cardObj.types" :key="index">
+                        <strong>
+                            Cucina:
+                        </strong>
+                        {{ type.name }}
+                    </li>
+                </ul>
+                
+                <!-- types -->
 
                 <!-- name -->
                 <span class="card-title p-0 m-0 cutText">
@@ -33,17 +45,6 @@ export default {
                 <!-- address -->
                 <span class="card-title p-0 m-0 cutText">{{ cardObj.address }}</span>
 
-
-                <!-- types -->
-                <ul v-if="cardObj.types && cardObj.types.length > 0" class="list-unstyled">
-                    <li v-for="(type, index) in cardObj.types" :key="index">
-                        <strong>
-                            Cucina:
-                        </strong>
-                        {{ type.name }}
-                    </li>
-                </ul>
-                <!-- types -->
 
             </div>
             <!-- /card text -->
@@ -65,10 +66,22 @@ export default {
 
 .card {
   height: 100%;
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .card-img-top {
   width: 100%;
   height: auto;
 }
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+}
+
+
+
+
 </style>

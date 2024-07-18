@@ -94,7 +94,7 @@ export default {
 }
 
 .navbar-collapse, .red{
-  background-color: #ff0000;
+  background-color:rgba($color: #ff0000, $alpha: 0.5);
 }
 
 
