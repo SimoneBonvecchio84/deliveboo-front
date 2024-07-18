@@ -26,8 +26,8 @@ export default {
 .hero {
     background-color: #ff0000;
     color: #fff;
-    padding: 40px 0;
-    height: 500px;
+    height: 400px;
+    margin-top: 100px;
 }
 
 .hero h1 {

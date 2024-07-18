@@ -9,12 +9,12 @@ export const store = reactive({
             text: 'Lasciati prendere dal gusto comodamente da casa tua con Deliveboo!',
         },
         {
-            image: './src/assets/img/pizza.jpg',
-            text: 'I tuoi piatti preferiti arriveranno in un attimo grazie al nostro sistema di consegne'
+            image: './src/assets/img/pizza-hero.png',
+            text: 'I tuoi piatti preferiti arriveranno in un attimo grazie al nostro sistema di consegne.'
         },
         {
-            image: './src/assets/img/sushi.jpg',
-            text: 'Lasciati prendere dal gusto comodamente da casa tua con Deliveboo!',
+            image: './src/assets/img/pasta-hero.png',
+            text: 'Tutti i tuoi ristoranti preferiti disponibili con un click!',
         },
     ],
 });
