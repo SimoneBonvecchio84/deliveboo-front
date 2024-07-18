@@ -96,8 +96,14 @@ export default {
                                 <dd>{{ curDish.name }}</dd>
                                 <dt>Descrizione</dt>
                                 <dd>{{ curDish.description }}</dd>
-                                <dt>Prezzo</dt>
-                                <dd>{{ curDish.price }}  &euro;</dd>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <dt>Prezzo</dt>
+                                        <dd>{{ curDish.price }}  &euro;</dd>
+                                    </div>
+                                    <a class="btn  btn-success  py-1 m-0" href="">+</a>
+                                    
+                                </div>
                                 
                                 <dd>
                                     <span :class="{'text-success' : curDish.visibility === 1, 'text-danger' : curDish.visibility === 0 }"> <strong>Disponibile</strong></span>
