@@ -6,7 +6,6 @@ export default {
         return {
             restaurant: [],
             baseSrc: "http://127.0.0.1:8000/storage"
-        
         };
     },
     created() {
@@ -37,8 +36,8 @@ export default {
     <div class="container mt-5 border rounded" v-if="restaurant">
         <div class="row">
             <!-- colonna immagine -->
-            <div class="col-6 d-flex align-items-center justify-content-center">
-                <div class="w-75 p-2">
+            <div class="col-6 d-flex align-items-center justify-content-end">
+                <div class="w-75 p-2 d-flex justify-content-end">
                     <img :src="`${baseSrc}/${restaurant.image}`" class="w-50" alt="Restaurant image">
                 </div>
             </div>
@@ -47,21 +46,15 @@ export default {
             <!-- colonna descrizione -->
             <div class="col-6 py-3">
                 <div class="p-2">
-                    <dt>
-                        Descrizione
-                    </dt>
-                    <dd>
-                        {{ restaurant.description }}
+                    
+                    <dt>Descrizione</dt>
+                    
+                    <dd>{{ restaurant.description }}</dd>
+                    
+                    <dt>Indirizzo</dt>
+                    <dd>{{ restaurant.address }}
                     </dd>
-                    <dt>
-                        Indirizzo
-                    </dt>
-                    <dd>
-                        {{ restaurant.address }}
-                    </dd>
-                    <dt>
-                        Tipologia
-                    </dt>
+                    <dt>Tipologia</dt>
                     <dd>
                         <ul v-if="restaurant.types && restaurant.types.length > 0">
                             <li class="list-group-item" v-for="(type, index) in restaurant.types" :key="index">
@@ -86,32 +79,34 @@ export default {
             <h2 class="text-center py-3">Menù</h2>
             <div class="col-12" v-for="curDish in restaurant.dishes">  
                 
-                <div class="container py-3">
-                    <div class="row border rounded align-items-center">
+                <div class="container py-3 d-flex justify-content-center" v-if="restaurant.dishes.length > 0">
+                    <div class="row border rounded align-items-center w-50">
                         <!-- colonna immagine piatto -->
-                        <div class="col-6 py-5">
-                            <img :src="`${baseSrc}/${curDish.image}`" class="w-25 rounded-circle" alt="immagine piatto">    
+                        <div class="col-6 py-3 d-flex justify-content-end">
+                            <img :src="`${baseSrc}/${curDish.image}`" class="w-75 rounded-circle" alt="immagine piatto">    
                         </div>
                         <!-- /colonna immagine piatto -->
 
                         <!-- collonna descrizione piatto -->
-                        <div class="col-6 py-5">
-                            <dt>Nome Piatto</dt>
-                            <dd>{{ curDish.name }}</dd>
-                            <dt>Descrizione</dt>
-                            <dd>{{ curDish.description }}</dd>
-                            <dt>Prezzo</dt>
-                            <dd>{{ curDish.price }}  &euro;</dd>
-                            <dt>Disponibile</dt>
-                            <dd v-if="curDish.visibility === 1">
-                                disponibile
-                            </dd>
-                            <dd v-else>
-                                non disponibile
-                            </dd>
+                        <div class="col-6 py-4">
+                            <div>
+                                <dt>Nome Piatto</dt>
+                                <dd>{{ curDish.name }}</dd>
+                                <dt>Descrizione</dt>
+                                <dd>{{ curDish.description }}</dd>
+                                <dt>Prezzo</dt>
+                                <dd>{{ curDish.price }}  &euro;</dd>
+                                
+                                <dd>
+                                    <span :class="{'text-success' : curDish.visibility === 1, 'text-danger' : curDish.visibility === 0 }"> <strong>Disponibile</strong></span>
+                                </dd>
+                            </div>
                         </div>
                         <!-- /collonna descrizione piatto -->
                     </div>
+                </div>
+                <div class="container border rounded" v-else>
+                    <h2 class="text-center">Non ci sono ancora piatti!</h2>
                 </div>
             
             </div>
