@@ -4,6 +4,7 @@
     import AppHero from './components/AppHero.vue'
     import AppHomePage from './pages/AppHomePage.vue'
     import ShowRestaurant from './pages/ShowRestaurant.vue'
+    import AppFooter from './components/AppFooter.vue'
 
     export default {
       name: 'App',
@@ -11,7 +12,8 @@
         AppHeader,
         AppHero,
         AppHomePage,
-        ShowRestaurant
+        ShowRestaurant,
+        AppFooter
       }
     }
 </script>
@@ -20,7 +22,7 @@
   <div id="app">
     <AppHeader />
     <router-view></router-view>
-    <!-- <AppFooter /> -->
+    <AppFooter />
   </div>
 </template>
 
