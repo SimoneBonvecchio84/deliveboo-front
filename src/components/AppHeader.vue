@@ -7,9 +7,9 @@ export default {
 <template>
   <header>
     <!-- Gestione NavBar -->
-    <nav class="navbar navbar-expand-lg ">
+    <nav class="navbar navbar-expand-lg fixed-top">
 
-      <div class="container ps-5 pe-5 d-flex justify-content-between">
+      <div class="container ps-5 pe-5 d-flex justify-content-between fixed-top red">
         <!-- logo -->
         <div class="navbar-brand">
           <img src="../assets/img/logo_top.png" alt="Logo" class="d-inline-block align-text-top" />
@@ -64,6 +64,10 @@ export default {
 
 <style scoped lang="scss">
 /* Gestione Navbar e Logo  */
+.container {
+  max-width: 100%;
+}
+
 .navbar-brand {
   height: 100px;
 
@@ -75,7 +79,7 @@ export default {
 /* /Gestione Navbar e Logo  */
 /* Colore dell'header  */
 .navbar-expand-lg {
-  background-color: #ff0000;
+  // background-color: #ff0000;
   color: white;
   height: 130px;
   width: 100%;
@@ -89,7 +93,7 @@ export default {
   --bs-navbar-toggler-focus-width: 0;
 }
 
-.navbar-collapse{
+.navbar-collapse, .red{
   background-color: #ff0000;
 }
 
