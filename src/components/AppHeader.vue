@@ -8,19 +8,19 @@ export default {
   <header>
     <!-- Gestione NavBar -->
     <nav class="navbar navbar-expand-lg ">
-      <div class="container ps-5 pe-5">
+      <div class="container ps-5 pe-5 ">
         <!-- logo -->
-        <div class="navbar-brand d-flex align-items-center">
+        <div class="navbar-brand d-flex justify-content-between">
           <img
             src="../assets/img/logo_top.png"
             alt="Logo"
             class="d-inline-block align-text-top"
           />
         </div>
-        <!-- logo -->
+        <!-- /logo -->
          <!-- Hamburger menu -->
         <button
-          class="navbar-toggler collapsed bg-light"
+          class="navbar-toggler collapsed bg-darkred"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -28,9 +28,9 @@ export default {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon "></span>
+          <span class="navbar-toggler-icon text-white"></span>
         </button>
-         <!-- Hamburger menu -->
+         <!-- /Hamburger menu -->
         <div
           class="navbar-collapse collapse"
           id="navbarSupportedContent"
@@ -38,9 +38,11 @@ export default {
         >
           <!-- Lato sinistro Navbar -->
           <ul class="navbar-nav me-auto"></ul>
+          <!-- /Lato sinistro Navbar -->
 
           <!-- Lato destro Navbar -->
           <ul class="navbar-nav ml-auto">
+             <!-- /Lato destro Navbar -->
 
             <!-- Link Di Registrazione  -->
             <li class="nav-item">
@@ -54,7 +56,7 @@ export default {
                 >Register</a
               >
             </li>
-            <!-- Link Di Registrazione  -->
+            <!-- /Link Di Registrazione  -->
 
           </ul>
 
@@ -62,24 +64,24 @@ export default {
         <!-- /hamburger menu -->
       </div>
     </nav>
-     <!-- Gestione NavBar -->
+     <!-- /Gestione NavBar -->
   </header>
 </template>
 
 <style scoped lang="scss">
+/* Gestione Navbar e Logo  */
 .navbar-brand{
   height: 100px;
   img{
-    width: 20%;
+    width: 100%;
   }
 }
-
+/* /Gestione Navbar e Logo  */
+/* Colore dell'header  */
 .navbar-expand-lg{
-  background-color: #ff0000; /* Colore dell'header  */
+  background-color: #ff0000; 
   color: white;
 }
+/* /Colore dell'header  */
 
-/* .navbar-brand img { */
-  /* height: 40px;      Gestione altezza logo           */
-/* } */
 </style>
