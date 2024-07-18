@@ -44,13 +44,13 @@ export default {
 
             <!-- Link Di Registrazione  -->
             <li class="nav-item">
-              <router-link :to = "{ name: 'home'  }" class="nav-link text-light" href="http://127.0.0.1:8000/login">Home</router-link>
+              <router-link :to = "{ name: 'home'  }" class="nav-link text-light fs-5" href="http://127.0.0.1:8000/login">Home</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="http://127.0.0.1:8000/login">Login</a>
+              <a class="nav-link text-light fs-5" href="http://127.0.0.1:8000/login">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="http://127.0.0.1:8000/register"
+              <a class="nav-link text-light fs-5" href="http://127.0.0.1:8000/register"
                 >Register</a
               >
             </li>
@@ -68,22 +68,14 @@ export default {
 
 <style scoped lang="scss">
 .navbar-brand{
-  width: 100%;
+  height: 100px;
   img{
-    width: 10%;
+    width: 20%;
   }
 }
 
 .navbar-expand-lg{
   background-color: #ff0000; /* Colore dell'header  */
-  color: white;
-}
-
-.navbar-item{
-  color: white;
-}
-
-.navbar-toggler-icon{
   color: white;
 }
 
