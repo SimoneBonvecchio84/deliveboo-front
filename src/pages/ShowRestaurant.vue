@@ -28,12 +28,14 @@ export default {
 </script>
 
 <template>
-    <!-- titolo ristorante -->
-    <h1 class="text-center py-5">{{ restaurant.name }}</h1>
-    <!-- titolo ristorante -->
+    <div class="md_container-title">
+        <!-- titolo ristorante -->
+        <h1 class="text-center">{{ restaurant.name }}</h1>
+        <!-- titolo ristorante -->
+    </div>
 
     <!-- contenitore hero -->
-    <div class="container mt-5 border rounded" v-if="restaurant">
+    <div class="container mt-5 border-bottom" v-if="restaurant">
         <div class="row">
             <!-- colonna immagine -->
             <div class="col-6 d-flex align-items-center justify-content-end">
@@ -54,10 +56,10 @@ export default {
                     <dt>Indirizzo</dt>
                     <dd>{{ restaurant.address }}
                     </dd>
-                    <dt>Tipologia</dt>
+                    <dt>Cucina</dt>
                     <dd>
-                        <ul v-if="restaurant.types && restaurant.types.length > 0">
-                            <li class="list-group-item" v-for="(type, index) in restaurant.types" :key="index">
+                        <ul>
+                            <li  v-for="(type, index) in restaurant.types" :key="index">
                                 {{ type.name }}
                             </li>
                         </ul>
@@ -71,7 +73,7 @@ export default {
     <!-- /contenitore hero -->
 
     <!-- contenitore piatti -->
-     <div class="container mt-5 border rounded">
+     <div class="container mt-5 ">
         
         <div class="row">
             
@@ -120,4 +122,8 @@ export default {
 </template>
 
 
-<style></style>
+<style  lang="scss" scoped>
+.md_container-title {
+    margin-top: 150px;
+}
+</style>
