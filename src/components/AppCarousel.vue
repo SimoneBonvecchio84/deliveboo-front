@@ -36,15 +36,15 @@ export default {
 </script>
 
 <template>
-    <div class="container py-5 w-50">
+    <div class="container d-flex align-items-center ms_container">
         <div class="row" name="slide" mode="out-in">
-            <div class="col-6">
+            <div class="col-12 col-md-6 d-flex justify-content-center">
                 <div :key="currentFood" class="ms_carousel-slide">
-                    <img :src="foods[currentFood].image" alt="" class="w-75" />
+                    <img :src="foods[currentFood].image" alt="" class="ms_food-img" />
                 </div>
             </div>
-            <div class="col-6">
-                <h5 class="ms_food-text py-4">{{ foods[currentFood].text }}</h5>
+            <div class="col-12 col-md-6 ms_text">
+                <p class="ms_food-text py-4">{{ foods[currentFood].text }}</p>
             </div>
         </div>
         
@@ -54,38 +54,14 @@ export default {
 <style lang="scss" scoped>
 // @use "../style/partials/variables" as *;
 
-
-
-.ms_div-img {
-    // background-image: url();
-    // background-size: cover;
-    // background-position: center;
-    height: 600px;
-
-    .ms_carousel-container {
-        width: 900px;
-        margin: auto;
-        text-align: center;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        h2 {
-            font-size: 2.8rem;
-        }
-
-        p {
-            font-size: 1.3rem;
-        }
+    .ms_container {
+        width: 50%;
     }
 
     .ms_carousel-slide {
-        width: 70%;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: center;
         padding: 20px;
         transform: translateX(0);
         transition: transform 1s ease;
@@ -100,20 +76,21 @@ export default {
         //     padding: 20px;
 
         .ms_food-img {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 15px;
+            width: 100%;
+        }
+    }
+
+        .ms_text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .ms_food-text {
             font-style: italic;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            text-align: center;
         }
-
-        .ms_food {
-            font-weight: bold;
-        }
-    }
 
     .slide-enter-active {
         transition: transform 0.5s ease;
@@ -139,5 +116,5 @@ export default {
         transform: translateX(-100%);
         opacity: 0;
     }
-}
+
 </style>

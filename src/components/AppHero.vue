@@ -17,7 +17,9 @@ export default {
 </script>
 
 <template>
-    <AppCarousel />
+    <div class="hero d-flex justify-content-center align-item-center">   
+        <AppCarousel />
+    </div> 
 </template>
 
 <style scoped>
@@ -25,6 +27,7 @@ export default {
     background-color: #ff0000;
     color: #fff;
     padding: 40px 0;
+    height: 500px;
 }
 
 .hero h1 {
