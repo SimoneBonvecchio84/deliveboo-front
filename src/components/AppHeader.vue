@@ -18,7 +18,7 @@ export default {
 
 
           <!-- Hamburger menu -->
-          <button class="navbar-toggler collapsed bg-red" type="button" data-bs-toggle="collapse"
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fa-solid fa-bars text-white"></i>
@@ -94,11 +94,20 @@ export default {
 }
 
 .navbar-collapse, .red{
-  background-color:rgba($color: #ff0000, $alpha: 0.5);
+  background-color:#ff0000;
 }
 
 
 .navbar-expand-lg img {
   width: 130px;
 }
+
+/*Menù a tendina personalizzato */
+// @media (max-width: 767px) {
+//   .navbar-collapse, .red {
+//       background-color:rgba($color: #ff0000, $alpha: 0.5);
+
+    
+//   }
+// }
 </style>
