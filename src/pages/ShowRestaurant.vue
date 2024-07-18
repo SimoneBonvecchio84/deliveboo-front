@@ -6,6 +6,7 @@ export default {
         return {
             restaurant: [],
             baseSrc: "http://127.0.0.1:8000/storage"
+        
         };
     },
     created() {
@@ -17,6 +18,7 @@ export default {
             axios.get(`http://127.0.0.1:8000/api/restaurants/${slug}`)
                 .then(response => {
                     this.restaurant = response.data.result;
+                    console.log(this.restaurant);
                 })
                 .catch(error => {
                     console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
@@ -27,29 +29,98 @@ export default {
 </script>
 
 <template>
+    <!-- titolo ristorante -->
+    <h1 class="text-center py-5">{{ restaurant.name }}</h1>
+    <!-- titolo ristorante -->
 
-    <div class="container mt-5 " v-if="restaurant">
-          <div class="row">
-            <div class="col-6 ">
-                <img :src="`${baseSrc}/${restaurant.image}`" class="w-75" alt="Restaurant image">
+    <!-- contenitore hero -->
+    <div class="container mt-5 border rounded" v-if="restaurant">
+        <div class="row">
+            <!-- colonna immagine -->
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <div class="w-75 p-2">
+                    <img :src="`${baseSrc}/${restaurant.image}`" class="w-50" alt="Restaurant image">
+                </div>
             </div>
-            <div class="col-6 py-3">                
-                    <h2> Nome: {{ restaurant.name }}</h2>
-                    <h2> Indirizzo: 
-                        <h4>{{ restaurant.address }}</h4>
-                    </h2>
-                    <h2>Descrizione:</h2>
-                    <h4>{{ restaurant.description }}</h4>  
-                    <h2>Tipologia:</h2>  
-                    <ul v-if="restaurant.types && restaurant.types.length > 0">
-                        <li class="list-group-item" v-for="(type, index) in restaurant.types" :key="index">
-                           <h5>{{ type.name }}</h5> 
-                        </li>
-                    </ul>
+            <!-- /colonna immagine -->
+
+            <!-- colonna descrizione -->
+            <div class="col-6 py-3">
+                <div class="p-2">
+                    <dt>
+                        Descrizione
+                    </dt>
+                    <dd>
+                        {{ restaurant.description }}
+                    </dd>
+                    <dt>
+                        Indirizzo
+                    </dt>
+                    <dd>
+                        {{ restaurant.address }}
+                    </dd>
+                    <dt>
+                        Tipologia
+                    </dt>
+                    <dd>
+                        <ul v-if="restaurant.types && restaurant.types.length > 0">
+                            <li class="list-group-item" v-for="(type, index) in restaurant.types" :key="index">
+                                {{ type.name }}
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
             </div>
-          </div>
+            <!-- /colonna descrizione -->
+        
+        </div>
     </div>
-    
+    <!-- /contenitore hero -->
+
+    <!-- contenitore piatti -->
+     <div class="container mt-5 border rounded">
+        
+        <div class="row">
+            
+            <!-- colonna piatto -->
+            <h2 class="text-center py-3">Menù</h2>
+            <div class="col-12" v-for="curDish in restaurant.dishes">  
+                
+                <div class="container py-3">
+                    <div class="row border rounded align-items-center">
+                        <!-- colonna immagine piatto -->
+                        <div class="col-6 py-5">
+                            <img :src="`${baseSrc}/${curDish.image}`" class="w-25 rounded-circle" alt="immagine piatto">    
+                        </div>
+                        <!-- /colonna immagine piatto -->
+
+                        <!-- collonna descrizione piatto -->
+                        <div class="col-6 py-5">
+                            <dt>Nome Piatto</dt>
+                            <dd>{{ curDish.name }}</dd>
+                            <dt>Descrizione</dt>
+                            <dd>{{ curDish.description }}</dd>
+                            <dt>Prezzo</dt>
+                            <dd>{{ curDish.price }}  &euro;</dd>
+                            <dt>Disponibile</dt>
+                            <dd v-if="curDish.visibility === 1">
+                                disponibile
+                            </dd>
+                            <dd v-else>
+                                non disponibile
+                            </dd>
+                        </div>
+                        <!-- /collonna descrizione piatto -->
+                    </div>
+                </div>
+            
+            </div>
+            <!-- /colonna piatto -->
+        
+        </div>
+
+     </div>
+    <!-- /contenitore piatti -->
 
 </template>
 
