@@ -38,15 +38,15 @@ export default {
             <!-- /Lato destro Navbar -->
 
             <!-- Link Di Registrazione  -->
-            <li class="nav-item">
-              <router-link :to="{ name: 'home' }" class="nav-link text-light fs-5"
+            <li class="nav-item me-3">
+              <router-link :to="{ name: 'home' }" class="nav-link text-light fs-4"
                 href="http://127.0.0.1:8000/login">Home</router-link>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-light fs-5" href="http://127.0.0.1:8000/login">Login</a>
+            <li class="nav-item me-3">
+              <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/login">Accedi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-light fs-5" href="http://127.0.0.1:8000/register">Register</a>
+            <li class="nav-item me-3">
+              <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/register">Registrati</a>
             </li>
             <!-- /Link Di Registrazione  -->
 
