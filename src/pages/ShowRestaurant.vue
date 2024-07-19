@@ -6,10 +6,15 @@ export default {
         return {
             restaurant: [],
             baseSrc: "http://127.0.0.1:8000/storage"
+            
         };
     },
     created() {
         this.fetchRestaurant();
+        
+        
+        
+       
     },
     methods: {
         fetchRestaurant() {
@@ -18,6 +23,7 @@ export default {
                 .then(response => {
                     this.restaurant = response.data.result;
                     console.log(this.restaurant);
+                        
                 })
                 .catch(error => {
                     console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
@@ -82,7 +88,7 @@ export default {
             <div class="col-12" v-for="curDish in restaurant.dishes">  
                 
                 <div class="container py-3 d-flex justify-content-center" v-if="restaurant.dishes.length > 0">
-                    <div class="row border rounded align-items-center w-50">
+                    <div class="row border-bottom  align-items-center w-50">
                         <!-- colonna immagine piatto -->
                         <div class="col-6 py-3 d-flex justify-content-end">
                             <img :src="`${baseSrc}/${curDish.image}`" class="w-75 rounded-circle" alt="immagine piatto">    
@@ -100,8 +106,11 @@ export default {
                                     <div>
                                         <dt>Prezzo</dt>
                                         <dd>{{ curDish.price }}  &euro;</dd>
+                                        
                                     </div>
-                                    <a class="btn  btn-success  py-1 m-0" href="">+</a>
+                                    <router-link :to="{ name: 'cartshopping', params: { dishid: curDish.id, restaurant: restaurant.id, amount: 1 }}">
+                                        <a class="btn  btn-success  py-1 m-0" href="">+</a>
+                                    </router-link>
                                     
                                 </div>
                                 

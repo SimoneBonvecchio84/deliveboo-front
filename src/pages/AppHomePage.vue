@@ -4,10 +4,12 @@ import {store} from '../store'
 import AppCard from '../components/AppCard.vue'
 import AppHero from '../components/AppHero.vue'
 
+
 export default {
   components: {
     AppCard,
-    AppHero
+    AppHero,
+    
   },
   data() {
     return {
@@ -66,6 +68,12 @@ export default {
 <template>
   <AppHeader />
   <AppHero />
+
+  <!-- icona carrello -->
+   
+  <i class="fa-solid fa-cart-shopping fs-1 py-5"></i>
+  <!-- icona carrello -->
+
   <!-- checkbox types -->
   <div class="container w-50 mt-5">
     <div class="row justify-content-center align-items-center">

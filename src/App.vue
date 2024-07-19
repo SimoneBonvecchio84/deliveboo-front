@@ -5,6 +5,7 @@
     import AppHomePage from './pages/AppHomePage.vue'
     import ShowRestaurant from './pages/ShowRestaurant.vue'
     import AppFooter from './components/AppFooter.vue'
+    import AppShop from './pages/AppShop.vue'
 
     export default {
       name: 'App',
@@ -13,7 +14,8 @@
         AppHero,
         AppHomePage,
         ShowRestaurant,
-        AppFooter
+        AppFooter,
+        AppShop
       }
     }
 </script>
