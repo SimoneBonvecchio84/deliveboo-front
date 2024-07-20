@@ -7,6 +7,7 @@ export default {
     },
     created() {
         console.log(this.$route.params);
+        
     }
 }
 </script>
@@ -14,7 +15,6 @@ export default {
 <template>
     <div class="container md_cont">
         <h1 class="py-5">carrello</h1>
-
     </div>
 </template>
 <style>
