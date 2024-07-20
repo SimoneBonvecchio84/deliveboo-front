@@ -9,6 +9,7 @@ export default {
         };
     },
     created() {
+        // localStorage.clear();
         this.fetchRestaurant();
 
 
@@ -136,7 +137,7 @@ export default {
 
                             <!-- btn shop -->
                             <router-link
-                                :to="{ name: 'cartshopping', params: { dishid: curDish.id, restaurant: restaurant.id, amount: 1 } }">
+                                :to="{ name: 'cartshopping', params: { dish_id: curDish.id, restaurant_id: curDish.restaurant_id, quantity: 1 , dish_name: curDish.name, price: curDish.price } }">
                                 <a class="btn  btn-success  py-1 m-0" href="">+</a>
                             </router-link>
                             <!-- /btn shop -->
