@@ -1,5 +1,12 @@
 <script>
+import { store } from '../store';
+import AppCart from './AppCart.vue';
+
 export default {
+  components: {
+    AppCart
+  },
+
   name: "App",
 };
 </script>
@@ -34,7 +41,7 @@ export default {
           <!-- /Lato sinistro Navbar -->
 
           <!-- Lato destro Navbar -->
-          <ul class="navbar-nav">
+          <ul class="navbar-nav d-flex align-items-center">
             <!-- /Lato destro Navbar -->
 
             <!-- Link Di Registrazione  -->
@@ -42,7 +49,10 @@ export default {
               <router-link :to="{ name: 'home' }" class="nav-link text-light fs-4"
                 href="http://127.0.0.1:8000/login">Home</router-link>
             </li>
-            <li class="nav-item me-3">
+            <li class="nav-item me-5">
+              <AppCart />
+            </li>
+            <li class="nav-item me-3 ms-5">
               <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/login">Accedi</a>
             </li>
             <li class="nav-item me-3">
