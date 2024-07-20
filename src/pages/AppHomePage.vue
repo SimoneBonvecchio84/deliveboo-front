@@ -69,11 +69,7 @@ export default {
   <AppHeader />
   <AppHero />
 
-  <!-- icona carrello -->
-   
-  <i class="fa-solid fa-cart-shopping fs-1 py-5"></i>
-  <!-- icona carrello -->
-
+<div class="ms-homepage">
   <!-- checkbox types -->
   <div class="container w-50 mt-5">
     <div class="row justify-content-center align-items-center">
@@ -106,6 +102,7 @@ export default {
 
     <!-- <button class="btn btn-outline-danger">Mostra altri</button> -->
   </div>
+</div>
 
 </template>
 
@@ -126,4 +123,9 @@ export default {
   width: 100%;
   height: auto;
 }
+
+.ms-homepage{
+  margin-bottom: 300px;
+}
+
 </style>

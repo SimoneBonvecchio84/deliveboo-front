@@ -9,12 +9,7 @@ export default {
         };
     },
     created() {
-        // localStorage.clear();
         this.fetchRestaurant();
-
-
-
-
     },
     methods: {
         fetchRestaurant() {
@@ -23,12 +18,109 @@ export default {
                 .then(response => {
                     this.restaurant = response.data.result;
                     console.log(this.restaurant);
-
                 })
                 .catch(error => {
                     console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
                 });
-        }
+        },
+        aggiorna(dish) {
+            // salvataggio dati piatto
+            const quantity = 1;
+            const dish_id = parseInt(dish.id);
+            const dish_name = dish.name;
+            const restaurant_id = dish.restaurant_id;
+            const price = parseFloat(dish.price);
+            console.log(quantity, dish_id, dish_name, restaurant_id, price);
+
+            // Recupera il carrello salvato nel localStorage
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart && savedCart !== 'undefined') {
+                this.cart = JSON.parse(savedCart);
+            }
+            // Controlla se un restaurant_id esiste in localStorage
+            let savedRestaurantId = localStorage.getItem('restaurant_id');
+
+            // Verifica se savedRestaurantId è valido
+            if (savedRestaurantId && savedRestaurantId !== 'undefined') {
+                // Analizza il restaurant_id salvato da localStorage
+                const parsedSavedRestaurantId = JSON.parse(savedRestaurantId);
+
+                // Confronta il corrente restaurant_id con quello salvato
+                if (parsedSavedRestaurantId === restaurant_id) {
+                    console.log('Aggiungendo elemento al carrello poiché gli ID dei ristoranti corrispondono.');
+                    // Utilizza il prezzo recuperato per aggiungere un elemento al carrello
+                    this.addToCart(dish_id, dish_name, quantity, price);
+                } else {
+                    console.log('Differente ID di ristorante rilevato.');
+                    // Interroga l'utente per decidere se vuoi svuotare il carrello
+                    const userDecision = confirm("Stai cambiando ristorante. Vuoi svuotare il carrello?");
+                    if (userDecision) {
+                        console.log('Svuotamento del carrello...');
+                        // Svuota il carrello
+                        this.clearCart();
+                        // Aggiorna il restaurant_id in localStorage
+                        localStorage.setItem('restaurant_id', JSON.stringify(restaurant_id));
+                        // Aggiungi il nuovo articolo al carrello vuoto
+                        this.addToCart(dish_id, dish_name, quantity, price);
+                    } else {
+                        console.log('Utente ha deciso di non svuotare il carrello.');
+                    }
+                }
+            } else {
+                console.log('Nessun restaurant_id salvato trovato in localStorage.');
+                // Questo potrebbe essere una nuova sessione o la prima visita al sito
+                // Inizializza il restaurant_id
+                localStorage.setItem('restaurant_id', JSON.stringify(restaurant_id));
+                // Aggiungi anche il primo articolo nel carrello vuoto
+                this.addToCart(dish_id, dish_name, quantity, price);
+            }
+
+            console.log(this.cart);
+        },
+            addToCart(dish_id, dish_name, quantity, price) {
+                // Se l'articolo non esiste nel carrello, aggiungilo
+                if (!this.cart.items[dish_id]) {
+                    this.cart.items[dish_id] = {
+                        dish_id: dish_id,
+                        name: dish_name,
+                        quantity: quantity,
+                        price: price
+                    };
+                } else {
+                    // Se l'articolo esiste, aggiorna la quantità
+                    this.cart.items[dish_id].quantity += quantity;
+                }
+
+                // Aggiorna la quantità totale e il prezzo totale del carrello
+                this.cart.totalQuantity += quantity;
+                this.cart.totalPrice += price * quantity;
+
+                // Salva il carrello aggiornato nel localStorage
+                localStorage.setItem('cart', JSON.stringify(this.cart));
+
+            },
+
+            clearCart() {
+                // Svuota tutti gli articoli dal carrello
+                this.cart.items = {};
+                // Resetta la quantità totale
+                this.cart.totalQuantity = 0;
+                // Resetta il prezzo totale
+                this.cart.totalPrice = 0;
+
+                // Salva il carrello aggiornato nel localStorage
+                localStorage.setItem('cart', JSON.stringify(this.cart));
+
+                console.log('Carrello svuotato.');
+            },
+
+            calculateTotalPrice() {
+                // Calcola il prezzo totale del carrello
+                this.cart.totalPrice = Object.values(this.cart.items).reduce((total, item) => {
+                    return total + (item.price * item.quantity);
+                }, 0);
+
+            }
     }
 }
 </script>
@@ -97,7 +189,7 @@ export default {
         <!-- dish card -->
         <div v-for="curDish in restaurant.dishes">
 
-            <div v-if="restaurant.dishes.length > 0" class="container d-flex justify-content-center" >
+            <div v-if="restaurant.dishes.length > 0" class="container d-flex justify-content-center">
                 <div class="row border-bottom  align-items-center w-75">
                     <!-- image -->
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 py-3 d-flex justify-content-end">
@@ -138,8 +230,9 @@ export default {
                             <!-- btn shop -->
                             <router-link
                                 :to="{ name: 'cartshopping', params: { dish_id: curDish.id, restaurant_id: curDish.restaurant_id, quantity: 1 , dish_name: curDish.name, price: curDish.price } }">
-                                <a class="btn  btn-success  py-1 m-0" href="">+</a>
+                                carrello
                             </router-link>
+                            <a class="btn  btn-success  py-1 m-0" @click.prevent="aggiorna(curDish)">+</a>
                             <!-- /btn shop -->
 
                         </div>
@@ -160,7 +253,7 @@ export default {
             <div v-else class="container border rounded">
                 <h2 class="text-center">Non ci sono ancora piatti!</h2>
             </div>
-            
+
         </div>
         <!-- /dish card -->
 

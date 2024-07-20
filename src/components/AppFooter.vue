@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ms-footer">
       <!-- Footer -->
       <footer class="footer">
         <div class="container text-center">
@@ -16,7 +16,13 @@
   };
   </script>
   
-  <style scoped>
+  <style scoped lang="scss">
+  div.ms-footer{
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
   /* gestione stile footer */
   .footer {
     background-color: rgb(0 74 147);
