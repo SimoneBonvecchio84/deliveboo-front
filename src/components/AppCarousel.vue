@@ -9,7 +9,6 @@ export default {
         }
     },
 
-
     mounted() {
         this.autoPlay();
     },
@@ -39,82 +38,76 @@ export default {
     <div class="container d-flex align-items-center ms_container">
         <div class="row" name="slide" mode="out-in">
             <div class="col-12 col-md-6 d-flex justify-content-center">
-                <div :key="currentFood" class="ms_carousel-slide">
-                    <img :src="foods[currentFood].image" alt="" class="ms_food-img" />
-                </div>
+                <transition name="fade" mode="out-in">
+                    <div :key="currentFood" :class="{ 'active-slide': true }" class="ms_carousel-slide">
+                        <img :src="foods[currentFood].image" alt="" class="ms_food-img" />
+                    </div>
+                </transition>
             </div>
             <div class="col-12 col-md-6 ms_text">
-                <p class="ms_food-text py-4">{{ foods[currentFood].text }}</p>
+                <transition name="slide-fade" mode="out-in">
+                    <p :key="currentFood" class="ms_food-text py-4">{{ foods[currentFood].text }}</p>
+                </transition>
             </div>
         </div>
-        
     </div>
 </template>
 
 <style lang="scss" scoped>
-// @use "../style/partials/variables" as *;
+.ms_container {
+    width: 50%;
+}
 
-    .ms_container {
-        width: 50%;
+.ms_carousel-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transform: translateX(0);
+    transition: transform 1s ease;
+    position: relative;
+
+    .ms_food-img {
+        width: 100%;
     }
+}
 
-    .ms_carousel-slide {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        transform: translateX(0);
-        transition: transform 1s ease;
-        position: relative;
+.ms_text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Posizionamento relativo per permettere la transizione */
+}
 
-        // .ms_foods {
-        //     min-width: 100%;
-        //     flex-shrink: 0;
-        //     display: flex;
-        //     flex-direction: column;
-        //     align-items: center;
-        //     padding: 20px;
+.ms_food-text {
+    font-style: italic;
+    font-size: 1.5rem;
+    text-align: center;
+}
 
-        .ms_food-img {
-            width: 100%;
-        }
-    }
+.fade-enter-active {
+    transition: opacity 3s ease;
+}
 
-        .ms_text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.fade-leave-active {
+    transition: none;
+}
 
-        .ms_food-text {
-            font-style: italic;
-            font-size: 1.5rem;
-            text-align: center;
-        }
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+}
 
-    .slide-enter-active {
-        transition: transform 0.5s ease;
-    }
+.slide-fade-enter-active, .slide-fade-leave-active {
+    transition: all 3s ease;
+}
 
-    .slide-enter,
-    .slide-leave-to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
+.slide-fade-enter-from {
+    opacity: 0;
+    transform: translateX(100%);
+}
 
-    .slide-enter-active,
-    .slide-leave-active {
-        transition: transform 0.5s ease, opacity 0.5s ease;
-    }
-
-    .slide-enter-active {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    .slide-leave-active {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-
+.slide-fade-leave-to {
+    opacity: 1; /* Mantieni opacità a 1 per testo uscente */
+    transform: translateX(0); /* Mantieni posizione originale per testo uscente */
+}
 </style>
