@@ -46,9 +46,14 @@ export default {
                     console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
                 });
         },
-        aggiorna(dish) {
+        aggiorna(dish, value) {
             // salvataggio dati piatto
-            const quantity = 1;
+            let quantity = 0;
+            if (value == 1) {
+                quantity = 1;
+            } else {
+                quantity = -1;
+            }
             const dish_id = parseInt(dish.id);
             const dish_name = dish.name;
             const restaurant_id = dish.restaurant_id;
@@ -103,7 +108,8 @@ export default {
         },
         addToCart(dish_id, dish_name, quantity, price) {
             // Se l'articolo non esiste nel carrello, aggiungilo
-            if (!this.cart.items[dish_id]) {
+            const savePrice = price;
+            if (!this.cart.items[dish_id] && quantity === 1) {
                 this.cart.items[dish_id] = {
                     dish_id: dish_id,
                     name: dish_name,
@@ -112,12 +118,29 @@ export default {
                 };
             } else {
                 // Se l'articolo esiste, aggiorna la quantità
-                this.cart.items[dish_id].quantity += quantity;
-            }
 
-            // Aggiorna la quantità totale e il prezzo totale del carrello
-            this.cart.totalQuantity += quantity;
-            this.cart.totalPrice += price * quantity;
+                this.cart.items[dish_id].quantity += quantity;
+
+                console.log(this.cart.items[dish_id].quantity);
+                if (this.cart.items[dish_id].quantity <= 0) {
+                    this.cart.items[dish_id].quantity = 0;
+                }
+                console.log(this.cart.items[dish_id].quantity);
+                if (this.cart.items[dish_id].quantity <= 0) {
+                    delete this.cart.items[dish_id];
+                    localStorage.setItem('cart', JSON.stringify(this.cart)); // Assicurati che 'cart' sia un oggetto valido dopo la rimozione
+                } else {
+                    // Aggiorna la quantità totale e il prezzo totale del carrello
+                    this.cart.totalQuantity = this.cart.items[dish_id].quantity;
+                }
+            }
+            if (quantity === 1) {
+                this.cart.totalPrice += savePrice;
+            } else {
+                console.log(savePrice);
+                this.cart.totalPrice -= savePrice;
+            }
+            console.log(this.cart.totalPrice);
 
             // Salva il carrello aggiornato nel localStorage
             localStorage.setItem('cart', JSON.stringify(this.cart));
@@ -259,23 +282,38 @@ export default {
                                 </div>
                                 <!-- /price -->
 
-                                <!-- quantity in cart -->
-                                <div>
-                                    <span v-if="cart.items[curDish.id]">{{ cart.items[curDish.id].quantity }}</span>
-                                    <span v-else>0</span>
+                                <div class="d-flex justify-contente-center align-items-center gap-2 text-center">
+                                    <!-- btn less -->
+                                    <div class="btn btn-danger ms-btn d-flex justify-content-center align-items-center">
+                                        <a class="text-decoration-none text-white fw-bold"
+                                            @click.prevent="aggiorna(curDish, -1)">-</a>
+                                    </div>
+                                    <!-- /btn less -->
+
+                                    <!-- quantity in cart -->
+                                    <div class="counter">
+                                        <span v-if="cart.items[curDish.id]">{{ cart.items[curDish.id].quantity }}</span>
+                                        <span v-else>0</span>
+                                    </div>
+                                    <!-- /quantity -->
+
+                                    <!-- btn add -->
+                                    <div
+                                        class="btn btn-success ms-btn d-flex justify-content-center align-items-center">
+                                        <a class="text-decoration-none text-white fw-bold"
+                                            @click.prevent="aggiorna(curDish, 1)">+</a>
+                                    </div>
+                                    <!-- /btn add -->
                                 </div>
-                                <!-- btn shop -->
-                                <a class="btn btn-success py-1 m-0" @click.prevent="aggiorna(curDish)">+</a>
-                                <!-- /btn shop -->
 
                             </div>
                             <!-- /price and btn shop -->
 
                             <!-- visibility -->
-                            <span
+                            <!-- <span
                                 :class="{ 'text-success': curDish.visibility === 1, 'text-danger': curDish.visibility === 0 }">
                                 <strong>Disponibile</strong>
-                            </span>
+                            </span> -->
                             <!-- visibility -->
 
                         </div>
@@ -317,5 +355,18 @@ export default {
     // min-height: 300vh;
     height: 0%;
     margin-top: 130px;
+}
+
+.counter {
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    aspect-ratio: 1;
+
+}
+
+.ms-btn {
+    width: 30px;
+    height: 30px;
 }
 </style>
