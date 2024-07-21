@@ -352,9 +352,9 @@ export default {
 
 .container-show-restaurant {
     position: relative;
-    // min-height: 300vh;
-    height: 0%;
+    min-height: 100vh;
     margin-top: 130px;
+    margin-bottom: 50px;
 }
 
 .counter {

@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios'
-import {store} from '../store'
+import { store } from '../store'
 import AppCard from '../components/AppCard.vue'
 import AppHero from '../components/AppHero.vue'
 
@@ -9,7 +9,7 @@ export default {
   components: {
     AppCard,
     AppHero,
-    
+
   },
   data() {
     return {
@@ -17,7 +17,8 @@ export default {
       typesList: [],
       selectedTypes: [],
       baseSrc: "http://127.0.0.1:8000/storage",
-      store
+      store,
+      isLoading : false
     }
   },
   created() {
@@ -29,6 +30,7 @@ export default {
       const selectedTypesJson = encodeURIComponent(JSON.stringify(this.selectedTypes)); // Codifica l'array in una stringa URL
       axios.get(`http://127.0.0.1:8000/api/restaurants?type=${selectedTypesJson}`)
         .then(response => {
+          this.isLoading = true;
           this.restaurantsList = response.data.result;
         })
         .catch(error => {
@@ -69,40 +71,45 @@ export default {
   <AppHeader />
   <AppHero />
 
-<div class="ms-homepage">
-  <!-- checkbox types -->
-  <div class="container w-50 mt-5">
-    <div class="row justify-content-center align-items-center">
-      <div v-for="curType in typesList" :key="curType.id"
-        class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle">
-        <input type="checkbox" class="btn-check" :id="'type-' + curType.id" name="types" :value="curType.id"
-          @change="(event) => { SelectType(event.target.value, event.target.checked); }">
-        <label class="btn btn-outline-primary w-25 p-2" :for="'type-' + curType.id">{{ curType.name }}</label>
+  <div class="ms-homepage" v-if="isLoading">
+    <!-- checkbox types -->
+    <div class="container w-50 mt-5">
+      <div class="row justify-content-center align-items-center">
+        <div v-for="curType in typesList" :key="curType.id"
+          class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle">
+          <input type="checkbox" class="btn-check" :id="'type-' + curType.id" name="types" :value="curType.id"
+            @change="(event) => { SelectType(event.target.value, event.target.checked); }">
+          <label class="btn btn-outline-primary w-25 p-2" :for="'type-' + curType.id">{{ curType.name }}</label>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- /checkbox types -->
+    <!-- /checkbox types -->
 
-  <!-- card-container -->
-  <div class="container p-5">
-    <div class="row gap-4 justify-content-center">
+    <!-- card-container -->
+    <div class="container p-5">
+      <div class="row gap-4 justify-content-center" v-if="restaurantsList.length > 0">
 
-      <!-- card -->
-      <div v-for="curRestaurant in restaurantsList" :key="curRestaurant.id"
-        class="card col-lg-3 col-md-4 col-sm-5 col-7 p-0">
-        <AppCard :cardObj="curRestaurant" />
+      
+        
+        <!-- card -->
+          <div v-for="curRestaurant in restaurantsList" :key="curRestaurant.id"
+            class="card col-lg-3 col-md-4 col-sm-5 col-7 p-0">
+            <AppCard :cardObj="curRestaurant" />
+          </div>
+          <!-- /card -->
+      
       </div>
-      <!-- /card -->
+      <div class="row align-items-center border rounded-5 py-3 px-4 text-center" v-else> 
+        <p class="fw-bold fs-1 p-0 m-0">Nessun ristorante corrispondente alla tua ricerca</p>
+      </div>
+    </div>
+    <!-- /card container -->
 
+    <div class="col-12 text-center">
+
+      <!-- <button class="btn btn-outline-danger">Mostra altri</button> -->
     </div>
   </div>
-  <!-- /card container -->
-
-  <div class="col-12 text-center">
-
-    <!-- <button class="btn btn-outline-danger">Mostra altri</button> -->
-  </div>
-</div>
 
 </template>
 
@@ -124,8 +131,8 @@ export default {
   height: auto;
 }
 
-/* .ms-homepage{
-  margin-bottom: 300px;
-} */
-
+.ms-homepage {
+  min-height: 60vh;
+  margin-bottom: 50px;
+}
 </style>
