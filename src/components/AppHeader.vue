@@ -45,17 +45,14 @@ export default {
             <!-- /Lato destro Navbar -->
 
             <!-- Link Di Registrazione  -->
-            <li class="nav-item me-3">
+            <li class="nav-item">
               <router-link :to="{ name: 'home' }" class="nav-link text-light fs-4"
                 href="http://127.0.0.1:8000/login">Home</router-link>
             </li>
-            <li class="nav-item me-5">
-              <AppCart />
-            </li>
-            <li class="nav-item me-3 ms-5">
+            <li class="nav-item">
               <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/login">Accedi</a>
             </li>
-            <li class="nav-item me-3">
+            <li class="nav-item">
               <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/register">Registrati</a>
             </li>
             <!-- /Link Di Registrazione  -->
@@ -91,7 +88,7 @@ export default {
 .navbar-expand-lg {
   background-color: #ff0000;
   color: white;
-  height: 130px;
+  height: 100px;
   width: 100%;
 }
 

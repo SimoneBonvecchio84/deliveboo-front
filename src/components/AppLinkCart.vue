@@ -1,7 +1,7 @@
 <template>
     <div class="carrello">
         <router-link
-        :to="{ name: 'cartshopping', params: { slug: slug } }">
+        :to="{ name: 'cartshopping', params: { slug: restaurant.slug  } }">
         carrello
         </router-link>
     </div>

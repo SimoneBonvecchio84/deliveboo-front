@@ -17,4 +17,5 @@ export const store = reactive({
             text: 'Tutti i tuoi ristoranti preferiti disponibili con un click!',
         },
     ],
+    slug:''
 });
