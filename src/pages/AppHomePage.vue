@@ -124,8 +124,8 @@ export default {
   height: auto;
 }
 
-.ms-homepage{
+/* .ms-homepage{
   margin-bottom: 300px;
-}
+} */
 
 </style>

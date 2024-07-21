@@ -1,11 +1,17 @@
 <script>
 import axios from 'axios';
+import AppLinkCart from '../components/AppLinkCart.vue';
 
 export default {
+    component: {
+        AppLinkCart
+    },
     data() {
         return {
+            slug: '',
             restaurant: [],
-            baseSrc: "http://127.0.0.1:8000/storage"
+            baseSrc: "http://127.0.0.1:8000/storage",
+            id: "",
         };
     },
     created() {
@@ -13,8 +19,9 @@ export default {
     },
     methods: {
         fetchRestaurant() {
-            const slug = this.$route.params.slug;
-            axios.get(`http://127.0.0.1:8000/api/restaurants/${slug}`)
+            this.slug = this.$route.params.slug;
+            console.log(typeof slug, this.slug);
+            axios.get(`http://127.0.0.1:8000/api/restaurants/${this.slug}`)
                 .then(response => {
                     this.restaurant = response.data.result;
                     console.log(this.restaurant);
@@ -76,62 +83,71 @@ export default {
             }
 
             console.log(this.cart);
+            this.$store.dispatch('updateRestaurantId', restaurant_id);
         },
-            addToCart(dish_id, dish_name, quantity, price) {
-                // Se l'articolo non esiste nel carrello, aggiungilo
-                if (!this.cart.items[dish_id]) {
-                    this.cart.items[dish_id] = {
-                        dish_id: dish_id,
-                        name: dish_name,
-                        quantity: quantity,
-                        price: price
-                    };
-                } else {
-                    // Se l'articolo esiste, aggiorna la quantità
-                    this.cart.items[dish_id].quantity += quantity;
-                }
-
-                // Aggiorna la quantità totale e il prezzo totale del carrello
-                this.cart.totalQuantity += quantity;
-                this.cart.totalPrice += price * quantity;
-
-                // Salva il carrello aggiornato nel localStorage
-                localStorage.setItem('cart', JSON.stringify(this.cart));
-
-            },
-
-            clearCart() {
-                // Svuota tutti gli articoli dal carrello
-                this.cart.items = {};
-                // Resetta la quantità totale
-                this.cart.totalQuantity = 0;
-                // Resetta il prezzo totale
-                this.cart.totalPrice = 0;
-
-                // Salva il carrello aggiornato nel localStorage
-                localStorage.setItem('cart', JSON.stringify(this.cart));
-
-                console.log('Carrello svuotato.');
-            },
-
-            calculateTotalPrice() {
-                // Calcola il prezzo totale del carrello
-                this.cart.totalPrice = Object.values(this.cart.items).reduce((total, item) => {
-                    return total + (item.price * item.quantity);
-                }, 0);
-
+        addToCart(dish_id, dish_name, quantity, price) {
+            // Se l'articolo non esiste nel carrello, aggiungilo
+            if (!this.cart.items[dish_id]) {
+                this.cart.items[dish_id] = {
+                    dish_id: dish_id,
+                    name: dish_name,
+                    quantity: quantity,
+                    price: price
+                };
+            } else {
+                // Se l'articolo esiste, aggiorna la quantità
+                this.cart.items[dish_id].quantity += quantity;
             }
+
+            // Aggiorna la quantità totale e il prezzo totale del carrello
+            this.cart.totalQuantity += quantity;
+            this.cart.totalPrice += price * quantity;
+
+            // Salva il carrello aggiornato nel localStorage
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+
+        },
+
+        clearCart() {
+            // Svuota tutti gli articoli dal carrello
+            this.cart.items = {};
+            // Resetta la quantità totale
+            this.cart.totalQuantity = 0;
+            // Resetta il prezzo totale
+            this.cart.totalPrice = 0;
+
+            // Salva il carrello aggiornato nel localStorage
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+
+            console.log('Carrello svuotato.');
+        },
+
+        calculateTotalPrice() {
+            // Calcola il prezzo totale del carrello
+            this.cart.totalPrice = Object.values(this.cart.items).reduce((total, item) => {
+                return total + (item.price * item.quantity);
+            }, 0);
+
+        }
     }
 }
 </script>
 
 <template>
-    <div class="md_container-title">
+
+    <div class="container-show-restaurant">
+        <div class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
+            <router-link :to="{ name: 'cartshopping', params: { slug: slug } }">
+                <i class="fa-solid fa-cart-shopping text-white"></i>
+            </router-link>
+        </div>
+    <div class="">
         <!-- title -->
         <h1 class="text-center">{{ restaurant.name }}</h1>
         <!-- title -->
     </div>
 
+    <AppLinkCart />
     <!-- restaurant details -->
     <div class="container mt-5 border-bottom" v-if="restaurant">
         <div class="row">
@@ -228,10 +244,6 @@ export default {
                             <!-- /price -->
 
                             <!-- btn shop -->
-                            <router-link
-                                :to="{ name: 'cartshopping', params: { dish_id: curDish.id, restaurant_id: curDish.restaurant_id, quantity: 1 , dish_name: curDish.name, price: curDish.price } }">
-                                carrello
-                            </router-link>
                             <a class="btn  btn-success  py-1 m-0" @click.prevent="aggiorna(curDish)">+</a>
                             <!-- /btn shop -->
 
@@ -259,12 +271,35 @@ export default {
 
     </div>
     <!-- /dishes container -->
+</div>
 
 </template>
 
 
 <style lang="scss" scoped>
-.md_container-title {
-    margin-top: 150px;
+// .md_container-title {
+//     margin-top: 150px;
+// }
+
+.cart-container{
+    background-color: #004a93;
+    width: 40px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    z-index: 99;
+}
+.cart-container a{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-show-restaurant{
+    position: relative;
+    // min-height: 300vh;
+    height: 0%;
+    margin-top: 130px;
 }
 </style>

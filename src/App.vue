@@ -6,6 +6,7 @@
     import ShowRestaurant from './pages/ShowRestaurant.vue'
     import AppFooter from './components/AppFooter.vue'
     import AppShop from './pages/AppShop.vue'
+    import AppLinkCart from './components/AppLinkCart.vue'
 
     export default {
       name: 'App',
@@ -15,7 +16,8 @@
         AppHomePage,
         ShowRestaurant,
         AppFooter,
-        AppShop
+        AppShop,
+        AppLinkCart
       }
     }
 </script>

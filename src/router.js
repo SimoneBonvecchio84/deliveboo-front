@@ -40,7 +40,7 @@ const router = createRouter({
       // props: true
     },
     {
-      path: '/cartshopping/:dish_id/:restaurant_id/:quantity/:dish_name/:price',
+      path: '/cartshopping/:slug',
       name: 'cartshopping',
       component: AppShop
     }
