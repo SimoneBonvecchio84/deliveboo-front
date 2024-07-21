@@ -1,5 +1,6 @@
 <script>
 import { store } from "../store.js";
+import { nextTick } from 'vue';
 
 export default {
     data() {
@@ -10,7 +11,9 @@ export default {
     },
 
     mounted() {
-        this.autoPlay();
+        nextTick(() => {
+            this.autoPlay();
+        });
     },
 
     beforeUnmount() {
@@ -21,7 +24,7 @@ export default {
         autoPlay() {
             this.interval = setInterval(() => {
                 this.currentFood = (this.currentFood + 1) % this.foods.length;
-            }, 3000);
+            }, 4000);
         },
         getImage(name) {
             if (this.flag.includes(name)) {
@@ -37,16 +40,17 @@ export default {
 <template>
     <div class="container d-flex align-items-center ms_container">
         <div class="row" name="slide" mode="out-in">
-            <div class="col-12 col-md-6 d-flex justify-content-center">
+            <div class="col-12 col-md-6 col-lg-5 d-flex justify-content-center p-0 m-0">
                 <transition name="fade" mode="out-in">
-                    <div :key="currentFood" :class="{ 'active-slide': true }" class="ms_carousel-slide">
-                        <img :src="foods[currentFood].image" alt="" class="ms_food-img" />
+                    <div :key="currentFood" :class="{ 'active-slide': true }" class="container-img-food ms_carousel-slide">
+                        <img :src="foods[currentFood].image" alt="" class="ms_food-img img img-fluid" />
                     </div>
                 </transition>
             </div>
-            <div class="col-12 col-md-6 ms_text">
+            <div class="col-12 col-md-6 col-lg-7 ms_text container-text-hero">
                 <transition name="slide-fade" mode="out-in">
-                    <p :key="currentFood" class="ms_food-text py-4">{{ foods[currentFood].text }}</p>
+                    <!-- <p :key="currentFood" class="ms_food-text py-4">{{ foods[currentFood].text }}</p> -->
+                    <img :src="foods[currentFood].text" alt="" :key="currentFood" class="ms_food-img img img-fluid w-50" />
                 </transition>
             </div>
         </div>
@@ -55,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .ms_container {
-    width: 50%;
+    width: 80%;
 }
 
 .ms_carousel-slide {
@@ -67,9 +71,9 @@ export default {
     transition: transform 1s ease;
     position: relative;
 
-    .ms_food-img {
-        width: 100%;
-    }
+    // .ms_food-img {
+    //     width: 400px;
+    // }
 }
 
 .ms_text {
@@ -97,8 +101,11 @@ export default {
     opacity: 0;
 }
 
-.slide-fade-enter-active, .slide-fade-leave-active {
-    transition: all 3s ease;
+.slide-fade-enter-active{
+    transition: all 1.5s ease;
+}
+.slide-fade-leave-active{
+    transition: all 6.5 ease;
 }
 
 .slide-fade-enter-from {
@@ -108,6 +115,19 @@ export default {
 
 .slide-fade-leave-to {
     opacity: 1; /* Mantieni opacità a 1 per testo uscente */
-    transform: translateX(0); /* Mantieni posizione originale per testo uscente */
+    transform: translateX(0); /* Mantieni posizione originale per testo uscente */
+}
+
+.container-img-food{
+    padding: 0;
+    margin: 0;
+    img{
+        width: 100%;
+    }
+}
+
+.container-text-hero{
+    padding: 0;
+    margin: 0;
 }
 </style>

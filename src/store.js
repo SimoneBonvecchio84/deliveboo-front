@@ -6,15 +6,15 @@ export const store = reactive({
     foods: [
         {
             image: './src/assets/img/panino.png',
-            text: 'Lasciati prendere dal gusto comodamente da casa tua con Deliveboo!',
+            text: './src/assets/img/testo-hero-1.png',
         },
         {
             image: './src/assets/img/pizza-hero.png',
-            text: 'I tuoi piatti preferiti arriveranno in un attimo grazie al nostro sistema di consegne.'
+            text: './src/assets/img/testo-hero-1.png',
         },
         {
-            image: './src/assets/img/pasta-hero.png',
-            text: 'Tutti i tuoi ristoranti preferiti disponibili con un click!',
+            image: './src/assets/img/sushi-hero.png',
+            text: './src/assets/img/testo-hero-1.png',
         },
     ],
     slug:''
