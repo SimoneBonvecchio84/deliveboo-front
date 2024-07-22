@@ -17,6 +17,7 @@ export default {
     if (savedCart && savedCart !== 'undefined') {
       this.cart = JSON.parse(savedCart);
     }
+
     console.log(this.cart);
   },
   methods: {
@@ -122,6 +123,7 @@ export default {
 <style scoped>
 .md_cont {
   margin-top: 200px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
+  min-height: 100vh;
 }
 </style>
