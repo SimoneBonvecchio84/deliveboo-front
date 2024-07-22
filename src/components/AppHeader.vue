@@ -13,7 +13,8 @@ export default {
 
 <template>
   <header>
-    <!-- Gestione NavBar -->
+    
+    <!-- NavBar Management -->
     <nav class="navbar navbar-expand-lg fixed-top">
 
       <div class="container ps-5 pe-5 d-flex justify-content-between fixed-top red">
@@ -29,49 +30,56 @@ export default {
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fa-solid fa-bars text-white"></i>
-            <!-- <span class="navbar-toggler-icon text-white"></span> -->
           </button>
           <!-- /Hamburger menu -->
 
 
-        <!-- LINK NAV -->
+        <!-- NAV Link -->
         <div class="navbar-collapse collapse justify-content-end" id="navbarSupportedContent">
-          <!-- Lato sinistro Navbar -->
-          <!-- <ul class="navbar-nav me-auto"></ul> -->
-          <!-- /Lato sinistro Navbar -->
+          
+          <!-- Left side of Navbar -->
+            <!-- Empty at the moment -->
+          <!-- /Left side of Navbar -->
 
-          <!-- Lato destro Navbar -->
-          <ul class="navbar-nav d-flex align-items-center">
-            <!-- /Lato destro Navbar -->
+          <!-- Right side of Navbar -->
+            <ul class="navbar-nav d-flex align-items-center">
+          <!-- /Right side of Navbar -->
 
-            <!-- Link Di Registrazione  -->
+            <!-- Home Link -->
             <li class="nav-item">
               <router-link :to="{ name: 'home' }" class="nav-link text-light fs-4"
                 href="http://127.0.0.1:8000/login">Home</router-link>
             </li>
+            <!-- /Home Link -->
+
+            <!-- Login Link -->
             <li class="nav-item">
               <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/login">Accedi</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/register">Registrati</a>
             </li>
-            <!-- /Link Di Registrazione  -->
+            <!-- /Login Link -->
 
           </ul>
 
         </div>
-        <!-- LINK NAV -->
+        <!-- /NAV Link -->
 
       </div>
 
     </nav>
-    <!-- /Gestione NavBar -->
+    <!-- /NavBar Management -->
+
   </header>
 </template>
 
 <style scoped lang="scss">
-/* Gestione Navbar e Logo  */
+
+/* Navbar and Logo Management */
+
 @use "../sass/colorpalette.scss" as *;
+
 .container {
   max-width: 100%;
 }
@@ -84,8 +92,11 @@ export default {
   }
 }
 
-/* /Gestione Navbar e Logo  */
-/* Colore dell'header  */
+/* /Navbar and Logo Management */
+
+
+/* Header color */
+
 .navbar-expand-lg {
   background-color: $red;
   color: white;
@@ -105,17 +116,10 @@ export default {
   background-color:$red;
 }
 
+/* /Header color */
 
 .navbar-expand-lg img {
   width: 130px;
 }
 
-/*Menù a tendina personalizzato */
-// @media (max-width: 767px) {
-//   .navbar-collapse, .red {
-//       background-color:rgba($color: #ff0000, $alpha: 0.5);
-
-    
-//   }
-// }
 </style>

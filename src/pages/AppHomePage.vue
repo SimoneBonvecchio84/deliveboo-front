@@ -13,17 +13,17 @@ export default {
   },
   data() {
     return {
-      restaurantsList: [],
-      typesList: [],
-      selectedTypes: [],
-      baseSrc: "http://127.0.0.1:8000/storage",
+      restaurantsList: [], // List to store restaurant data
+      typesList: [], // List to store types of restaurants
+      selectedTypes: [], // Array to store selected restaurant types
+      baseSrc: "http://127.0.0.1:8000/storage", // Base URL for image sources
       store,
-      isLoading : false
+      isLoading : false // Flag to manage loading state
     }
   },
   created() {
-    this.CallRestaurant()
-    this.CallTypes()
+    this.CallRestaurant() // Fetch restaurants when the component is created
+    this.CallTypes() // Fetch restaurants when the component is created
   },
   methods: {
     CallRestaurant() {
@@ -31,7 +31,7 @@ export default {
       axios.get(`http://127.0.0.1:8000/api/restaurants?type=${selectedTypesJson}`)
         .then(response => {
           this.isLoading = true;
-          this.restaurantsList = response.data.result;
+          this.restaurantsList = response.data.result; // Update restaurantsList with API response
         })
         .catch(error => {
           console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
@@ -43,25 +43,25 @@ export default {
         params: {},
       })
         .then(response => {
-
           this.typesList = response.data.result;
         })
         .catch(error => {
           console.error('Errore durante la chiamata API:', error);
         });
     },
+
     SelectType(id, isChecked) {
       if (isChecked) {
-        // Aggiungi l'ID del tipo all'array se il checkbox è selezionato
+        // Add the type ID to the array if the checkbox is selected
         this.selectedTypes.push(id);
       } else {
-        // Rimuovi l'ID del tipo dall'array se il checkbox è de-selezionato
+        // Remove the type ID from the array if the checkbox is deselected
         const index = this.selectedTypes.indexOf(id);
         if (index > -1) {
           this.selectedTypes.splice(index, 1);
         }
       }
-      this.CallRestaurant();
+      this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
     },
   }
 }
@@ -69,9 +69,11 @@ export default {
 
 <template>
   <AppHeader />
+  
   <AppHero />
 
   <div class="ms-homepage" v-if="isLoading">
+
     <!-- checkbox types -->
     <div class="container w-50 mt-5">
       <div class="row justify-content-center align-items-center">
@@ -89,26 +91,29 @@ export default {
     <div class="container p-5">
       <div class="row gap-4 justify-content-center" v-if="restaurantsList.length > 0">
 
-      
-        
         <!-- card -->
           <div v-for="curRestaurant in restaurantsList" :key="curRestaurant.id"
             class="card col-lg-3 col-md-4 col-sm-5 col-7 p-0">
             <AppCard :cardObj="curRestaurant" />
           </div>
-          <!-- /card -->
+        <!-- /card -->
       
       </div>
+
+      <!-- No match div for search -->
       <div class="row align-items-center border rounded-5 py-3 px-4 text-center" v-else> 
         <p class="fw-bold fs-1 p-0 m-0">Nessun ristorante corrispondente alla tua ricerca</p>
       </div>
+      <!-- /No match div for search -->
+
     </div>
     <!-- /card container -->
 
-    <div class="col-12 text-center">
+    <!-- MORE RESULT NOT USED AT THE MOMENT -->
+      <!-- <div class="col-12 text-center"> -->
+        <!-- <button class="btn btn-outline-danger">Mostra altri</button> -->
+      <!-- </div> -->
 
-      <!-- <button class="btn btn-outline-danger">Mostra altri</button> -->
-    </div>
   </div>
 
 </template>
@@ -123,6 +128,8 @@ export default {
   margin: 10px;
 }
 
+/* card style */
+
 .card {
   height: 100%;
 }
@@ -131,6 +138,8 @@ export default {
   width: 100%;
   height: auto;
 }
+
+/* /card styles */
 
 .ms-homepage {
   min-height: 60vh;

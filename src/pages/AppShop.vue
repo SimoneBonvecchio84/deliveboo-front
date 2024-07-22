@@ -22,14 +22,14 @@ export default {
   },
   methods: {
     clearCart() {
-      // Svuota tutti gli articoli dal carrello
+      // Empty all items from the cart
       this.cart.items = {};
-      // Resetta la quantità totale
+      // Reset the total quantity
       this.cart.totalQuantity = 0;
-      // Resetta il prezzo totale
+      // Reset the total price
       this.cart.totalPrice = 0;
 
-      // Salva il carrello aggiornato nel localStorage
+      // Save the updated cart to localStorage
       localStorage.setItem('cart', JSON.stringify(this.cart));
       localStorage.removeItem('restaurant_id');
 
@@ -49,6 +49,7 @@ export default {
     </div>
 
     <div v-if="Object.keys(cart.items).length > 0">
+
       <table class="table table-striped w-75 m-auto mb-5 border">
         <thead>
           <tr>
@@ -81,6 +82,7 @@ export default {
           </tr>
         </tbody>
       </table>
+
       <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
         <a class="btn btn-success mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25" href="">
           Checkout
@@ -89,15 +91,18 @@ export default {
           Svuota carrello
         </button>
       </div>
+    
     </div>
+    
     <div v-else class="form-container text-center">
       <div class="border rounded-5 p-5">
         <span>Il tuo carrello è vuoto</span>
       </div>
     </div>
+  
   </div>
 
-  <!-- MODALE CHIUSURA CARRELLO -->
+  <!-- CART EMPTY MODAL -->
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -115,7 +120,8 @@ export default {
       </div>
     </div>
   </div>
-  <!-- CHIUSURA MODALE CARRELLO -->
+  <!-- END OF CART EMPTY MODAL -->
+   
 </template>
 
 <!-- @click.prevent="clearCart()" -->

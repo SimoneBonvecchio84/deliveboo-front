@@ -38,11 +38,11 @@ export default {
 
                 <!-- name -->
                 <span class="card-title p-0 m-0 cutText d-flex justify-content-center font-size">
+                    
                     <strong class="text-truncate">
                         {{ cardObj.name }}
                     </strong>
-                    <!-- address -->
-                    <!-- {{ cardObj.address }} -->
+                    
                 </span>
 
                 <!-- address -->
@@ -77,7 +77,7 @@ export default {
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .main-content {
     padding: 20px 0;
 }
@@ -86,15 +86,13 @@ export default {
     margin: 10px;
 }
 
+/* card style */
+
 .card {
     height: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
-
-/* .card-body {
-  padding: 15px;
-} */
 
 .card-img-top {
     width: 100%;
@@ -116,4 +114,7 @@ export default {
 .font-size {
     font-size: 1.1rem;
 }
+
+/* /card style */
+
 </style>

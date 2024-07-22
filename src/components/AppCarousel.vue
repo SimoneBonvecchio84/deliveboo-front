@@ -88,7 +88,7 @@ export default {
         justify-content: center;
         align-items: center;
         position: relative;
-        /* Posizionamento relativo per permettere la transizione */
+        /* Relative positioning to allow the transition */
     }
 }
 
@@ -112,7 +112,7 @@ export default {
 // /text container
 
 
-// animation carousel
+//// animation carousel
 
 // animation img food
 .fade-enter-active {
@@ -149,4 +149,5 @@ export default {
     transform: translateX(0);
 }
 
-// /animation img text</style>
+// /animation img text
+</style>

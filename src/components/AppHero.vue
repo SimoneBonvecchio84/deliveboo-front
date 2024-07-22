@@ -17,9 +17,13 @@ export default {
 </script>
 
 <template>
+    
     <div class="hero d-flex justify-content-center align-item-center">   
+        
         <AppCarousel />
+    
     </div> 
+
 </template>
 
 <style scoped lang="scss">
@@ -32,16 +36,18 @@ export default {
     margin-top: 100px;
 }
 
-.hero h1 {
-    font-size: 3rem;
-}
+/* HERO H1 SIZE NOT USED AT THE MOMENT */
+// .hero h1 {
+//     font-size: 3rem;
+// }
 
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-}
+// @media (max-width: 768px) {
+//     .hero h1 {
+//         font-size: 2rem;
+//     }
+// }
 
+/* Hero image management */
 .img-fluid {
     max-width: 100%;
     height: auto;

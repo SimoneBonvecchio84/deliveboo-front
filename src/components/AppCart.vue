@@ -10,28 +10,41 @@ export default {
         }
     },
     computed: {
+
+        // Calculate the total price of items in the cart
         totalPrice() {
             return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
         }
     },
     methods: {
+        // Open the cart
         openCart() {
             this.cartOpen = true;
         },
+
+        // Close the cart
         closeCart() {
             this.cartOpen = false;
         },
+
+        // Increase the quantity of a cart item
         increaseQuantity(item) {
             item.quantity++;
         },
+
+        // Decrease the quantity of a cart item, ensuring it doesn't go below 1
         decreaseQuantity(item) {
             if (item.quantity > 1) {
                 item.quantity--;
             }
         },
+
+        // Remove an item from the cart
         removeItem(item) {
             this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== item.id);
         },
+
+        // Empty the cart
         emptyCart() {
             this.cartItems = [];
         }
@@ -42,8 +55,11 @@ export default {
 <template>
 
     <div>
+
+        <!-- Button to open the cart -->
         <button class="btn ms_btn" @click="openCart"><i class="fa-solid fa-cart-shopping fs-2"></i></button>
 
+        <!-- Cart component -->
         <div class="cart" :class="{ active: cartOpen }">
             <div class="cart-header">
                 <h5>Il tuo ordine</h5>
@@ -64,9 +80,13 @@ export default {
                     </div>
                 </div>
             </div>
+
+            <!-- Display the total price -->
             <div class="cart-footer">
                 <p>Totale: {{ totalPrice }} €</p>
                 <button class="btn btn-success w-100 mb-2">Procedi all'ordine</button>
+                
+                <!-- Button to empty the cart -->
                 <button class="btn btn-danger w-100" @click="emptyCart">Svuota Carrello</button>
             </div>
         </div>
