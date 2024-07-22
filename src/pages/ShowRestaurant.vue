@@ -12,7 +12,9 @@ export default {
             restaurant: [],
             baseSrc: "http://127.0.0.1:8000/storage",
             id: "",
-            cart: '',
+            cart: {
+                items: {},
+            },
         };
     },
     created() {
@@ -107,8 +109,23 @@ export default {
             // this.$store.dispatch('updateRestaurantId', restaurant_id);
         },
         addToCart(dish_id, dish_name, quantity, price) {
-            // Se l'articolo non esiste nel carrello, aggiungilo
+            // Verifica che `cart` e `cart.items` siano definiti
+            if (!this.cart) {
+                console.error('Cart is not defined');
+                this.cart = {
+                    items: {},
+                    totalQuantity: 0,
+                    totalPrice: 0
+                };
+            }
+
+            if (!this.cart.items) {
+                console.error('Cart items are not defined');
+                this.cart.items = {};
+            }
+
             const savePrice = price;
+
             if (!this.cart.items[dish_id] && quantity === 1) {
                 this.cart.items[dish_id] = {
                     dish_id: dish_id,
@@ -117,34 +134,25 @@ export default {
                     price: price
                 };
             } else {
-                // Se l'articolo esiste, aggiorna la quantità
+                if (this.cart.items[dish_id]) {
+                    this.cart.items[dish_id].quantity += quantity;
 
-                this.cart.items[dish_id].quantity += quantity;
-
-                console.log(this.cart.items[dish_id].quantity);
-                if (this.cart.items[dish_id].quantity <= 0) {
-                    this.cart.items[dish_id].quantity = 0;
-                }
-                console.log(this.cart.items[dish_id].quantity);
-                if (this.cart.items[dish_id].quantity <= 0) {
-                    delete this.cart.items[dish_id];
-                    localStorage.setItem('cart', JSON.stringify(this.cart)); // Assicurati che 'cart' sia un oggetto valido dopo la rimozione
-                } else {
-                    // Aggiorna la quantità totale e il prezzo totale del carrello
-                    this.cart.totalQuantity = this.cart.items[dish_id].quantity;
+                    if (this.cart.items[dish_id].quantity <= 0) {
+                        delete this.cart.items[dish_id];
+                    }
                 }
             }
+
             if (quantity === 1) {
                 this.cart.totalPrice += savePrice;
+                console.log(this.cart.totalPrice);
             } else {
-                console.log(savePrice);
                 this.cart.totalPrice -= savePrice;
+                console.log(this.cart.totalPrice);
             }
-            console.log(this.cart.totalPrice);
 
             // Salva il carrello aggiornato nel localStorage
             localStorage.setItem('cart', JSON.stringify(this.cart));
-
         },
 
         clearCart() {
@@ -291,8 +299,9 @@ export default {
                                     <!-- /btn less -->
 
                                     <!-- quantity in cart -->
-                                    <div class="counter">
-                                        <span v-if="cart.items[curDish.id]">{{ cart.items[curDish.id].quantity }}</span>
+                                    <div class="counter" v-if="cart?.items">
+                                        <span v-if="cart?.items[curDish.id]">{{ cart?.items[curDish.id].quantity
+                                            }}</span>
                                         <span v-else>0</span>
                                     </div>
                                     <!-- /quantity -->
