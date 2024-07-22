@@ -79,7 +79,7 @@ export default {
           class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle">
           <input type="checkbox" class="btn-check" :id="'type-' + curType.id" name="types" :value="curType.id"
             @change="(event) => { SelectType(event.target.value, event.target.checked); }">
-          <label class="btn btn-outline-primary w-25 p-2" :for="'type-' + curType.id">{{ curType.name }}</label>
+          <label class="btn btn-outline-primary w-25 p-1 rounded" :for="'type-' + curType.id">{{ curType.name }}</label>
         </div>
       </div>
     </div>
@@ -114,6 +114,7 @@ export default {
 </template>
 
 <style scoped>
+
 .main-content {
   padding: 20px 0;
 }
@@ -134,5 +135,19 @@ export default {
 .ms-homepage {
   min-height: 60vh;
   margin-bottom: 50px;
+}
+
+@media (max-width: 500px) {
+  .btn {
+    font-size: 11px; /* Riduci la dimensione del testo */
+    padding: 0.5rem; /* Aggiusta il padding */
+  }
+}
+
+@media (max-width: 360px) {
+  .btn {
+    font-size: 10px; /* Riduci la dimensione del testo */
+    padding: 1rem; /* Aggiusta il padding */
+  }
 }
 </style>

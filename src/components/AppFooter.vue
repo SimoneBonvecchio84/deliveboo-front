@@ -17,6 +17,7 @@
   </script>
   
   <style scoped lang="scss">
+  @use "../sass/colorpalette.scss" as *;
   // div.ms-footer{
   //   position:fixed;
   //   bottom: 0;
@@ -25,7 +26,7 @@
   // }
   /* gestione stile footer */
   .footer {
-    background-color: rgb(0 74 147);
+    background-color: $blue;
     position: relative;
     bottom: 0;
     width: 100%;

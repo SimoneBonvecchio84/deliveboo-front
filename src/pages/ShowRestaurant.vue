@@ -259,7 +259,7 @@ export default {
                 <div v-if="restaurant.dishes.length > 0" class="container d-flex justify-content-center">
                     <div class="row border-bottom align-items-center w-75">
                         <!-- image -->
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 py-3 d-flex justify-content-end">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 py-3 d-flex justify-content-center">
                             <img :src="`${baseSrc}/${curDish.image}`" class="w-75 rounded-circle" alt="immagine piatto">
                         </div>
                         <!-- /image -->

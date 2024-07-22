@@ -81,11 +81,11 @@ export default {
           </tr>
         </tbody>
       </table>
-      <div class="d-flex justify-content-center align-items-center w-50 m-auto gap-2">
-        <a class="btn btn-success mb-5 w-25" href="">
+      <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
+        <a class="btn btn-success mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25" href="">
           Checkout
         </a>
-        <button type="button" class="btn btn-danger mb-5 w-25"  data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-danger mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25"  data-toggle="modal" data-target="#exampleModal">
           Svuota carrello
         </button>
       </div>
@@ -125,5 +125,16 @@ export default {
   margin-top: 200px;
   /* margin-bottom: 50px; */
   min-height: 100vh;
+}
+
+
+@media (max-width: 768px) {
+  .w-sm-25 {
+    width: 100% !important;
+  }
+
+  .mb-sm-0 {
+    margin-bottom: 0 !important;
+  }
 }
 </style>

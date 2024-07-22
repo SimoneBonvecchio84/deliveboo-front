@@ -71,6 +71,7 @@ export default {
 
 <style scoped lang="scss">
 /* Gestione Navbar e Logo  */
+@use "../sass/colorpalette.scss" as *;
 .container {
   max-width: 100%;
 }
@@ -86,7 +87,7 @@ export default {
 /* /Gestione Navbar e Logo  */
 /* Colore dell'header  */
 .navbar-expand-lg {
-  background-color: #ff0000;
+  background-color: $red;
   color: white;
   height: 100px;
   width: 100%;
@@ -101,7 +102,7 @@ export default {
 }
 
 .navbar-collapse, .red{
-  background-color:#ff0000;
+  background-color:$red;
 }
 
 

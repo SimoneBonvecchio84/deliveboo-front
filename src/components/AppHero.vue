@@ -22,9 +22,11 @@ export default {
     </div> 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "../sass/colorpalette.scss" as *;
+
 .hero {
-    background-color: #ff0000;
+    background-color:$red;
     color: #fff;
     height: 400px;
     margin-top: 100px;
