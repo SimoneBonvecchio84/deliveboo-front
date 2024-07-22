@@ -84,10 +84,10 @@ export default {
       </table>
 
       <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
-        <a class="btn btn-success mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25" href="">
+        <a class="btn btn-dark mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25 " href="">
           Checkout
         </a>
-        <button type="button" class="btn btn-danger mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25"  data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-danger mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25 text-nowrap"  data-toggle="modal" data-target="#exampleModal">
           Svuota carrello
         </button>
       </div>
@@ -143,4 +143,6 @@ export default {
     margin-bottom: 0 !important;
   }
 }
+
+
 </style>

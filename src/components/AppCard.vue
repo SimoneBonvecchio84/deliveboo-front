@@ -62,9 +62,9 @@ export default {
                 <!-- old types -->
 
                 <!-- new types -->
-                <span v-if="typeNames" class="list-unstyled mb-2">
-                    <strong>Cucina: </strong>
-                    <span class="badge bg-primary ms-1">{{ typeNames }}</span>
+                <span v-if="typeNames" class="list-unstyled mb-2 text-types">
+                    <strong class="center">Cucina: </strong>
+                    <span class="badge bg-primary ms-1 margin">{{ typeNames }}</span>
                 </span>
                 <!-- / new types -->
 
@@ -113,6 +113,21 @@ export default {
 
 .font-size {
     font-size: 1.1rem;
+}
+
+@media (max-width: 500px) {
+    .text-types {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .margin {
+        margin-left: 0;
+    }
 }
 
 /* /card style */

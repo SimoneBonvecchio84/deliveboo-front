@@ -1,15 +1,13 @@
 <script>
-import axios from 'axios'
-import { store } from '../store'
-import AppCard from '../components/AppCard.vue'
-import AppHero from '../components/AppHero.vue'
-
+import axios from "axios";
+import { store } from "../store";
+import AppCard from "../components/AppCard.vue";
+import AppHero from "../components/AppHero.vue";
 
 export default {
   components: {
     AppCard,
     AppHero,
-
   },
   data() {
     return {
@@ -18,35 +16,42 @@ export default {
       selectedTypes: [], // Array to store selected restaurant types
       baseSrc: "http://127.0.0.1:8000/storage", // Base URL for image sources
       store,
-      isLoading : false // Flag to manage loading state
-    }
+      isLoading: false, // Flag to manage loading state
+    };
   },
   created() {
-    this.CallRestaurant() // Fetch restaurants when the component is created
-    this.CallTypes() // Fetch restaurants when the component is created
+    this.CallRestaurant(); // Fetch restaurants when the component is created
+    this.CallTypes(); // Fetch restaurants when the component is created
   },
   methods: {
     CallRestaurant() {
-      const selectedTypesJson = encodeURIComponent(JSON.stringify(this.selectedTypes)); // Codifica l'array in una stringa URL
-      axios.get(`http://127.0.0.1:8000/api/restaurants?type=${selectedTypesJson}`)
-        .then(response => {
+      const selectedTypesJson = encodeURIComponent(
+        JSON.stringify(this.selectedTypes)
+      ); // Codifica l'array in una stringa URL
+      axios
+        .get(`http://127.0.0.1:8000/api/restaurants?type=${selectedTypesJson}`)
+        .then((response) => {
           this.isLoading = true;
           this.restaurantsList = response.data.result; // Update restaurantsList with API response
         })
-        .catch(error => {
-          console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
+        .catch((error) => {
+          console.error(
+            "Errore durante la chiamata API:",
+            error.message || JSON.stringify(error)
+          );
         });
     },
 
     CallTypes() {
-      axios.get('http://127.0.0.1:8000/api/types', {
-        params: {},
-      })
-        .then(response => {
+      axios
+        .get("http://127.0.0.1:8000/api/types", {
+          params: {},
+        })
+        .then((response) => {
           this.typesList = response.data.result;
         })
-        .catch(error => {
-          console.error('Errore durante la chiamata API:', error);
+        .catch((error) => {
+          console.error("Errore durante la chiamata API:", error);
         });
     },
 
@@ -63,25 +68,41 @@ export default {
       }
       this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
     },
-  }
-}
+  },
+};
 </script>
 
 <template>
   <AppHeader />
-  
+
   <AppHero />
 
   <div class="ms-homepage" v-if="isLoading">
-
     <!-- checkbox types -->
     <div class="container w-50 mt-5">
       <div class="row justify-content-center align-items-center">
-        <div v-for="curType in typesList" :key="curType.id"
-          class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle">
-          <input type="checkbox" class="btn-check" :id="'type-' + curType.id" name="types" :value="curType.id"
-            @change="(event) => { SelectType(event.target.value, event.target.checked); }">
-          <label class="btn btn-outline-primary w-25 p-1 rounded" :for="'type-' + curType.id">{{ curType.name }}</label>
+        <div
+          v-for="curType in typesList"
+          :key="curType.id"
+          class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle"
+        >
+          <input
+            type="checkbox"
+            class="btn-check"
+            :id="'type-' + curType.id"
+            name="types"
+            :value="curType.id"
+            @change="
+              (event) => {
+                SelectType(event.target.value, event.target.checked);
+              }
+            "
+          />
+          <label
+            class="btn btn-outline-primary w-25 p-1 rounded"
+            :for="'type-' + curType.id"
+            >{{ curType.name }}</label
+          >
         </div>
       </div>
     </div>
@@ -89,37 +110,42 @@ export default {
 
     <!-- card-container -->
     <div class="container p-5">
-      <div class="row gap-4 justify-content-center" v-if="restaurantsList.length > 0">
-
+      <div
+        class="row gap-4 justify-content-center"
+        v-if="restaurantsList.length > 0"
+      >
         <!-- card -->
-          <div v-for="curRestaurant in restaurantsList" :key="curRestaurant.id"
-            class="card col-lg-3 col-md-4 col-sm-5 col-7 p-0">
-            <AppCard :cardObj="curRestaurant" />
-          </div>
+        <div
+          v-for="curRestaurant in restaurantsList"
+          :key="curRestaurant.id"
+          class="card col-lg-3 col-md-4 col-sm-5 col-7 p-0"
+        >
+          <AppCard :cardObj="curRestaurant" />
+        </div>
         <!-- /card -->
-      
       </div>
 
       <!-- No match div for search -->
-      <div class="row align-items-center border rounded-5 py-3 px-4 text-center" v-else> 
-        <p class="fw-bold fs-1 p-0 m-0">Nessun ristorante corrispondente alla tua ricerca</p>
+      <div
+        class="row align-items-center border rounded-5 py-3 px-4 text-center"
+        v-else
+      >
+        <p class="fw-bold fs-1 p-0 m-0">
+          Nessun ristorante corrispondente alla tua ricerca
+        </p>
       </div>
       <!-- /No match div for search -->
-
     </div>
     <!-- /card container -->
 
     <!-- MORE RESULT NOT USED AT THE MOMENT -->
-      <!-- <div class="col-12 text-center"> -->
-        <!-- <button class="btn btn-outline-danger">Mostra altri</button> -->
-      <!-- </div> -->
-
+    <!-- <div class="col-12 text-center"> -->
+    <!-- <button class="btn btn-outline-danger">Mostra altri</button> -->
+    <!-- </div> -->
   </div>
-
 </template>
 
 <style scoped>
-
 .main-content {
   padding: 20px 0;
 }
@@ -146,17 +172,48 @@ export default {
   margin-bottom: 50px;
 }
 
-@media (max-width: 500px) {
+/* Riduci la dimensione del testo rendendolo responsive per tutti i breakpoint */
+
+.btn {
+  font-size: 1rem;
+}
+
+@media (max-width: 1200px) {
   .btn {
-    font-size: 11px; /* Riduci la dimensione del testo */
-    padding: 0.5rem; /* Aggiusta il padding */
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .btn {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .btn {
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 360px) {
   .btn {
-    font-size: 10px; /* Riduci la dimensione del testo */
-    padding: 1rem; /* Aggiusta il padding */
+    font-size: 0.6rem; 
   }
 }
+
+/* Riduci la dimensione del testo rendendolo responsive per tutti i breakpoint */
+
 </style>
