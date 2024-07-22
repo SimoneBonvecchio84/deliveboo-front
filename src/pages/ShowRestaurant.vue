@@ -15,6 +15,7 @@ export default {
             cart: {
                 items: {},
             },
+            isLoadingCart: true,
         };
     },
     created() {
@@ -124,8 +125,17 @@ export default {
                 this.cart.items = {};
             }
 
-            const savePrice = price;
+            // aggiorna total price
+            if (quantity === 1) {
+                this.cart.totalPrice += price;
+                console.log(this.cart.totalPrice);
+            } else if (this.cart.items[dish_id].quantity) {
+                this.cart.totalPrice -= price;
+                console.log(this.cart.totalPrice);
+            }
+            // aggiorna total price
 
+            // aggiunge,rimuove quantita nel carrelo o rimuove articolo
             if (!this.cart.items[dish_id] && quantity === 1) {
                 this.cart.items[dish_id] = {
                     dish_id: dish_id,
@@ -142,14 +152,8 @@ export default {
                     }
                 }
             }
+            // aggiunge,rimuove quantita nel carrelo o rimuove articolo
 
-            if (quantity === 1) {
-                this.cart.totalPrice += savePrice;
-                console.log(this.cart.totalPrice);
-            } else {
-                this.cart.totalPrice -= savePrice;
-                console.log(this.cart.totalPrice);
-            }
 
             // Salva il carrello aggiornato nel localStorage
             localStorage.setItem('cart', JSON.stringify(this.cart));
@@ -299,7 +303,7 @@ export default {
                                     <!-- /btn less -->
 
                                     <!-- quantity in cart -->
-                                    <div class="counter" v-if="cart?.items">
+                                    <div class="counter" v-if="cart?.items" >
                                         <span v-if="cart?.items[curDish.id]">{{ cart?.items[curDish.id].quantity
                                             }}</span>
                                         <span v-else>0</span>
@@ -309,8 +313,7 @@ export default {
                                     <!-- btn add -->
                                     <div
                                         class="btn btn-success ms-btn d-flex justify-content-center align-items-center">
-                                        <a class="text-decoration-none text-white fw-bold"
-                                            @click.prevent="aggiorna(curDish, 1)">+</a>
+                                        <button class="text-decoration-none text-white fw-bold" @click.prevent="aggiorna(curDish, 1)">+</button>
                                     </div>
                                     <!-- /btn add -->
                                 </div>

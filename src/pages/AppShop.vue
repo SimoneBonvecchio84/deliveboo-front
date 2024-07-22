@@ -70,8 +70,12 @@ export default {
             <td></td>
             <td></td>
             <td>
-              <p> <strong>Prezzo Totale Carrello:</strong><br>
-                {{ cart.totalPrice.toFixed(2) }}€</p>
+              <div>
+                   <p>
+                     <strong>Prezzo Totale Carrello:</strong><br>
+                   </p>
+                {{ cart.totalPrice.toFixed(2) }}€
+              </div>
             </td>
           </tr>
         </tbody>
