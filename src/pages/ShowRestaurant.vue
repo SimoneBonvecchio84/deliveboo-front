@@ -36,7 +36,7 @@ export default {
 
         this.fetchRestaurant();
     },
-    
+
     methods: {
         fetchRestaurant() {
             this.slug = this.$route.params.slug;
@@ -186,37 +186,55 @@ export default {
 </script>
 
 <template>
-
+    <!-- container-show-restaurant -->
     <div class="container-show-restaurant">
+        <!-- cart-container -->
         <div
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
+            
+            <!-- insert quantity cart-shop -->
+            <div class="md_circle">                
+                <i class="fa-solid fa-circle"></i>                 
+            </div>
+            <!-- /insert quantity cart-shop -->
+            
+            <!-- cart-shop router-link -->
             <router-link :to="{ name: 'cartshopping', params: { slug: slug } }">
                 <i class="fa-solid fa-cart-shopping text-white"></i>
             </router-link>
+            <!-- /cart-shop router-link -->
+        
         </div>
-        <div class="">
+        <!-- /cart-container -->
+        
+        <!-- container-title -->
+        <div class>
             <!-- title -->
             <h1 class="text-center">{{ restaurant.name }}</h1>
             <!-- title -->
         </div>
-
+        <!-- /container-title -->
+        
+        <!-- component link cart -->
         <AppLinkCart />
+        <!-- /component link cart -->
+        
         <!-- restaurant details -->
-        <div class="container mt-5 border-bottom" v-if="restaurant">
-            <div class="row">
+        <div class="container mt-5 border-bottom py-4" v-if="restaurant">
+            
+            <!-- row -->
+            <div class="row justify-content-center  justify-content-sm-center">
                 <!-- restaurant image -->
-                <div class="col-6 d-flex align-items-center justify-content-end">
-                    <div class="w-75 p-2 d-flex justify-content-end">
-                        <img :src="`${baseSrc}/${restaurant.image}`" class="w-50" alt="Restaurant image">
-                    </div>
+                <div class="md_cont-img col-12 col-md-6 d-flex justify-content-sm-center justify-content-md-end">
+                    <img :src="`${baseSrc}/${restaurant.image}`" class="md_img" alt="Restaurant image">
                 </div>
                 <!-- /restaurant image -->
 
-
                 <!-- restaurant description -->
-                <div class="col-6 py-3">
-                    <div class="p-2">
-
+                <div class="col-6 col-sm-6 col-md-6 py-3">
+                    
+                    <!-- cont-restaurant-description -->
+                    <div class="px-2">
                         <dt>
                             Descrizione
                         </dt>
@@ -240,10 +258,13 @@ export default {
                             </ul>
                         </dd>
                     </div>
+                    <!-- /cont-restaurant-description -->
+                
                 </div>
                 <!-- /restaurant description -->
-            
+
             </div>
+            <!-- /row -->
         </div>
         <!-- restaurant details -->
 
@@ -256,8 +277,13 @@ export default {
 
             <!-- dish card -->
             <div v-for="curDish in restaurant.dishes">
+                
+                <!-- container-dish-card -->
                 <div v-if="restaurant.dishes.length > 0" class="container d-flex justify-content-center">
+                    
+                    <!-- row-dish-card -->
                     <div class="row border-bottom align-items-center w-75">
+                        
                         <!-- image -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 py-3 d-flex justify-content-center">
                             <img :src="`${baseSrc}/${curDish.image}`" class="w-75 rounded-circle" alt="immagine piatto">
@@ -296,14 +322,14 @@ export default {
 
                                 <div class="d-flex justify-contente-center align-items-center gap-2 text-center">
                                     <!-- btn less -->
-                                    <div class="btn btn-danger ms-btn d-flex justify-content-center align-items-center">
-                                        <a class="text-decoration-none text-white fw-bold"
-                                            @click.prevent="aggiorna(curDish, -1)">-</a>
+                                    <div @click.prevent="aggiorna(curDish, -1)"
+                                        class="btn btn-danger ms-btn d-flex justify-content-center align-items-center">
+                                        <a class="text-decoration-none text-white fw-bold">-</a>
                                     </div>
                                     <!-- /btn less -->
 
                                     <!-- quantity in cart -->
-                                    <div class="counter" v-if="cart?.items" >
+                                    <div class="counter" v-if="cart?.items">
                                         <span v-if="cart?.items[curDish.id]">{{ cart?.items[curDish.id].quantity
                                             }}</span>
                                         <span v-else>0</span>
@@ -311,9 +337,9 @@ export default {
                                     <!-- /quantity -->
 
                                     <!-- btn add -->
-                                    <div
+                                    <div @click.prevent="aggiorna(curDish, 1)"
                                         class="btn btn-success ms-btn d-flex justify-content-center align-items-center ">
-                                        <a class="text-decoration-none text-white fw-bold" @click.prevent="aggiorna(curDish, 1)">+</a>
+                                        <a class="text-decoration-none text-white fw-bold">+</a>
                                     </div>
                                     <!-- /btn add -->
                                 </div>
@@ -330,19 +356,24 @@ export default {
 
                         </div>
                         <!-- /description -->
+                   
                     </div>
+                    <!-- /row-dish-card -->
+                
                 </div>
-                <!-- /dish card -->
+                <!-- /container-dish-card -->
+            
             </div>
-
+            <!-- /dish card -->
         </div>
         <!-- /dishes container -->
     </div>
+    <!-- /container-show-restaurant -->
 </template>
 
 
 <style lang="scss" scoped>
-
+//CART CONTAINER
 .cart-container {
     background-color: #004a93;
     width: 40px;
@@ -358,7 +389,8 @@ export default {
     justify-content: center;
     align-items: center;
 }
-
+//******************* */
+//CONTAINER SHOW RESTAURANT
 .container-show-restaurant {
     position: relative;
     min-height: 100vh;
@@ -366,6 +398,7 @@ export default {
     margin-bottom: 50px;
 }
 
+// COUNTER
 .counter {
     margin: 0;
     padding: 0;
@@ -374,8 +407,28 @@ export default {
 
 }
 
+//BUTTON
 .ms-btn {
     width: 30px;
     height: 30px;
+}
+
+//CUSTOM IMG RESTAURANT
+.md_img {
+    width: 250px;
+}
+
+//CUSTOM IMG CONTAINER
+.md_cont-img {
+    justify-content: center;
+}
+
+//CUSTOM FONT
+.md_circle {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 1.7rem;
+    color: orange;
 }
 </style>
