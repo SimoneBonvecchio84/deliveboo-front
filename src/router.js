@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import AppHomePage from './pages/AppHomePage.vue';
 import ShowRestaurant from './pages/ShowRestaurant.vue';
 import AppShop from "./pages/AppShop.vue";
+import AppCheckout from "./pages/AppCheckout.vue";
 
 // modifica
 // export const routes = [
@@ -43,6 +44,11 @@ const router = createRouter({
       path: '/cartshopping/:slug',
       name: 'cartshopping',
       component: AppShop
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: AppCheckout
     }
   ],
 });

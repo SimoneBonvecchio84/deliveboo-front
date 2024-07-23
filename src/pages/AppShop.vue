@@ -73,9 +73,9 @@ export default {
             <td></td>
             <td>
               <div>
-                   <p>
-                     <strong>Prezzo Totale Carrello:</strong><br>
-                   </p>
+                <p>
+                  <strong>Prezzo Totale Carrello:</strong><br>
+                </p>
                 {{ cart.totalPrice.toFixed(2) }}€
               </div>
             </td>
@@ -84,22 +84,25 @@ export default {
       </table>
 
       <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
-        <a class="btn btn-dark mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25 " href="">
-          Checkout
-        </a>
-        <button type="button" class="btn btn-danger mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25 text-nowrap"  data-toggle="modal" data-target="#exampleModal">
+        <button class="btn btn-dark mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25">
+          <router-link :to="{ name: 'checkout' }" href="http://localhost:5174/checkout" class="ms_checkout">
+            Checkout
+          </router-link>
+        </button>
+        <button type="button" class="btn btn-danger mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25 text-nowrap"
+          data-toggle="modal" data-target="#exampleModal">
           Svuota carrello
         </button>
       </div>
-    
+
     </div>
-    
+
     <div v-else class="form-container text-center">
       <div class="border rounded-5 p-5">
         <span>Il tuo carrello è vuoto</span>
       </div>
     </div>
-  
+
   </div>
 
   <!-- CART EMPTY MODAL -->
@@ -115,13 +118,14 @@ export default {
         </div>
         <div class="modal-footer d-flex justify-content-around">
           <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Annulla</button>
-          <button type="button" class="btn btn-primary w-25" @click.prevent="clearCart()" data-dismiss="modal">Conferma</button>
+          <button type="button" class="btn btn-primary w-25" @click.prevent="clearCart()"
+            data-dismiss="modal">Conferma</button>
         </div>
       </div>
     </div>
   </div>
   <!-- END OF CART EMPTY MODAL -->
-   
+
 </template>
 
 <!-- @click.prevent="clearCart()" -->
@@ -131,6 +135,11 @@ export default {
   margin-top: 200px;
   /* margin-bottom: 50px; */
   min-height: 100vh;
+}
+
+.ms_checkout {
+  text-decoration: none;
+  color: white;
 }
 
 
@@ -143,6 +152,4 @@ export default {
     margin-bottom: 0 !important;
   }
 }
-
-
 </style>
