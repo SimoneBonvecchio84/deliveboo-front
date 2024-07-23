@@ -13,37 +13,39 @@ export default {
 
 <template>
   <header>
-    
+
     <!-- NavBar Management -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-md fixed-top">
 
       <div class="container ps-5 pe-5 d-flex justify-content-between fixed-top red">
         <!-- logo -->
         <div class="navbar-brand">
-          <img src="../assets/img/logo_top.png" alt="Logo" class="d-inline-block align-text-top" />
+          <router-link :to="{ name: 'home' }" href="http://127.0.0.1:8000/login">
+            <img src="../assets/img/logo_top.png" alt="Logo" class="d-inline-block align-text-top" />
+          </router-link>
         </div>
         <!-- /logo -->
 
 
-          <!-- Hamburger menu -->
-          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <i class="fa-solid fa-bars text-white"></i>
-          </button>
-          <!-- /Hamburger menu -->
+        <!-- Hamburger menu -->
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars text-white"></i>
+        </button>
+        <!-- /Hamburger menu -->
 
 
         <!-- NAV Link -->
         <div class="navbar-collapse collapse justify-content-end" id="navbarSupportedContent">
-          
+
           <!-- Left side of Navbar -->
-            <!-- Empty at the moment -->
+          <!-- Empty at the moment -->
           <!-- /Left side of Navbar -->
 
           <!-- Right side of Navbar -->
-            <ul class="navbar-nav d-flex align-items-center">
-          <!-- /Right side of Navbar -->
+          <ul class="navbar-nav d-flex align-items-center">
+            <!-- /Right side of Navbar -->
 
             <!-- Home Link -->
             <li class="nav-item">
@@ -92,12 +94,9 @@ export default {
   }
 }
 
-/* /Navbar and Logo Management */
-
-
 /* Header color */
 
-.navbar-expand-lg {
+.navbar-expand-md {
   background-color: $red;
   color: white;
   height: 100px;
@@ -112,14 +111,14 @@ export default {
   --bs-navbar-toggler-focus-width: 0;
 }
 
-.navbar-collapse, .red{
-  background-color:$red;
+.navbar-collapse,
+.red {
+  background-color: $red;
 }
 
 /* /Header color */
 
-.navbar-expand-lg img {
+.navbar-expand-md img {
   width: 130px;
 }
-
 </style>
