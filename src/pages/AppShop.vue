@@ -32,7 +32,7 @@ export default {
       // Save the updated cart to localStorage
       localStorage.setItem('cart', JSON.stringify(this.cart));
       localStorage.removeItem('restaurant_id');
-
+      this.store.slug="";
       console.log('Carrello svuotato.');
     },
   }

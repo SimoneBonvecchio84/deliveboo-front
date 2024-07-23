@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import AppLinkCart from '../components/AppLinkCart.vue';
+import { store } from "../store";
 
 export default {
     component: {
@@ -8,6 +9,7 @@ export default {
     },
     data() {
         return {
+            store,
             slug: '',
             restaurant: [],
             baseSrc: "http://127.0.0.1:8000/storage",
@@ -40,7 +42,8 @@ export default {
     methods: {
         fetchRestaurant() {
             this.slug = this.$route.params.slug;
-            console.log(typeof this.slug, this.slug);
+            this.store.slug = this.$route.params.slug;
+            console.log(typeof this.store.slug, this.store.slug);
             axios.get(`http://127.0.0.1:8000/api/restaurants/${this.slug}`)
                 .then(response => {
                     this.restaurant = response.data.result;
@@ -171,7 +174,7 @@ export default {
 
             // Save the updated cart to localStorage
             localStorage.setItem('cart', JSON.stringify(this.cart));
-
+            this.store.slug="";
             console.log('Carrello svuotato.');
         },
 

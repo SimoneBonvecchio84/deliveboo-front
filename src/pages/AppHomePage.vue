@@ -3,11 +3,13 @@ import axios from "axios";
 import { store } from "../store";
 import AppCard from "../components/AppCard.vue";
 import AppHero from "../components/AppHero.vue";
+import AppLinkCart from "../components/AppLinkCart.vue";
 
 export default {
   components: {
     AppCard,
     AppHero,
+    AppLinkCart,
   },
   data() {
     return {
@@ -76,8 +78,13 @@ export default {
   <AppHeader />
 
   <AppHero />
-
+  
+  
   <div class="ms-homepage" v-if="isLoading">
+    <!-- carrello lavori in corso
+    <div v-if="this.store.slug !=''">
+      <AppLinkCart />
+    </div> -->
     <!-- checkbox types -->
     <div class="container w-50 mt-5">
       <div class="row justify-content-center align-items-center">
