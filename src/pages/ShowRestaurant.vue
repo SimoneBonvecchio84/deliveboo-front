@@ -191,22 +191,31 @@ export default {
         <!-- cart-container -->
         <div
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
-            
+
             <!-- insert quantity cart-shop -->
-            <div class="md_circle">                
-                <i class="fa-solid fa-circle"></i>                 
+            <div class="md_circle">
+                <i class="fa-solid fa-circle">
+                </i>
+                <div v-for="curDish in restaurant.dishes">
+                    <div class="counter" v-if="cart?.items">
+                        <span v-if="cart?.items[curDish.id]">{{ cart?.items[curDish.id].quantity
+                            }}</span>
+                        <span v-else>0</span>
+                    </div>
+                </div>
+
             </div>
             <!-- /insert quantity cart-shop -->
-            
+
             <!-- cart-shop router-link -->
             <router-link :to="{ name: 'cartshopping', params: { slug: slug } }">
                 <i class="fa-solid fa-cart-shopping text-white"></i>
             </router-link>
             <!-- /cart-shop router-link -->
-        
+
         </div>
         <!-- /cart-container -->
-        
+
         <!-- container-title -->
         <div class>
             <!-- title -->
@@ -214,14 +223,14 @@ export default {
             <!-- title -->
         </div>
         <!-- /container-title -->
-        
+
         <!-- component link cart -->
         <AppLinkCart />
         <!-- /component link cart -->
-        
+
         <!-- restaurant details -->
         <div class="container mt-5 border-bottom py-4" v-if="restaurant">
-            
+
             <!-- row -->
             <div class="row justify-content-center  justify-content-sm-center">
                 <!-- restaurant image -->
@@ -232,7 +241,7 @@ export default {
 
                 <!-- restaurant description -->
                 <div class="col-6 col-sm-6 col-md-6 py-3">
-                    
+
                     <!-- cont-restaurant-description -->
                     <div class="px-2">
                         <dt>
@@ -259,7 +268,7 @@ export default {
                         </dd>
                     </div>
                     <!-- /cont-restaurant-description -->
-                
+
                 </div>
                 <!-- /restaurant description -->
 
@@ -277,13 +286,13 @@ export default {
 
             <!-- dish card -->
             <div v-for="curDish in restaurant.dishes">
-                
+
                 <!-- container-dish-card -->
                 <div v-if="restaurant.dishes.length > 0" class="container d-flex justify-content-center">
-                    
+
                     <!-- row-dish-card -->
                     <div class="row border-bottom align-items-center w-75">
-                        
+
                         <!-- image -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 py-3 d-flex justify-content-center">
                             <img :src="`${baseSrc}/${curDish.image}`" class="w-75 rounded-circle" alt="immagine piatto">
@@ -356,13 +365,13 @@ export default {
 
                         </div>
                         <!-- /description -->
-                   
+
                     </div>
                     <!-- /row-dish-card -->
-                
+
                 </div>
                 <!-- /container-dish-card -->
-            
+
             </div>
             <!-- /dish card -->
         </div>
@@ -389,6 +398,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
+
 //******************* */
 //CONTAINER SHOW RESTAURANT
 .container-show-restaurant {
