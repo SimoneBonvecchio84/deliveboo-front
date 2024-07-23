@@ -7,7 +7,8 @@ export default {
         items: {},
         totalQuantity: 0,
         totalPrice: 0
-      }
+      },
+      curQuantity: 0,
     }
   },
   created() {
@@ -21,7 +22,92 @@ export default {
     console.log(this.cart);
   },
   methods: {
+    aggiorna(dish, value) {
+      console.log(dish);
+      // Save dish data
+      let quantity = 0;
+      if (value == 1) {
+        quantity = 1;
+      } else {
+        quantity = -1;
+      }
+
+      const dish_id = dish.dish_id;
+      const dish_name = dish.name;
+      const price = parseFloat(dish.price);
+      this.curQuantity = dish.quantity;
+      console.log(this.curQuantity, dish_id, dish_name, price);
+
+      // Retrieve the cart saved in localStorage
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart && savedCart !== 'undefined') {
+        this.cart = JSON.parse(savedCart);
+      }
+      this.addToCart(dish_id, dish_name, quantity, price);
+
+
+      console.log(this.cart);
+      // this.$store.dispatch('updateRestaurantId', restaurant_id);
+    },
+    addToCart(dish_id, dish_name, quantity, price) {
+      // Check if `cart` and `cart.items` are defined
+      if (!this.cart) {
+        console.error('Cart is not defined');
+        this.cart = {
+          items: {},
+          totalQuantity: 0,
+          totalPrice: 0
+        };
+      }
+
+      if (!this.cart.items) {
+        this.cart.items = {};
+      }
+
+      // Update total price
+      if (quantity === 1) {
+        this.cart.totalPrice += price;
+        this.cart.totalQuantity += quantity;
+        this.curQuantity += quantity;
+        console.log(this.cart.totalPrice);
+      } else if (this.cart.items[dish_id].quantity) {
+        this.cart.totalQuantity += quantity;
+        this.curQuantity += quantity;
+        this.cart.totalPrice -= price;
+        console.log(this.cart.totalPrice);
+      }
+      // /Update total price
+
+      // Add/remove quantity in the cart or remove item
+      if (!this.cart.items[dish_id] && quantity === 1) {
+        this.cart.items[dish_id] = {
+          dish_id: dish_id,
+          name: dish_name,
+          quantity: quantity,
+          price: price
+        };
+      } else {
+        if (this.cart.items[dish_id]) {
+          this.cart.items[dish_id].quantity += quantity;
+          this.curQuantity += quantity;
+
+          if (this.cart.items[dish_id].quantity <= 0) {
+            delete this.cart.items[dish_id];
+            if (Object.keys(this.cart.items).length === 0) {
+              this.clearCart();
+            }
+          }
+        }
+      }
+      // / Add/remove quantity in the cart or remove item
+
+
+      // Save the updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+    },
+
     clearCart() {
+      console.log("ciao");
       // Empty all items from the cart
       this.cart.items = {};
       // Reset the total quantity
@@ -31,10 +117,17 @@ export default {
 
       // Save the updated cart to localStorage
       localStorage.setItem('cart', JSON.stringify(this.cart));
-      localStorage.removeItem('restaurant_id');
-      this.store.slug="";
+      this.store.slug = "";
       console.log('Carrello svuotato.');
     },
+
+    calculateTotalPrice() {
+      // Calculate the total price of the cart
+      this.cart.totalPrice = Object.values(this.cart.items).reduce((total, item) => {
+        return total + (item.price * item.quantity);
+      }, 0);
+
+    }
   }
 }
 </script>
@@ -50,20 +143,36 @@ export default {
 
     <div v-if="Object.keys(cart.items).length > 0">
 
-      <table class="table table-striped w-75 m-auto mb-5 border">
+      <table class="table table-striped w-75 m-auto text-center mb-5 border">
         <thead>
           <tr>
-            <th scope="col">piatto</th>
-            <th scope="col">quantita</th>
-            <th scope="col">prezzo</th>
-            <th scope="col">totale</th>
+            <th scope="col">Piatto</th>
+            <th scope="col">Quantita</th>
+            <th scope="col">Prezzo</th>
+            <th scope="col">Totale</th>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="(article, index) in Object.values(cart.items)" :key="index">
             <td scope="row">{{ article.name }}</td>
-            <td>{{ article.quantity }}</td>
+            <td  class="d-flex justify-content-center">
+              <!-- btn less -->
+              <div @click.prevent="aggiorna(article, -1)"
+                class="btn btn-danger ms-btn d-flex justify-content-center align-items-center">
+                <a class="text-decoration-none text-white fw-bold">-</a>
+              </div>
+              <!-- /btn less -->
+              <span class="ms-3 me-3">
+                {{ article.quantity }}
+              </span>
+              <!-- btn add -->
+              <div @click.prevent="aggiorna(article, 1)"
+                class="btn btn-success ms-btn d-flex justify-content-center align-items-center ">
+                <a class="text-decoration-none text-white fw-bold">+</a>
+              </div>
+              <!-- /btn add -->
+            </td>
             <td>{{ (article.price).toFixed(2) }}€</td>
             <td>{{ (article.price * article.quantity).toFixed(2) }}€</td>
           </tr>
@@ -142,6 +251,10 @@ export default {
   color: white;
 }
 
+.ms-btn {
+  width: 35px;
+  aspect-ratio: 1;
+}
 
 @media (max-width: 768px) {
   .w-sm-25 {
