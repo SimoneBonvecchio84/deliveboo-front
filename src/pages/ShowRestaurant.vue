@@ -122,15 +122,16 @@ export default {
             }
 
             if (!this.cart.items) {
-                console.error('Cart items are not defined');
                 this.cart.items = {};
             }
 
             // Update total price
             if (quantity === 1) {
                 this.cart.totalPrice += price;
+                this.cart.totalQuantity +=quantity;
                 console.log(this.cart.totalPrice);
             } else if (this.cart.items[dish_id].quantity) {
+                this.cart.totalQuantity +=quantity;
                 this.cart.totalPrice -= price;
                 console.log(this.cart.totalPrice);
             }
@@ -193,8 +194,8 @@ export default {
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
             
             <!-- insert quantity cart-shop -->
-            <div class="md_circle">                
-                <i class="fa-solid fa-circle"></i>                 
+            <div v-if="cart.totalQuantity>0" class="md_circle">                
+                <span>{{ cart.totalQuantity }}</span>                 
             </div>
             <!-- /insert quantity cart-shop -->
             
@@ -425,10 +426,17 @@ export default {
 
 //CUSTOM FONT
 .md_circle {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     right: 30px;
-    font-size: 1.7rem;
-    color: orange;
+    font-size: 1rem;
+    background-color: orange;
+    color:white;
 }
+
 </style>
