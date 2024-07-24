@@ -137,7 +137,7 @@ export default {
     <div class="d-flex flex-row-reverse justify-content-center align-items-center gap-2 mb-5">
       <h1 class="text-center p-0 m-0">Carrello</h1>
       <router-link :to="{ name: 'showrestaurant', params: { slug: slug.toString() } }">
-        <span class="btn bg-color rounded-circle">
+        <span class="btn bg-primary rounded-circle">
           <i class="fa-solid fa-arrow-left text-white"></i>
         </span>
       </router-link>
@@ -161,8 +161,8 @@ export default {
             <td  class="d-flex justify-content-center border-bottom-0">
               <!-- btn less -->
               <div @click.prevent="aggiorna(article, -1)"
-                class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
-                <a class="text-decoration-none text-white fw-bold">-</a>
+                class="btn btn-danger ms-btn d-flex justify-content-center align-items-center border-0">
+                <a class="text-decoration-none  text-white fw-bold">-</a>
               </div>
               <!-- /btn less -->
               <span class="ms-3 me-3 d-flex justift-content-center align-items-center">
@@ -170,7 +170,7 @@ export default {
               </span>
               <!-- btn add -->
               <div @click.prevent="aggiorna(article, 1)"
-                class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
+                class="btn btn-primary ms-btn d-flex justify-content-center align-items-center border-0">
                 <a class="text-decoration-none text-white fw-bold">+</a>
               </div>
               <!-- /btn add -->

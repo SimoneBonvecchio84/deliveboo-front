@@ -41,25 +41,31 @@ export default {
 
 <template>
     <div class="container d-flex align-items-center ms_container">
-        <div class="row" name="slide" mode="out-in">
+        <div class="row " name="slide" mode="out-in">
 
             <!-- dynamic image -->
-            <div class="col-12 col-md-6 col-lg-5 d-flex justify-content-center p-0 m-0">
+            <div class="col-sm-12 col-md-6 col-lg-6 p-2">
+                
                 <transition name="fade" mode="out-in">
-                    <div :key="currentFood" :class="{ 'active-slide': true }"
-                        class="container-img-food ms_carousel-img">
-                        <img :src="foods[currentFood].image" alt="" class="ms_food-img img img-fluid" />
-                    </div>
+                    
+                        <div  :key="currentFood" :class="{ 'active-slide': true }"
+                            class="d-flex justify-content-center  justify-content-md-end">
+                            <img :src="foods[currentFood].image" alt="" class="w-75" />
+                        </div>
+  
                 </transition>
+            
             </div>
             <!-- /dynamic image -->
 
             <!-- dynamic text -->
-            <div class="col-12 col-md-6 col-lg-7 ms_text ms_carousel-text">
+            <div class="col-sm-12 col-md-6 col-lg-6 p-2 d-flex justify-content-center justify-content-md-start">
+                
                 <transition name="slide-fade" mode="out-in">
-                    <!-- <p :key="currentFood" class="ms_food-text py-4">{{ foods[currentFood].text }}</p> -->
-                    <img :src="foods[currentFood].text" alt="" :key="currentFood"
-                        class="ms_food-img img img-fluid w-50" />
+                    <!-- <p :key="currentFood" class="">{{ foods[currentFood].text }}</p> -->
+                        <img :src="foods[currentFood].text" alt="" :key="currentFood"
+                            class="w-75" />
+                    
                 </transition>
             </div>
             <!-- dynamic text -->
@@ -69,7 +75,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+//Debug Container prova con dimenzioni i px indali per immagini
+// .md_cont-img1 {
+//     border: 1px solid;
+//     width: 556px;
+//     height: 360px;
+// }
 .ms_container {
     width: 80%;
 
@@ -79,7 +90,7 @@ export default {
         margin: 0;
 
         img {
-            width: 100%;
+            width: 80%;
         }
     }
 
@@ -109,6 +120,7 @@ export default {
     padding: 0;
     margin: 0;
 }
+
 // /text container
 
 
@@ -149,5 +161,4 @@ export default {
     transform: translateX(0);
 }
 
-// /animation img text
-</style>
+// /animation img text</style>
