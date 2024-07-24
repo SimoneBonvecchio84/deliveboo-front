@@ -115,7 +115,7 @@ export default {
     font-size: 1.1rem;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     .text-types {
         display: flex;
         flex-direction: column;
