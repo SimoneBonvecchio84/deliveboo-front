@@ -135,7 +135,7 @@ export default {
 <template>
   <div class="container md_cont">
     <div class="d-flex flex-row-reverse justify-content-center align-items-center gap-2 mb-5">
-      <h1 class="text-center">Carrello</h1>
+      <h1 class="text-center p-0 m-0">Carrello</h1>
       <router-link :to="{ name: 'showrestaurant', params: { slug: slug.toString() } }">
         <span class="btn bg-color rounded-circle">
           <i class="fa-solid fa-arrow-left text-white"></i>
@@ -179,10 +179,7 @@ export default {
             <td>{{ (article.price * article.quantity).toFixed(2) }}€</td>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
+            <td class="text-center" colspan="4">
               <div>
                 <p>
                   <strong>Prezzo Totale Carrello:</strong><br>
