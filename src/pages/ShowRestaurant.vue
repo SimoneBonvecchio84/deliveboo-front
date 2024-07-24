@@ -17,6 +17,8 @@ export default {
                 items: {},
             },
             isLoadingCart: true,
+            slug:'',
+            curSlug:'',
         };
     },
     created() {
@@ -40,6 +42,7 @@ export default {
 
     methods: {
         fetchRestaurant() {
+            this.curSlug = this.$route.params.slug;
             this.slug = this.$route.params.slug;
             console.log(typeof this.store.slug, this.store.slug);
             axios.get(`http://127.0.0.1:8000/api/restaurants/${this.slug}`)
@@ -52,6 +55,8 @@ export default {
                 });
         },
         aggiorna(dish, value) {
+            localStorage.setItem('slug',this.$route.params.slug);
+            this.slug = localStorage.getItem('slug');
             // Save dish data
             let quantity = 0;
             if (value == 1) {
@@ -113,7 +118,9 @@ export default {
         },
         addToCart(dish_id, dish_name, quantity, price) {
             // assegno slug
-            localStorage.setItem('slug', this.slug);
+            localStorage.setItem('slug', this.curSlug);
+            this.slug = localStorage.getItem('slug');
+            console.log(this.slug);
             // Check if `cart` and `cart.items` are defined
             if (!this.cart) {
                 console.error('Cart is not defined');
@@ -179,6 +186,8 @@ export default {
             localStorage.setItem('cart', JSON.stringify(this.cart));
             localStorage.removeItem('restaurant_id');
             localStorage.removeItem('slug');
+            this.slug = null;
+            console.log(this.slug);
             console.log('Carrello svuotato.');
         },
 
@@ -201,7 +210,7 @@ export default {
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
 
             <!-- insert quantity cart-shop -->
-            <div class="md_circle">
+            <div class="md_circle" v-if="cart.totalQuantity >0">
                 <span>
                     {{ cart.totalQuantity }}
                 </span>
@@ -283,6 +292,8 @@ export default {
 
             <!-- title menu -->
             <h2 class="text-center py-3">Menù</h2>
+            {{ slug }}
+
             <!-- /title menu -->
 
             <!-- dish card -->

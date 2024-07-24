@@ -19,14 +19,18 @@ export default {
       baseSrc: "http://127.0.0.1:8000/storage", // Base URL for image sources
       store,
       slug:'',
+      cart:'',
       isLoading: false, // Flag to manage loading state
     };
   },
   created() {
-    this.CallRestaurant(); // Fetch restaurants when the component is created
-    this.CallTypes(); // Fetch restaurants when the component is created
+    this.cart = JSON.parse(localStorage.getItem('cart'));
     this.slug = localStorage.getItem('slug');
+    console.log(this.cart.items);
     console.log(this.slug);
+    this.CallRestaurant();
+    this.CallTypes();
+
   },
   methods: {
     CallRestaurant() {
@@ -73,6 +77,9 @@ export default {
       }
       this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
     },
+    getCartItemsLength() {
+    return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
+  }
   },
 };
 </script>
@@ -84,10 +91,28 @@ export default {
   
   
   <div class="ms-homepage" v-if="isLoading">
-    <!-- carrello lavori in corso
-    <div v-if="this.store.slug !=''">
-      <AppLinkCart />
-    </div> -->
+        <!-- cart-container -->
+        <div v-if="getCartItemsLength() > 0"
+            class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
+
+            <!-- insert quantity cart-shop -->
+            <div class="md_circle">
+                <span>
+                    {{ cart.totalQuantity }}
+                </span>
+            </div>
+            <!-- /insert quantity cart-shop -->
+
+            <!-- cart-shop router-link -->
+            <router-link :to="{ name: 'cartshopping', params: { slug: slug } }">
+                <i class="fa-solid fa-cart-shopping text-white"></i>
+            </router-link>
+            <!-- /cart-shop router-link -->
+
+        </div>
+        <!-- /cart-container -->
+
+
     <!-- checkbox types -->
     <div class="container w-50 mt-5">
       <div class="row justify-content-center align-items-center">
@@ -181,6 +206,37 @@ export default {
   min-height: 60vh;
   margin-bottom: 50px;
 }
+
+/* cart */
+.carrello{
+    width: 100px; /* Width of the cart element */
+    height: 100px; /* Height of the cart element */
+    margin-top: 100px; /* Top margin to position the cart element */
+}
+
+.cart-container {
+    background-color: #004a93;
+    width: 40px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    z-index: 99;
+}
+
+.md_circle {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    font-size: 1rem;
+    background-color: orange;
+    color: white;
+}
+/* cart */
+
 
 /* Riduci la dimensione del testo rendendolo responsive per tutti i breakpoint */
 

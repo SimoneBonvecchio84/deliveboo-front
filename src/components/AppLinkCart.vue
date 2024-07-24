@@ -11,10 +11,9 @@ export default{
 <template>
     
     <div class="carrello">
-        {{ store.slug }}
         <!-- Router link to navigate to the shopping cart page with a dynamic slug parameter -->
         <router-link
-        :to="{ name: 'cartshopping', params: { slug:  store.slug  } }">
+        :to="{ name: 'cartshopping', params: { slug:  slug  } }">
         carrello
         </router-link>
     
