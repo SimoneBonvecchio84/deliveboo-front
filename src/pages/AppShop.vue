@@ -107,19 +107,19 @@ export default {
     },
 
     clearCart() {
-      console.log("ciao");
-      // Empty all items from the cart
-      this.cart.items = {};
-      // Reset the total quantity
-      this.cart.totalQuantity = 0;
-      // Reset the total price
-      this.cart.totalPrice = 0;
+            // Empty all items from the cart
+            this.cart.items = {};
+            // Reset the total quantity
+            this.cart.totalQuantity = 0;
+            // Reset the total price
+            this.cart.totalPrice = 0;
 
-      // Save the updated cart to localStorage
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-      this.store.slug = "";
-      console.log('Carrello svuotato.');
-    },
+            // Save the updated cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+            localStorage.removeItem('restaurant_id');
+            this.store.slug="";
+            console.log('Carrello svuotato.');
+        },
 
     calculateTotalPrice() {
       // Calculate the total price of the cart
@@ -163,7 +163,7 @@ export default {
                 <a class="text-decoration-none text-white fw-bold">-</a>
               </div>
               <!-- /btn less -->
-              <span class="ms-3 me-3">
+              <span class="ms-3 me-3 d-flex justift-content-center align-items-center">
                 {{ article.quantity }}
               </span>
               <!-- btn add -->

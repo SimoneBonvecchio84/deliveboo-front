@@ -154,6 +154,9 @@ export default {
 
                     if (this.cart.items[dish_id].quantity <= 0) {
                         delete this.cart.items[dish_id];
+                        if(Object.keys(this.cart.items).length === 0){
+        this.clearCart();
+    }
                     }
                 }
             }
@@ -174,6 +177,7 @@ export default {
 
             // Save the updated cart to localStorage
             localStorage.setItem('cart', JSON.stringify(this.cart));
+            localStorage.removeItem('restaurant_id');
             this.store.slug="";
             console.log('Carrello svuotato.');
         },
@@ -197,8 +201,10 @@ export default {
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
 
             <!-- insert quantity cart-shop -->
-            <div class="md_circle">                
-                <i class="fa-solid fa-circle"></i>                 
+            <div class="md_circle">  
+                <span>
+                    {{ cart.totalQuantity }}
+                </span>                              
             </div>
             <!-- /insert quantity cart-shop -->
 
