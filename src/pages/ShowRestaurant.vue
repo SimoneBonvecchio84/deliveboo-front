@@ -351,7 +351,7 @@ export default {
 
                                     <!-- btn add -->
                                     <div @click.prevent="aggiorna(curDish, 1)"
-                                        class="btn btn-success ms-btn d-flex justify-content-center align-items-center ">
+                                        class="btn btn-primary ms-btn d-flex justify-content-center align-items-center ">
                                         <a class="text-decoration-none text-white fw-bold">+</a>
                                     </div>
                                     <!-- /btn add -->
