@@ -3,13 +3,11 @@ import axios from "axios";
 import { store } from "../store";
 import AppCard from "../components/AppCard.vue";
 import AppHero from "../components/AppHero.vue";
-import AppLinkCart from "../components/AppLinkCart.vue";
 
 export default {
   components: {
     AppCard,
     AppHero,
-    AppLinkCart,
   },
   data() {
     return {

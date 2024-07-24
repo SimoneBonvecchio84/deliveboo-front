@@ -1,12 +1,8 @@
 <script>
 import axios from 'axios';
-import AppLinkCart from '../components/AppLinkCart.vue';
 import { store } from "../store";
 
 export default {
-    component: {
-        AppLinkCart
-    },
     data() {
         return {
             store,
@@ -234,9 +230,7 @@ export default {
         </div>
         <!-- /container-title -->
 
-        <!-- component link cart -->
-        <AppLinkCart />
-        <!-- /component link cart -->
+
 
         <!-- restaurant details -->
         <div class="container mt-5 border-bottom py-4" v-if="restaurant">
