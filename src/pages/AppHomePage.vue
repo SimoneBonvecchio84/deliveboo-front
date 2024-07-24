@@ -4,12 +4,14 @@ import { store } from "../store";
 import AppCard from "../components/AppCard.vue";
 import AppHero from "../components/AppHero.vue";
 import AppLinkCart from "../components/AppLinkCart.vue";
+import AppTop from "../components/AppTop.vue";
 
 export default {
   components: {
     AppCard,
     AppHero,
     AppLinkCart,
+    AppTop,
   },
   data() {
     return {
@@ -88,6 +90,8 @@ export default {
   <AppHeader />
 
   <AppHero />
+
+  <AppTop />
 
 
   <div class="ms-homepage" v-if="isLoading">
@@ -177,7 +181,7 @@ export default {
 
 /* cart */
 .cart-container {
-  background-color: #004a93;
+  background-color: #0072E5;
   width: 50px;
   aspect-ratio: 1;
   cursor: pointer;

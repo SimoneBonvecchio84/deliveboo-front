@@ -11,7 +11,7 @@ export default {
     <footer class="footer">
       <div class="container text-center">
         <router-link :to="{ name: 'home' }" href="../assets/img/logo_top.png">
-        <img src="../assets/img/logo_bottom.png" alt="Logo" class="footer-logo" />
+            <img src="../assets/img/logo_bottom.png" alt="Logo" class="footer-logo" />
       </router-link>
       </div>
     </footer>

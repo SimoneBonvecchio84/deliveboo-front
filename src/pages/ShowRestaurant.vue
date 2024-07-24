@@ -391,7 +391,7 @@ export default {
 //CART CONTAINER
 .cart-container {
     background-color: $blue;
-    width: 40px;
+    width: 50px;
     aspect-ratio: 1;
     cursor: pointer;
     z-index: 99;
@@ -441,14 +441,14 @@ export default {
 
 //CUSTOM FONT
 .md_circle {
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
     text-align: center;
     border-radius: 50%;
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    bottom: 35px;
+    right: 35px;
     font-size: 1rem;
     background-color: orange;
     color: $white;
