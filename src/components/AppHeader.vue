@@ -97,8 +97,8 @@ export default {
 /* Header color */
 
 .navbar-expand-md {
-  background-color: $red;
-  color: white;
+  background-color:$red;
+  color: $white;
   height: 100px;
   width: 100%;
 }
@@ -106,7 +106,7 @@ export default {
 /* /Colore dell'header  */
 
 .navbar-toggler {
-  border: 2px solid white;
+  // border: 2px solid $white;
   outline-width: 0;
   --bs-navbar-toggler-focus-width: 0;
 }

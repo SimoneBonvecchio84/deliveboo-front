@@ -95,9 +95,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+@use "../sass/colorpalette.scss" as *;
 .ms_btn {
-    color: white;
+    color: $white;
 }
 
 .cart {
@@ -106,7 +106,7 @@ export default {
   top: 0;
   width: 300px;
   height: 100%;
-  background: white;
+  background-color: $white;
   box-shadow: -2px 0 5px rgba(0,0,0,0.5);
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
@@ -122,7 +122,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray;
 }
 
 .cart-body {
@@ -136,8 +136,8 @@ export default {
   bottom: 0;
   width: 100%;
   padding: 1rem;
-  border-top: 1px solid #ddd;
-  background: white;
+  border-top: 1px solid $gray;
+  background: $white;
 }
 
 .cart-item {
@@ -145,7 +145,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray;
 }
 
 .cart-item img {

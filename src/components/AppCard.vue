@@ -78,6 +78,8 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@use "../sass/colorpalette.scss" as *;
+
 .main-content {
     padding: 20px 0;
 }

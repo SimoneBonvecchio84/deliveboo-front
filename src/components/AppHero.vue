@@ -31,7 +31,7 @@ export default {
 
 .hero {
     background-color:$red;
-    color: #fff;
+    color: $white;
     height: 400px;
     margin-top: 100px;
 }

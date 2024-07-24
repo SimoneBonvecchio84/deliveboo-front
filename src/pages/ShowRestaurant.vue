@@ -386,9 +386,11 @@ export default {
 
 
 <style lang="scss" scoped>
+@use "../sass/colorpalette.scss" as *;
+
 //CART CONTAINER
 .cart-container {
-    background-color: #004a93;
+    background-color: $blue;
     width: 40px;
     aspect-ratio: 1;
     cursor: pointer;
@@ -449,6 +451,6 @@ export default {
     right: 30px;
     font-size: 1rem;
     background-color: orange;
-    color: white;
+    color: $white;
 }
 </style>
