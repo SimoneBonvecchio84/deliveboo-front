@@ -1,8 +1,12 @@
 <script>
 import axios from 'axios';
 import { store } from "../store";
+import AppLinkCart from '../components/AppLinkCart.vue';
 
 export default {
+    components: {
+        AppLinkCart,
+    },
     data() {
         return {
             store,
@@ -13,8 +17,8 @@ export default {
                 items: {},
             },
             isLoadingCart: true,
-            slug:'',
-            curSlug:'',
+            slug: '',
+            curSlug: '',
         };
     },
     created() {
@@ -51,7 +55,7 @@ export default {
                 });
         },
         aggiorna(dish, value) {
-            localStorage.setItem('slug',this.$route.params.slug);
+            localStorage.setItem('slug', this.$route.params.slug);
             this.slug = localStorage.getItem('slug');
             // Save dish data
             let quantity = 0;
@@ -193,6 +197,9 @@ export default {
                 return total + (item.price * item.quantity);
             }, 0);
 
+        },
+        getCartItemsLength() {
+            return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
         }
     }
 }
@@ -202,25 +209,11 @@ export default {
     <!-- container-show-restaurant -->
     <div class="container-show-restaurant">
         <!-- cart-container -->
-        <div
+        <div v-if="getCartItemsLength() > 0"
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
-
-            <!-- insert quantity cart-shop -->
-            <div class="md_circle" v-if="cart.totalQuantity >0">
-                <span>
-                    {{ cart.totalQuantity }}
-                </span>
-            </div>
-            <!-- /insert quantity cart-shop -->
-
-            <!-- cart-shop router-link -->
-            <router-link :to="{ name: 'cartshopping', params: { slug: slug } }">
-                <i class="fa-solid fa-cart-shopping text-white"></i>
-            </router-link>
-            <!-- /cart-shop router-link -->
-
+            <AppLinkCart :slug="this.slug" />
         </div>
-        <!-- /cart-container -->
+        <!-- cart-container -->
 
         <!-- container-title -->
         <div class>
@@ -286,8 +279,6 @@ export default {
 
             <!-- title menu -->
             <h2 class="text-center py-3">Menù</h2>
-            {{ slug }}
-
             <!-- /title menu -->
 
             <!-- dish card -->

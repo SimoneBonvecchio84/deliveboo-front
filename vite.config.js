@@ -9,6 +9,7 @@ export default defineConfig({
     inject({
       $: 'jquery',
       jQuery: 'jquery',
+      include: '**/*.scss',
     }),
     ],
   resolve: {
