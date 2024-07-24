@@ -18,12 +18,15 @@ export default {
       selectedTypes: [], // Array to store selected restaurant types
       baseSrc: "http://127.0.0.1:8000/storage", // Base URL for image sources
       store,
+      slug:'',
       isLoading: false, // Flag to manage loading state
     };
   },
   created() {
     this.CallRestaurant(); // Fetch restaurants when the component is created
     this.CallTypes(); // Fetch restaurants when the component is created
+    this.slug = localStorage.getItem('slug');
+    console.log(this.slug);
   },
   methods: {
     CallRestaurant() {

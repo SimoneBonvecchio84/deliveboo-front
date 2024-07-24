@@ -10,7 +10,6 @@ export default {
     data() {
         return {
             store,
-            slug: '',
             restaurant: [],
             baseSrc: "http://127.0.0.1:8000/storage",
             id: "",
@@ -42,7 +41,6 @@ export default {
     methods: {
         fetchRestaurant() {
             this.slug = this.$route.params.slug;
-            this.store.slug = this.$route.params.slug;
             console.log(typeof this.store.slug, this.store.slug);
             axios.get(`http://127.0.0.1:8000/api/restaurants/${this.slug}`)
                 .then(response => {
@@ -114,6 +112,8 @@ export default {
             // this.$store.dispatch('updateRestaurantId', restaurant_id);
         },
         addToCart(dish_id, dish_name, quantity, price) {
+            // assegno slug
+            localStorage.setItem('slug', this.slug);
             // Check if `cart` and `cart.items` are defined
             if (!this.cart) {
                 console.error('Cart is not defined');
@@ -131,10 +131,10 @@ export default {
             // Update total price
             if (quantity === 1) {
                 this.cart.totalPrice += price;
-                this.cart.totalQuantity +=quantity;
+                this.cart.totalQuantity += quantity;
                 console.log(this.cart.totalPrice);
             } else if (this.cart.items[dish_id].quantity) {
-                this.cart.totalQuantity +=quantity;
+                this.cart.totalQuantity += quantity;
                 this.cart.totalPrice -= price;
                 console.log(this.cart.totalPrice);
             }
@@ -154,9 +154,9 @@ export default {
 
                     if (this.cart.items[dish_id].quantity <= 0) {
                         delete this.cart.items[dish_id];
-                        if(Object.keys(this.cart.items).length === 0){
-        this.clearCart();
-    }
+                        if (Object.keys(this.cart.items).length === 0) {
+                            this.clearCart();
+                        }
                     }
                 }
             }
@@ -178,7 +178,7 @@ export default {
             // Save the updated cart to localStorage
             localStorage.setItem('cart', JSON.stringify(this.cart));
             localStorage.removeItem('restaurant_id');
-            this.store.slug="";
+            localStorage.removeItem('slug');
             console.log('Carrello svuotato.');
         },
 
@@ -201,10 +201,10 @@ export default {
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
 
             <!-- insert quantity cart-shop -->
-            <div class="md_circle">  
+            <div class="md_circle">
                 <span>
                     {{ cart.totalQuantity }}
-                </span>                              
+                </span>
             </div>
             <!-- /insert quantity cart-shop -->
 
@@ -446,7 +446,6 @@ export default {
     right: 30px;
     font-size: 1rem;
     background-color: orange;
-    color:white;
+    color: white;
 }
-
 </style>
