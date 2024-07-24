@@ -93,7 +93,7 @@ export default {
   <div class="ms-homepage" v-if="isLoading">
     <!-- cart-container -->
     <div v-if="getCartItemsLength() > 0"
-      class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
+      class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0 ">
       <!-- insert quantity cart-shop -->
       <div class="md_circle">
         <span>
@@ -178,21 +178,21 @@ export default {
 /* cart */
 .cart-container {
   background-color: #004a93;
-  width: 40px;
+  width: 50px;
   aspect-ratio: 1;
   cursor: pointer;
   z-index: 99;
 }
 
 .md_circle {
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
     text-align: center;
     border-radius: 50%;
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    bottom: 35px;
+    right: 35px;
     font-size: 1rem;
     background-color: orange;
     color: white;

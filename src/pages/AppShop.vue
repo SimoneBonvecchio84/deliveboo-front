@@ -134,10 +134,12 @@ export default {
 
 <template>
   <div class="container md_cont">
-    <div class="d-flex  flex-column justify-content-center align-items-center gap-2 mb-5">
+    <div class="d-flex flex-row-reverse justify-content-center align-items-center gap-2 mb-5">
       <h1 class="text-center">Carrello</h1>
       <router-link :to="{ name: 'showrestaurant', params: { slug: slug.toString() } }">
-        <span class="btn btn-primary">Torna al menu</span>
+        <span class="btn bg-color rounded-circle">
+          <i class="fa-solid fa-arrow-left text-white"></i>
+        </span>
       </router-link>
     </div>
 
@@ -156,10 +158,10 @@ export default {
         <tbody>
           <tr v-for="(article, index) in Object.values(cart.items)" :key="index">
             <td scope="row">{{ article.name }}</td>
-            <td  class="d-flex justify-content-center">
+            <td  class="d-flex justify-content-center border-bottom-0">
               <!-- btn less -->
               <div @click.prevent="aggiorna(article, -1)"
-                class="btn btn-danger ms-btn d-flex justify-content-center align-items-center">
+                class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
                 <a class="text-decoration-none text-white fw-bold">-</a>
               </div>
               <!-- /btn less -->
@@ -168,7 +170,7 @@ export default {
               </span>
               <!-- btn add -->
               <div @click.prevent="aggiorna(article, 1)"
-                class="btn btn-success ms-btn d-flex justify-content-center align-items-center ">
+                class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
                 <a class="text-decoration-none text-white fw-bold">+</a>
               </div>
               <!-- /btn add -->
@@ -193,7 +195,7 @@ export default {
       </table>
 
       <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
-        <button class="btn btn-dark mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25">
+        <button class="btn btn-primary mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25">
           <router-link :to="{ name: 'checkout' }" href="http://localhost:5174/checkout" class="ms_checkout">
             Checkout
           </router-link>
@@ -228,7 +230,7 @@ export default {
         <div class="modal-footer d-flex justify-content-around">
           <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Annulla</button>
           <button type="button" class="btn btn-primary w-25" @click.prevent="clearCart()"
-            data-dismiss="modal">Conferma</button>
+            data-dismiss="modal">Svuota</button>
         </div>
       </div>
     </div>
@@ -264,5 +266,9 @@ export default {
   .mb-sm-0 {
     margin-bottom: 0 !important;
   }
+}
+
+.btn-secondary, .bg-color {
+  background-color: #b1b5b8;
 }
 </style>
