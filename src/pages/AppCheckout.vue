@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+// import { json } from 'express';
 
 export default {
     data() {
@@ -13,87 +14,136 @@ export default {
             expirationDate: '',
             order_id: 0,
             errors: {},
+            paymentDetails: {
+                card_number: '',
+                card_expire_date: '',
+                payment_method_nonce: 'fake-valid-nonce',
+            },
+            cartPrice: 0,
+            cart:''
         };
     },
+    created() {
+        this.cartPrice = JSON.parse(localStorage.getItem('cart'));
+        console.log(this.cartPrice.totalPrice);
+    },
     methods: {
-        validateForm() {
-    this.errors = {};
+        async getToken() {
+            try {
+                //FIRST CALL TO GET TOKEN
+                await axios.get('http://127.0.0.1:8000/api/generatetoken').then((resp) => {
+                    console.log(resp);
 
-    // Validazione dei campi del modulo...
+                    const token = resp.data.result;
+                    console.log(token);
+                })
 
-    // Se non ci sono errori, procedi con l'invio del form
-    if (Object.keys(this.errors).length === 0) {
-        // Recupera 'cart' dal localStorage
-        const cartString = localStorage.getItem('cart');
-        
-        // Controlla se 'cart' è presente nel localStorage
-        if (!cartString) {
-            console.error('Nessun carrello trovato nel localStorage');
-            return;
-        }
 
-        // Converti 'cart' da stringa a oggetto JavaScript
-        const cart = JSON.parse(cartString);
+                //SECOND CALL TO MAKE PAYMENT
+                await axios.post('http://127.0.0.1:8000/api/makepayment',
+                    { ...this.paymentDetails },
+                    { headers: { 'Content-type': 'multipart/form-data' } }).
+                    then(response => {
+                        console.log(response.data.success);
 
-        // Verifica che 'totalPrice' sia presente in 'cart'
-        if (!cart || !cart.totalPrice) {
-            console.error('totalPrice non trovato nel carrello:', cart);
-            return;
-        }
+                        this.saveOrder();
+                    })
+                    .catch(({ error, response }) => {
 
-        // Costruisci l'oggetto 'order' con 'total_price' da 'cart'
-        const order = {
-            name: this.firstName,
-            lastname: this.lastName,
-            phone_number: this.phone,
-            email: this.email,
-            address: this.address,
-            total_price: cart.totalPrice,
-        };
+                        console.error(error);
+                        console.log(response.data.errors);
 
-        // Stampa i valori dell'ordine per il debug
-        console.log(cartString);
-        console.log(order);
 
-        // Esegui la chiamata API per inviare l'ordine
-        axios.post('http://127.0.0.1:8000/api/orders', order, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    })
+            } catch (error) {
+                console.error('Si è verificato un errore nelle chiamate axios.post():', error);
             }
-        })
-        .then(response => {
-            console.log(response.data.result);
-            this.order_id = response.data.result;
 
-            // Invia i dettagli del carrello insieme all'ID dell'ordine
-            const params = {
-                order_id: this.order_id,
-                dishes: cart  // Assumendo che 'items' sia ciò che vuoi inviare
+        },
+
+        saveOrder() {
+            // Costruisci l'oggetto 'order' con 'total_price' da 'cart'
+            const order = {
+                name: this.firstName,
+                lastname: this.lastName,
+                phone_number: this.phone,
+                email: this.email,
+                address: this.address,
+                total_price: this.cart.totalPrice,
             };
 
-            console.log(params);
+            // Stampa i valori dell'ordine per il debug
+            console.log(order);
 
-            // Esegui la chiamata API per inviare i dettagli del piatto
-            axios.post('http://127.0.0.1:8000/api/dishorders', params, {
+            // Esegui la chiamata API per inviare l'ordine
+            axios.post('http://127.0.0.1:8000/api/orders', order, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.error('Errore nella chiamata API dishorders:', error);
-            });
+                .then(response => {
+                    console.log(response.data.result);
+                    this.order_id = response.data.result;
 
-        })
-        .catch(error => {
-            console.error('Errore nella chiamata API orders:', error);
-        });
-    }
-},
+                    // Invia i dettagli del carrello insieme all'ID dell'ordine
+                    const params = {
+                        order_id: this.order_id,
+                        dishes: this.cart  // Assumendo che 'items' sia ciò che vuoi inviare
+                    };
+
+                    console.log(params);
+
+                    // Esegui la chiamata API per inviare i dettagli del piatto
+                    axios.post('http://127.0.0.1:8000/api/dishorders', params, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            console.log(response);
+                        })
+                        .catch(error => {
+                            console.error('Errore nella chiamata API dishorders:', error);
+                        });
+
+                })
+                .catch(error => {
+                    console.error('Errore nella chiamata API orders:', error);
+                });
+
+        },
+
+
+        validateForm() {
+            this.errors = {};
+
+            // Validazione dei campi del modulo...
+
+            // Se non ci sono errori, procedi con l'invio del form
+            if (Object.keys(this.errors).length === 0) {
+                // Recupera 'cart' dal localStorage
+                const cartString = localStorage.getItem('cart');
+
+                // Controlla se 'cart' è presente nel localStorage
+                if (!cartString) {
+                    console.error('Nessun carrello trovato nel localStorage');
+                    return;
+                }
+
+                // Converti 'cart' da stringa a oggetto JavaScript
+                this.cart = JSON.parse(cartString);
+
+                // Verifica che 'totalPrice' sia presente in 'cart'
+                if (!this.cart || !this.cart.totalPrice) {
+                    console.error('totalPrice non trovato nel carrello:', this.cart);
+                    return;
+                }
+
+                this.getToken();
+            }
+        },
 
         // Funzione per validare l'email
         validEmail(email) {
@@ -120,7 +170,7 @@ export default {
 <template>
     <div class="container ms_container">
         <h2 class="mb-5">Procedi al checkout</h2>
-        <form @submit.prevent="validateForm">
+        <form id="checkoutform">
             <!-- Dettagli Utente -->
             <div class="form-group">
                 <h3>Dettagli Utente</h3>
@@ -173,26 +223,23 @@ export default {
                 <h3>Dettagli della Carta</h3>
             </div>
 
-            <!-- Numero Carta -->
             <div class="form-group">
-                <label for="cardNumber">Numero della Carta <span class="asterisco">*</span></label>
-                <input type="text" class="form-control" id="cardNumber" v-model="cardNumber"
-                    placeholder="Inserisci il numero della carta" required>
-                <div v-if="errors.cardNumber" class="text-danger">{{ errors.cardNumber }}</div>
+                <label for="card-number">Numero Carta <span class="asterisco">*</span></label>
+                <input type="text" class="form-control" id="card-number" v-model="paymentDetails.card_number" required>
             </div>
 
-            <!-- Scadenza Carta -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="expirationDate">Scadenza <span class="asterisco">*</span></label>
-                    <input type="text" class="form-control" id="expirationDate" v-model="expirationDate"
-                        placeholder="MM/AA" required>
-                    <div v-if="errors.expirationDate" class="text-danger">{{ errors.expirationDate }}</div>
-                </div>
+            <div class="form-group">
+                <label for="card-expire">Data scadenza <span class="asterisco">*</span></label>
+                <input type="text" class="form-control" id="card-expire" v-model="paymentDetails.card_expire_date"
+                    required>
             </div>
 
-            <p class="mb-3">I campi contrassegnati con <span class="asterisco">*</span> sono obbligatori.</p>
-            <button type="submit" class="btn btn-primary">Procedi al pagamento</button>
+            <div>
+                <p class="mb-3">I campi contrassegnati con <span class="asterisco">*</span> sono obbligatori.</p>
+                <button type="submit" class="btn btn-primary" @click.prevent="validateForm()">Procedi al
+                    pagamento</button>
+                <span class="fw-bold ms-2">Totale Carrello: {{ cartPrice.totalPrice }} €</span>
+            </div>
         </form>
     </div>
 </template>
