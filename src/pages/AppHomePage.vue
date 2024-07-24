@@ -94,6 +94,13 @@ export default {
     <!-- cart-container -->
     <div v-if="getCartItemsLength() > 0"
       class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
+      <!-- insert quantity cart-shop -->
+      <div class="md_circle">
+        <span>
+          {{ cart.totalQuantity }}
+        </span>
+      </div>
+      <!-- /insert quantity cart-shop -->
       <AppLinkCart :slug="this.slug" />
     </div>
     <!-- cart-container -->
@@ -104,8 +111,8 @@ export default {
         <div v-for="curType in typesList" :key="curType.id"
           class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle">
           <input type="checkbox" class="btn-check" :id="'type-' + curType.id" name="types" :value="curType.id" @change="(event) => {
-              SelectType(event.target.value, event.target.checked);
-            }
+            SelectType(event.target.value, event.target.checked);
+          }
             " />
           <label class="btn btn-outline-primary w-25 p-1 rounded" :for="'type-' + curType.id">{{ curType.name }}</label>
         </div>
@@ -175,6 +182,20 @@ export default {
   aspect-ratio: 1;
   cursor: pointer;
   z-index: 99;
+}
+
+.md_circle {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    font-size: 1rem;
+    background-color: orange;
+    color: white;
 }
 /* cart */
 

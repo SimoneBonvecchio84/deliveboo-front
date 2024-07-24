@@ -211,6 +211,13 @@ export default {
         <!-- cart-container -->
         <div v-if="getCartItemsLength() > 0"
             class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
+            <!-- insert quantity cart-shop -->
+            <div class="md_circle">
+                <span>
+                    {{ cart.totalQuantity }}
+                </span>
+            </div>
+            <!-- /insert quantity cart-shop -->
             <AppLinkCart :slug="this.slug" />
         </div>
         <!-- cart-container -->
