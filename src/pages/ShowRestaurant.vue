@@ -11,6 +11,9 @@ export default {
     },
     data() {
         return {
+            modalMessage: '',
+            dishToUpdate: null,
+            valueToUpdate: null,
             store,
             restaurant: [],
             baseSrc: "http://127.0.0.1:8000/storage",
@@ -24,7 +27,7 @@ export default {
         };
     },
     created() {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         // Try to retrieve the cart from localStorage and convert it into a JavaScript object
         let cartString = localStorage.getItem('cart');
         if (cartString) {
@@ -57,67 +60,60 @@ export default {
                     console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
                 });
         },
+        openModal(dish, value) {
+            this.dishToUpdate = dish;
+            this.valueToUpdate = value;
+            this.modalMessage = "Stai cambiando ristorante. Vuoi svuotare il carrello?";
+            $(this.$refs.confirmModal).modal('show');
+        },
+        hideModal() {
+            $(this.$refs.confirmModal).modal('hide');
+        },
+        handleConfirm() {
+            if (this.dishToUpdate && this.valueToUpdate !== null) {
+                this.aggiorna(this.dishToUpdate, this.valueToUpdate);
+            }
+            this.clearCart();
+            this.hideModal();
+        },
+        handleCancel() {
+            console.log('Utente ha deciso di non svuotare il carrello.');
+            this.hideModal();
+        },
         aggiorna(dish, value) {
             localStorage.setItem('slug', this.$route.params.slug);
             this.slug = localStorage.getItem('slug');
-            // Save dish data
-            let quantity = 0;
-            if (value == 1) {
-                quantity = 1;
-            } else {
-                quantity = -1;
-            }
+            let quantity = value === 1 ? 1 : -1;
             const dish_id = parseInt(dish.id);
             const dish_name = dish.name;
             const restaurant_id = dish.restaurant_id;
             const price = parseFloat(dish.price);
+
             console.log(quantity, dish_id, dish_name, restaurant_id, price);
 
-            // Retrieve the cart saved in localStorage
             const savedCart = localStorage.getItem('cart');
             if (savedCart && savedCart !== 'undefined') {
                 this.cart = JSON.parse(savedCart);
             }
-            // Check if a restaurant_id exists in localStorage
+
             let savedRestaurantId = localStorage.getItem('restaurant_id');
-
-            // Verify if savedRestaurantId is valid
             if (savedRestaurantId && savedRestaurantId !== 'undefined') {
-                // Parse the saved restaurant_id from localStorage
                 const parsedSavedRestaurantId = JSON.parse(savedRestaurantId);
-
-                // Compare the current restaurant_id with the saved one
                 if (parsedSavedRestaurantId === restaurant_id) {
                     console.log('Aggiungendo elemento al carrello poiché gli ID dei ristoranti corrispondono.');
-                    // Use the retrieved price to add an item to the cart
                     this.addToCart(dish_id, dish_name, quantity, price);
                 } else {
                     console.log('Differente ID di ristorante rilevato.');
-                    // Prompt the user to decide if they want to empty the cart
-                    const userDecision = confirm("Stai cambiando ristorante. Vuoi svuotare il carrello?");
-                    if (userDecision) {
-                        console.log('Svuotamento del carrello...');
-                        // Empty the cart
-                        this.clearCart();
-                        // Update the restaurant_id in localStorage
-                        localStorage.setItem('restaurant_id', JSON.stringify(restaurant_id));
-                        // Add the new item to the now-empty cart
-                        this.addToCart(dish_id, dish_name, quantity, price);
-                    } else {
-                        console.log('Utente ha deciso di non svuotare il carrello.');
-                    }
+                    this.modalMessage = "Stai cambiando ristorante. Vuoi svuotare il carrello?";
+                    $(this.$refs.confirmModal).modal('show');
                 }
             } else {
                 console.log('Nessun restaurant_id salvato trovato in localStorage.');
-                // This might be a new session or the first visit to the site
-                // Initialize the restaurant_id
                 localStorage.setItem('restaurant_id', JSON.stringify(restaurant_id));
-                // Also add the first item to the empty cart
                 this.addToCart(dish_id, dish_name, quantity, price);
             }
 
             console.log(this.cart);
-            // this.$store.dispatch('updateRestaurantId', restaurant_id);
         },
         addToCart(dish_id, dish_name, quantity, price) {
             // assegno slug
@@ -390,6 +386,30 @@ export default {
         <!-- /dishes container -->
     </div>
     <!-- /container-show-restaurant -->
+
+     <!-- Modale di Bootstrap -->
+     <div class="modal fade" tabindex="-1" role="dialog" ref="confirmModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Conferma Azione</h5>
+            <button type="button" class="close" @click="hideModal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{ modalMessage }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="handleCancel">Annulla</button>
+            <button type="button" class="btn btn-primary" @click="handleConfirm">Conferma</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+
 </template>
 
 
