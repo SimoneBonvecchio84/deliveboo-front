@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-    <div class="container d-flex align-items-center ms_container">
+    <div class="container d-flex align-items-end ms_container">
         <div class="row " name="slide" mode="out-in">
 
             <!-- dynamic image -->
@@ -138,6 +138,10 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+
+.img-carousel{
+    
 }
 
 // /animation img food
