@@ -24,6 +24,7 @@ export default {
             cart: '',
             isSuccess: false,
             isLoading: false,
+            isError: false,
         };
     },
     created() {
@@ -60,11 +61,14 @@ export default {
                         this.saveOrder();
                     })
                     .catch(({ error, response }) => {
-
+                        this.isLoading = false;
+                        this.isError = true;
                         console.error(error);
                         console.log(response.data.errors);
                     })
             } catch (error) {
+                this.isLoading = false;
+                this.isError = true;
                 console.error('Si è verificato un errore nelle chiamate axios.post():', error);
             }
         },
@@ -110,7 +114,7 @@ export default {
                     console.log(params);
 
                     // Esegue la chiamata API per inviare i dettagli del piatto
-                    axios.post('http://127.0.0.1:8000/api/dishorders', params, {
+                    axios.post('http://127.0.0.1:8000/api/dishordrs', params, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -122,11 +126,15 @@ export default {
                             this.clearCart();
                         })
                         .catch(error => {
+                            this.isLoading = false;
+                            this.isError = true;
                             console.error('Errore nella chiamata API dishorders:', error);
                         });
 
                 })
                 .catch(error => {
+                    this.isLoading = false;
+                    this.isError= true;
                     console.error('Errore nella chiamata API orders:', error);
                 });
 
@@ -287,6 +295,7 @@ export default {
 
 <template>
     <div v-if="isSuccess === false" class="container ms_container">
+        <div v-if="isError === true" class="alert alert-danger text-center">Ops, qualcosa è andato storto</div>
         <div class="d-flex justify-content-center align-items-center mb-5 gap-2">
             <span @click="goBack()" class="btn bg-primary rounded-circle">
                 <i class="fa-solid fa-arrow-left text-white"></i>
@@ -364,7 +373,10 @@ export default {
                     <span>Procedi al pagamento</span>
                     <span :class="isLoading === true ? 'spinner-border' : ''"></span>
                 </button>
-                <span class="fw-bold ms-2">Totale Carrello: {{ cartPrice.totalPrice }} €</span>
+                <div class="ml-auto ms_cart d-flex flex-column">
+                <span class="fw-bold">Prezzo totale:</span>
+                <span class="text-center">{{ cartPrice.totalPrice.toFixed(2) }} €</span>
+                </div>
             </div>
         </form>
     </div>
@@ -404,6 +416,12 @@ export default {
 .img-success {
     margin-top: 100px;
     width: 40%;
+}
+
+.ms_cart {
+    padding: 10px 5px;
+    border: 3px solid $red;
+    border-radius: 10px;
 }
 
 @media (max-width: 1024px) {
