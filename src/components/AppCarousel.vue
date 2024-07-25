@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-    <div class="container d-flex align-items-end ms_container">
+    <div class="container d-flex align-items-end ms_container carousel">
         <div class="row " name="slide" mode="out-in">
 
             <!-- dynamic image -->
@@ -103,6 +103,18 @@ export default {
     }
 }
 
+@media (max-width: 768px) {
+    .carousel {
+        max-width: 300px;
+    }
+}
+
+@media (min-width: 768px) {
+    .carousel {
+        min-width: 900px;
+    }
+}
+
 .ms_carousel-img {
     display: flex;
     align-items: center;
@@ -140,9 +152,9 @@ export default {
     opacity: 0;
 }
 
-.img-carousel{
+// .img-carousel{
     
-}
+// }
 
 // /animation img food
 

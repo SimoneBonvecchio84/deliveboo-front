@@ -36,6 +36,18 @@ export default {
     margin-top: 100px;
 }
 
+@media (min-width: 1300px) {
+  .hero {
+    padding-top: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 450px;
+  }
+}
+
 /* HERO H1 SIZE NOT USED AT THE MOMENT */
 // .hero h1 {
 //     font-size: 3rem;
