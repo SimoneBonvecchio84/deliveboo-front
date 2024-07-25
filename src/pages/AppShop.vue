@@ -132,6 +132,24 @@ export default {
         return total + (item.price * item.quantity);
       }, 0);
 
+    },
+    removeAllItems(item) {
+        const dish_id = item.dish_id;
+        const quantity = this.cart.items[dish_id].quantity;
+        const price = this.cart.items[dish_id].price;
+
+        // Rimuovi completamente l'articolo dal carrello
+        delete this.cart.items[dish_id];
+        this.cart.totalQuantity -= quantity;
+        this.cart.totalPrice -= price * quantity;
+
+        // Salva il carrello aggiornato in localStorage
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+
+        // Rimuovi articoli specifici dal localStorage se il carrello è vuoto
+        if (Object.keys(this.cart.items).length === 0) {
+            this.clearCart();
+        }
     }
   }
 }
@@ -155,45 +173,54 @@ export default {
           <tr>
             <th scope="col">Piatto</th>
             <th scope="col">Quantita</th>
+            <th scope="col">Rimuovi</th>
             <th scope="col">Prezzo</th>
             <th scope="col">Totale</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr v-for="(article, index) in Object.values(cart.items)" :key="index">
-            <td scope="row">{{ article.name }}</td>
-            <td class="d-flex justify-content-center border-bottom-0">
-              <!-- btn less -->
-              <div @click.prevent="aggiorna(article, -1)"
-                class="btn btn-danger ms-btn d-flex justify-content-center align-items-center border-0">
-                <a class="text-decoration-none  text-white fw-bold">-</a>
-              </div>
-              <!-- /btn less -->
-              <span class="ms-3 me-3 d-flex justift-content-center align-items-center">
-                {{ article.quantity }}
-              </span>
-              <!-- btn add -->
-              <div @click.prevent="aggiorna(article, 1)"
-                class="btn btn-primary ms-btn d-flex justify-content-center align-items-center border-0">
-                <a class="text-decoration-none text-white fw-bold">+</a>
-              </div>
-              <!-- /btn add -->
-            </td>
-            <td>{{ (article.price).toFixed(2) }}€</td>
-            <td>{{ (article.price * article.quantity).toFixed(2) }}€</td>
-          </tr>
-          <tr>
-            <td class="text-center" colspan="4">
-              <div>
-                <p>
-                  <strong>Prezzo Totale Carrello:</strong><br>
-                </p>
-                {{ cart.totalPrice.toFixed(2) }}€
-              </div>
-            </td>
-          </tr>
-        </tbody>
+      <tr v-for="(article, index) in Object.values(cart.items)" :key="index">
+        <td scope="row">{{ article.name }}</td>
+        
+        <td class="d-flex justify-content-center border-bottom-0">
+          <!-- btn less -->
+          <div @click.prevent="aggiorna(article, -1)"
+            class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
+            <a class="text-decoration-none  text-white fw-bold">-</a>
+          </div>
+          <!-- /btn less -->
+          <span class="ms-3 me-3 d-flex justify-content-center align-items-center">
+            {{ article.quantity }}
+          </span>
+          <!-- btn add -->
+          <div @click.prevent="aggiorna(article, 1)"
+            class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
+            <a class="text-decoration-none text-white fw-bold">+</a>
+          </div>
+          <!-- /btn add -->
+        </td>
+        <td class="">
+          <div @click.prevent="removeAllItems(article)"
+            class="btn btn-danger ms-btn border-0">
+            <a class="text-decoration-none text-white fw-bold"><i class="fa-solid fa-trash"></i></a>
+          </div>
+        </td>
+        
+        <td>{{ (article.price).toFixed(2) }}€</td>
+        <td>{{ (article.price * article.quantity).toFixed(2) }}€</td>
+      </tr>
+      <tr>
+        <td class="text-center" colspan="5">
+          <div>
+            <p>
+              <strong>Prezzo Totale Carrello:</strong><br>
+            </p>
+            {{ cart.totalPrice.toFixed(2) }}€
+          </div>
+        </td>
+      </tr>
+    </tbody>
       </table>
 
       <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
@@ -243,9 +270,7 @@ export default {
 
 <!-- @click.prevent="clearCart()" -->
 
-<style scoped lang="scss">
-
-// @use "../sass/colorpalette.scss" as *;
+<style scoped>
 .md_cont {
   margin-top: 150px;
   /* margin-bottom: 50px; */
@@ -277,4 +302,7 @@ export default {
 .bg-color {
   background-color: #b1b5b8;
 }
+
+
+
 </style>
