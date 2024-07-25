@@ -3,6 +3,7 @@ import axios from 'axios';
 import { store } from "../store";
 import AppLinkCart from '../components/AppLinkCart.vue';
 import AppTop from '../components/AppTop.vue';
+import { clearCart } from '../function.js';
 
 export default {
     components: {
@@ -73,7 +74,7 @@ export default {
             if (this.dishToUpdate && this.valueToUpdate !== null) {
                 this.aggiorna(this.dishToUpdate, this.valueToUpdate);
             }
-            this.clearCart();
+            clearCart(this.cart);
             this.hideModal();
         },
         handleCancel() {
@@ -161,7 +162,7 @@ export default {
                     if (this.cart.items[dish_id].quantity <= 0) {
                         delete this.cart.items[dish_id];
                         if (Object.keys(this.cart.items).length === 0) {
-                            this.clearCart();
+                            clearCart(this.cart);
                         }
                     }
                 }
@@ -173,22 +174,7 @@ export default {
             localStorage.setItem('cart', JSON.stringify(this.cart));
         },
 
-        clearCart() {
-            // Empty all items from the cart
-            this.cart.items = {};
-            // Reset the total quantity
-            this.cart.totalQuantity = 0;
-            // Reset the total price
-            this.cart.totalPrice = 0;
-
-            // Save the updated cart to localStorage
-            localStorage.setItem('cart', JSON.stringify(this.cart));
-            localStorage.removeItem('restaurant_id');
-            localStorage.removeItem('slug');
-            this.slug = null;
-            console.log(this.slug);
-            console.log('Carrello svuotato.');
-        },
+       
 
         calculateTotalPrice() {
             // Calculate the total price of the cart
