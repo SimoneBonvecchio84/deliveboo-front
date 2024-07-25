@@ -27,6 +27,7 @@ export default{
 </template>
 
 <style scoped lang="scss">
+@use "../sass/colorpalette.scss" as *;
 
 /* cart */
 .carrello {

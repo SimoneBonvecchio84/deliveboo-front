@@ -12,6 +12,8 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0,0);
+    this.$root.historyCount = window.history.length;
     this.slug = this.$route.params.slug;
     console.log(this.slug);
     const savedCart = localStorage.getItem('cart');
@@ -22,6 +24,9 @@ export default {
     console.log(this.cart);
   },
   methods: {
+    goBack() {
+        this.$router.go(-1);
+      },
     aggiorna(dish, value) {
       console.log(dish);
       // Save dish data
@@ -107,19 +112,19 @@ export default {
     },
 
     clearCart() {
-            // Empty all items from the cart
-            this.cart.items = {};
-            // Reset the total quantity
-            this.cart.totalQuantity = 0;
-            // Reset the total price
-            this.cart.totalPrice = 0;
+      // Empty all items from the cart
+      this.cart.items = {};
+      // Reset the total quantity
+      this.cart.totalQuantity = 0;
+      // Reset the total price
+      this.cart.totalPrice = 0;
 
-            // Save the updated cart to localStorage
-            localStorage.setItem('cart', JSON.stringify(this.cart));
-            localStorage.removeItem('restaurant_id');
-            localStorage.removeItem('slug');
-            console.log('Carrello svuotato.');
-        },
+      // Save the updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+      localStorage.removeItem('restaurant_id');
+      localStorage.removeItem('slug');
+      console.log('Carrello svuotato.');
+    },
 
     calculateTotalPrice() {
       // Calculate the total price of the cart
@@ -136,11 +141,11 @@ export default {
   <div class="container md_cont">
     <div class="d-flex flex-row-reverse justify-content-center align-items-center gap-2 mb-5">
       <h1 class="text-center p-0 m-0">Carrello</h1>
-      <router-link :to="{ name: 'showrestaurant', params: { slug: slug.toString() } }">
-        <span class="btn bg-primary rounded-circle">
+      <!-- <router-link :to="{ name: 'showrestaurant', params: { slug: slug.toString() } }"> -->
+        <span @click="goBack()" class="btn bg-primary rounded-circle">
           <i class="fa-solid fa-arrow-left text-white"></i>
         </span>
-      </router-link>
+      <!-- </router-link> -->
     </div>
 
     <div v-if="Object.keys(cart.items).length > 0">
@@ -158,7 +163,7 @@ export default {
         <tbody>
           <tr v-for="(article, index) in Object.values(cart.items)" :key="index">
             <td scope="row">{{ article.name }}</td>
-            <td  class="d-flex justify-content-center border-bottom-0">
+            <td class="d-flex justify-content-center border-bottom-0">
               <!-- btn less -->
               <div @click.prevent="aggiorna(article, -1)"
                 class="btn btn-danger ms-btn d-flex justify-content-center align-items-center border-0">
@@ -192,11 +197,11 @@ export default {
       </table>
 
       <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
-        <button class="btn btn-primary mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25">
-          <router-link :to="{ name: 'checkout' }" href="http://localhost:5174/checkout" class="ms_checkout">
+        <router-link :to="{ name: 'checkout' }" class="ms_checkout">
+          <button class="btn btn-primary mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25">
             Checkout
-          </router-link>
-        </button>
+          </button>
+        </router-link>
         <button type="button" class="btn btn-danger mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25 text-nowrap"
           data-toggle="modal" data-target="#exampleModal">
           Svuota carrello
@@ -240,12 +245,13 @@ export default {
 
 <style scoped>
 .md_cont {
-  margin-top: 200px;
+  margin-top: 150px;
   /* margin-bottom: 50px; */
   min-height: 100vh;
 }
 
 .ms_checkout {
+  width: 100%;
   text-decoration: none;
   color: white;
 }
@@ -265,7 +271,8 @@ export default {
   }
 }
 
-.btn-secondary, .bg-color {
+.btn-secondary,
+.bg-color {
   background-color: #b1b5b8;
 }
 </style>

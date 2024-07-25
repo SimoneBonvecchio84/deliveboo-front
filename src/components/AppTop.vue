@@ -28,11 +28,13 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@use "../sass/colorpalette.scss" as *;
+
 .ms_aspect {
     position: fixed;
     bottom: 30%;
     right: 0;
-    background-color: #40c4ff;
+    background-color: $red;
     font-weight: 700;
     width: 50px;
     aspect-ratio: 1;

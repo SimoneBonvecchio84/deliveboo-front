@@ -2,10 +2,12 @@
 import axios from 'axios';
 import { store } from "../store";
 import AppLinkCart from '../components/AppLinkCart.vue';
+import AppTop from '../components/AppTop.vue';
 
 export default {
     components: {
         AppLinkCart,
+        AppTop,
     },
     data() {
         return {
@@ -22,6 +24,8 @@ export default {
         };
     },
     created() {
+
+        window.scrollTo(0,0);
         // Try to retrieve the cart from localStorage and convert it into a JavaScript object
         let cartString = localStorage.getItem('cart');
         if (cartString) {
@@ -206,6 +210,11 @@ export default {
 </script>
 
 <template>
+
+    <!-- top page -->
+    <AppTop />
+    <!-- /top page -->
+
     <!-- container-show-restaurant -->
     <div class="container-show-restaurant">
         <!-- cart-container -->
