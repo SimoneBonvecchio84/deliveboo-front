@@ -243,7 +243,9 @@ export default {
 
 <!-- @click.prevent="clearCart()" -->
 
-<style scoped>
+<style scoped lang="scss">
+
+// @use "../sass/colorpalette.scss" as *;
 .md_cont {
   margin-top: 150px;
   /* margin-bottom: 50px; */

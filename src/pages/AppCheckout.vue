@@ -192,6 +192,7 @@ export default {
             localStorage.removeItem('slug');
             console.log('Carrello svuotato.');
             this.isSuccess = true;
+            window.scrollTo(0,0);
             setTimeout(() => {
                 this.$router.push('/');
             }, 5000); //

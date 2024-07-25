@@ -97,7 +97,7 @@ export default {
   <div class="ms-homepage" v-if="isLoading">
     <!-- cart-container -->
     <div v-if="getCartItemsLength() > 0"
-      class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed top-0 end-0 ">
+      class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed end-0 ">
       <!-- insert quantity cart-shop -->
       <div class="md_circle">
         <span>
@@ -152,7 +152,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .main-content {
   padding: 20px 0;
 }
@@ -183,7 +183,7 @@ export default {
 .cart-container {
   background-color: #0072E5;
   width: 50px;
-  margin-top: 130px;
+  top: 130px;
   aspect-ratio: 1;
   cursor: pointer;
   z-index: 99;

@@ -24,7 +24,6 @@ export default {
         };
     },
     created() {
-
         window.scrollTo(0,0);
         // Try to retrieve the cart from localStorage and convert it into a JavaScript object
         let cartString = localStorage.getItem('cart');
@@ -304,7 +303,7 @@ export default {
                 <div v-if="restaurant.dishes.length > 0" class="container d-flex justify-content-center">
 
                     <!-- row-dish-card -->
-                    <div class="row border-bottom align-items-center w-75">
+                    <div v-if="curDish.visibility" class="row border-bottom align-items-center w-75">
 
                         <!-- image -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 py-3 d-flex justify-content-center">
