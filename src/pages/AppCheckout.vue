@@ -28,7 +28,7 @@ export default {
         };
     },
     created() {
-        // Memorizza il valore della cronologia di navigazione
+        // Store the navigation history count
         this.$root.historyCount = window.history.length;
         this.cartPrice = JSON.parse(localStorage.getItem('cart'));
         console.log(this.cartPrice.totalPrice);
@@ -41,22 +41,22 @@ export default {
         async getToken() {
             this.isLoading = true;
             try {
-                // Prima chiamata per ottenere il token
+                // First call to get the token
                 await axios.get('http://127.0.0.1:8000/api/generatetoken').then((resp) => {
-                    console.log(resp);
+                    
 
                     const token = resp.data.result;
-                    console.log(token);
+                    
                 })
 
-                // Seconda chiamata per effettuare il pagamento
+                // Second call to make the payment
                 await axios.post('http://127.0.0.1:8000/api/makepayment',
                     { ...this.paymentDetails,
-                        amount: this.cart.totalPrice //Nostro valore prezzo carrello
+                        amount: this.cart.totalPrice // Our cart price value
                     },
                     { headers: { 'Content-type': 'multipart/form-data' } }).
                     then(response => {
-                        console.log(response.data.success);
+                        
 
                         this.saveOrder();
                     })
@@ -64,7 +64,7 @@ export default {
                         this.isLoading = false;
                         this.isError = true;
                         console.error(error);
-                        console.log(response.data.errors);
+                        
                     })
             } catch (error) {
                 this.isLoading = false;
@@ -75,13 +75,13 @@ export default {
 
         saveOrder() {
 
-            // Rimuove tutti gli spazi dai campi prima di salvare
+            // Remove all spaces from fields before saving
             const cleanedFirstName = this.firstName.replace(/\s+/g, '');
             const cleanedLastName = this.lastName.replace(/\s+/g, '');
             const cleanedAddress = this.address.replace(/\s+/g, '');
             const cleanedPhone = this.phone.replace(/\s+/g, '');
 
-            // Costruisce l'oggetto 'order' con 'total_price' da 'cart'
+            // Build the 'order' object with 'total_price' from 'cart'
             const order = {
                 name: cleanedFirstName,
                 lastname: cleanedLastName,
@@ -91,10 +91,7 @@ export default {
                 total_price: this.cart.totalPrice,
             };
 
-            // Stampa i valori dell'ordine per il debug
-            console.log(order);
-
-            // Esegue la chiamata API per inviare l'ordine
+            // Execute API call to send the order
             axios.post('http://127.0.0.1:8000/api/orders', order, {
                 headers: {
                     'Accept': 'application/json',
@@ -102,19 +99,19 @@ export default {
                 }
             })
                 .then(response => {
-                    console.log(response.data.result);
+                    
                     this.order_id = response.data.result;
 
-                    // Invia i dettagli del carrello insieme all'ID dell'ordine
+                    // Send cart details along with the order ID
                     const params = {
                         order_id: this.order_id,
-                        dishes: this.cart  // Assumendo che 'items' sia ciò che vuoi inviare
+                        dishes: this.cart  // Assuming 'items' is what you want to send
                     };
 
-                    console.log(params);
+                    
 
-                    // Esegue la chiamata API per inviare i dettagli del piatto
-                    axios.post('http://127.0.0.1:8000/api/dishordrs', params, {
+                    // Execute API call to send the dish details
+                    axios.post('http://127.0.0.1:8000/api/dishorders', params, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -143,12 +140,12 @@ export default {
         validateForm() {
             this.errors = {};
 
-            // Funzione per ottenere il numero di caratteri alfanumerici effettivi
+            // Function to get the actual alphanumeric character count
             const getAlphanumericLength = (str) => {
-                return str.replace(/\s+/g, '').length; // Rimuove tutti gli spazi e calcola la lunghezza
+                return str.replace(/\s+/g, '').length; // Removes all spaces and calculates the length
             };
 
-            // Verifica che il campo nome non sia vuoto e abbia almeno 3 caratteri alfanumerici
+            // Check that the first name field is not empty and has at least 3 alphanumeric characters
             const firstNameAlphanumericLength = getAlphanumericLength(this.firstName);
             if (firstNameAlphanumericLength === 0) {
                 this.errors.firstName = 'Il nome è obbligatorio.';
@@ -156,7 +153,7 @@ export default {
                 this.errors.firstName = 'Il nome deve contenere almeno 3 caratteri.';
             }
 
-            // Verifica che il campo cognome non sia vuoto e abbia almeno 3 caratteri alfanumerici
+            // Check that the last name field is not empty and has at least 3 alphanumeric characters
             const lastNameAlphanumericLength = getAlphanumericLength(this.lastName);
             if (lastNameAlphanumericLength === 0) {
                 this.errors.lastName = 'Il cognome è obbligatorio.';
@@ -164,7 +161,7 @@ export default {
                 this.errors.lastName = 'Il cognome deve contenere almeno 3 caratteri.';
             }
 
-            // Verifica che il campo indirizzo non sia vuoto e abbia almeno 5 caratteri alfanumerici
+            // Check that the address field is not empty and has at least 5 alphanumeric characters
             const addressAlphanumericLength = getAlphanumericLength(this.address);
             if (addressAlphanumericLength === 0) {
                 this.errors.address = 'L\'indirizzo è obbligatorio.';
@@ -172,55 +169,55 @@ export default {
                 this.errors.address = 'L\'indirizzo deve contenere almeno 5 caratteri.';
             }
 
-            // Verifica che il campo numero di telefono non sia vuoto e rispetti il formato
+            // Check that the phone number field is not empty and follows the format
             if (!this.phone) {
                 this.errors.phone = 'Il numero di telefono è obbligatorio.';
             } else {
-                // Rimuove tutti gli spazi dal numero di telefono
+                // Remove all spaces from the phone number
                 const cleanedPhone = this.phone.replace(/\s+/g, '');
 
-                // Verifica che il numero di telefono contenga esattamente 10 cifre
+                // Check that the phone number contains exactly 10 digits
                 if (!/^\d{10}$/.test(cleanedPhone)) {
                     this.errors.phone = 'Il numero di telefono deve essere di 10 cifre.';
                 }
             }
 
-            // Verifica che il campo email non sia vuoto e rispetti il formato
+            // Check that the email field is not empty and follows the format
             if (!this.email) {
                 this.errors.email = 'L\'email è obbligatoria.';
             } else if (!this.validEmail(this.email)) {
                 this.errors.email = 'L\'email non è valida.';
             }
 
-            // Verifica che il campo numero della carta non sia vuoto e rispetti il formato
+            // Check that the card number field is not empty and follows the format
             if (!this.paymentDetails.card_number) {
                 this.errors.card_number = 'Il numero della carta è obbligatorio.';
             } else if (!this.validCardNumber(this.paymentDetails.card_number)) {
                 this.errors.card_number = 'Il numero della carta non è valido.';
             }
 
-            // Verifica che il campo data di scadenza della carta non sia vuoto e rispetti il formato
+            // Check that the card expiration date field is not empty and follows the format
             if (!this.paymentDetails.card_expire_date) {
                 this.errors.card_expire_date = 'La data di scadenza è obbligatoria.';
             } else if (!this.validExpirationDate(this.paymentDetails.card_expire_date)) {
                 this.errors.card_expire_date = 'La data di scadenza non è valida.';
             }
 
-            // Se non ci sono errori, procedi con l'invio del form
+            // If there are no errors, proceed with form submission
             if (Object.keys(this.errors).length === 0) {
-                // Recupera 'cart' dal localStorage
+                // Retrieve 'cart' from localStorage
                 const cartString = localStorage.getItem('cart');
 
-                // Controlla se 'cart' è presente nel localStorage
+                // Check if 'cart' is present in localStorage
                 if (!cartString) {
                     console.error('Nessun carrello trovato nel localStorage');
                     return;
                 }
 
-                // Converti 'cart' da stringa a oggetto JavaScript
+                // Check if 'cart' is present in localStorage
                 this.cart = JSON.parse(cartString);
 
-                // Verifica che 'totalPrice' sia presente in 'cart'
+                // Check that 'totalPrice' is present in 'cart''
                 if (!this.cart || !this.cart.totalPrice) {
                     console.error('totalPrice non trovato nel carrello:', this.cart);
                     return;
@@ -230,39 +227,39 @@ export default {
             }
         },
 
-        // Funzione per validare l'email
+        // Function to validate email
         validEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         },
 
-        // Funzione per validare il numero della carta di credito (accetta anche spazi e trattini)
+        // Function to validate credit card number (accepts spaces and dashes)
         validCardNumber(cardNumber) {
-            const cleaned = cardNumber.replace(/\s+/g, '').replace(/-/g, ''); // Rimuove tutti gli spazi e i trattini
+            const cleaned = cardNumber.replace(/\s+/g, '').replace(/-/g, ''); // Removes all spaces and dashes
             const re = /^\d{16}$/;
             return re.test(cleaned);
         },
 
-        // Funzione per validare la data di scadenza della carta di credito (MM/AA)
+        // Function to validate credit card expiration date (MM/YY)
         validExpirationDate(expirationDate) {
-            // Verifica che il formato sia corretto (MM/AA)
+            // Check that the format is correct (MM/YY)
             const re = /^(0[1-9]|1[0-2])\/\d{2}$/;
             if (!re.test(expirationDate)) {
                 return false;
             }
 
-            // Estrai mese e anno dalla data di scadenza
+            // Extract month and year from expiration date
             const [month, year] = expirationDate.split('/').map(Number);
 
-            // Calcola l'anno completo (es. '23' diventa 2023)
+            // Calculate the full year (e.g., '23' becomes 2023)
             const fullYear = 2000 + year;
 
-            // Ottieni il mese e l'anno attuali
+            // Get the current month and year
             const now = new Date();
-            const currentMonth = now.getMonth() + 1; // I mesi in JavaScript sono indicizzati da 0
+            const currentMonth = now.getMonth() + 1; // Months in JavaScript are zero-indexed
             const currentYear = now.getFullYear();
 
-            // Verifica che la data di scadenza non sia passata
+            // Check that the expiration date has not passed
             if (fullYear < currentYear || (fullYear === currentYear && month < currentMonth)) {
                 return false;
             }
@@ -271,18 +268,17 @@ export default {
         },
 
         clearCart() {
-            // Svuota tutti gli oggetti dal carrello
+            // Empty all items from the cart
             this.cart.items = {};
-            // Reimposta la quantità totale
+            // Reset the total quantity
             this.cart.totalQuantity = 0;
-            // Reimposta il prezzo totale
+            // Reset the total price
             this.cart.totalPrice = 0;
 
-            // Salva il carrello aggiornato in localStorage
+            // Save the updated cart in localStorage
             localStorage.setItem('cart', JSON.stringify(this.cart));
             localStorage.removeItem('restaurant_id');
             localStorage.removeItem('slug');
-            console.log('Carrello svuotato.');
             this.isSuccess = true;
             window.scrollTo(0, 0);
             setTimeout(() => {
@@ -295,7 +291,7 @@ export default {
 
 <template>
     <div v-if="isSuccess === false" class="container ms_container">
-        <div v-if="isError === true" class="alert alert-danger text-center">Ops, qualcosa è andato storto</div>
+        <div v-if="isError === true" class="alert alert-danger text-center">Ops, qualcosa è andato storto!</div>
         <div class="d-flex justify-content-center align-items-center mb-5 gap-2">
             <span @click="goBack()" class="btn bg-primary rounded-circle">
                 <i class="fa-solid fa-arrow-left text-white"></i>
@@ -303,19 +299,19 @@ export default {
             <h2 class="text-center">Procedi al checkout</h2>
         </div>
         <form id="checkoutform">
-            <!-- Dettagli Utente -->
+            <!-- User Details -->
             <div class="form-group">
                 <h3>Dettagli Utente</h3>
             </div>
             <div class="form-row">
-                <!-- Nome Utente -->
+                <!-- User Name -->
                 <div class="form-group col-md-6">
                     <label for="firstName">Nome <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="firstName" v-model="firstName"
                         placeholder="Inserisci il nome" required minlength="3">
                     <div v-if="errors.firstName" class="text-danger">{{ errors.firstName }}</div>
                 </div>
-                <!-- Cognome Utente -->
+                <!-- User Lastname -->
                 <div class="form-group col-md-6">
                     <label for="lastName">Cognome <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="lastName" v-model="lastName"
@@ -324,14 +320,14 @@ export default {
                 </div>
             </div>
             <div class="form-row">
-                <!-- Indirizzo Utente -->
+                <!-- User Address -->
                 <div class="form-group col-md-6">
                     <label for="address">Indirizzo <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="address" v-model="address"
                         placeholder="Inserisci l'indirizzo" required minlength="5">
                     <div v-if="errors.address" class="text-danger">{{ errors.address }}</div>
                 </div>
-                <!-- Numero di Telefono Utente -->
+                <!-- User Phone Number -->
                 <div class="form-group col-md-6">
                     <label for="phone">Numero di Telefono <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="phone" v-model="phone"
@@ -339,7 +335,7 @@ export default {
                     <div v-if="errors.phone" class="text-danger">{{ errors.phone }}</div>
                 </div>
             </div>
-            <!-- Email Utente -->
+            <!-- User Email -->
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="email">Email <span class="asterisco">*</span></label>
@@ -348,17 +344,19 @@ export default {
                     <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
                 </div>
             </div>
-            <!-- Dettagli Carta -->
+            <!-- User Card Details -->
             <div class="form-group">
                 <h3>Dettagli della Carta</h3>
             </div>
             <div class="form-row">
+                <!-- Card Number -->
                 <div class="form-group col-md-6">
                     <label for="card-number">Numero Carta <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="card-number" v-model="paymentDetails.card_number"
                         required>
                     <div v-if="errors.card_number" class="text-danger">{{ errors.card_number }}</div>
                 </div>
+                <!-- Card Expiration Date -->
                 <div class="form-group col-md-6">
                     <label for="card-expire">Data scadenza <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="card-expire" v-model="paymentDetails.card_expire_date"
@@ -380,6 +378,7 @@ export default {
             </div>
         </form>
     </div>
+    <!-- New Page If Payment Is Successful -->
     <div v-else class="ms_container page_success">
         <div class="ms_message d-flex flex-column gap-4 justify-content-center align-items-center">
             <div class="d-flex flex-column justify-content-center align-items-center img-success mb-5">
