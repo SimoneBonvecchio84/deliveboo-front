@@ -174,7 +174,7 @@ export default {
             <th scope="col">Piatto</th>
             <th scope="col">Quantita</th>
             <th scope="col">Rimuovi</th>
-            <th scope="col">Prezzo</th>
+            <th class="prezzo" scope="col">Prezzo</th>
             <th scope="col">Totale</th>
           </tr>
         </thead>
@@ -183,32 +183,34 @@ export default {
       <tr v-for="(article, index) in Object.values(cart.items)" :key="index">
         <td scope="row">{{ article.name }}</td>
         
-        <td class="d-flex justify-content-center border-bottom-0">
-          <!-- btn less -->
-          <div @click.prevent="aggiorna(article, -1)"
-            class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
-            <a class="text-decoration-none  text-white fw-bold">-</a>
+        <td class="align-middle">
+          <div class="d-flex justify-content-center border-bottom-0 align-items-center">
+            <!-- btn less -->
+            <div @click.prevent="aggiorna(article, -1)"
+              class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
+              <a class="text-decoration-none  text-white fw-bold"><i class="fa-solid fa-minus"></i></a>
+            </div>
+            <!-- /btn less -->
+            <span class="ms-3 me-3 d-flex justify-content-center align-items-center">
+              {{ article.quantity }}
+            </span>
+            <!-- btn add -->
+            <div @click.prevent="aggiorna(article, 1)"
+              class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
+              <a class="text-decoration-none text-white fw-bold"><i class="fa-solid fa-plus"></i></a>
+            </div>
+            <!-- /btn add -->
           </div>
-          <!-- /btn less -->
-          <span class="ms-3 me-3 d-flex justify-content-center align-items-center">
-            {{ article.quantity }}
-          </span>
-          <!-- btn add -->
-          <div @click.prevent="aggiorna(article, 1)"
-            class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
-            <a class="text-decoration-none text-white fw-bold">+</a>
-          </div>
-          <!-- /btn add -->
         </td>
-        <td class="">
+        <td class="align-middle">
           <div @click.prevent="removeAllItems(article)"
             class="btn btn-danger ms-btn border-0">
             <a class="text-decoration-none text-white fw-bold"><i class="fa-solid fa-trash"></i></a>
           </div>
         </td>
         
-        <td>{{ (article.price).toFixed(2) }}€</td>
-        <td>{{ (article.price * article.quantity).toFixed(2) }}€</td>
+        <td class="prezzo align-middle">{{ (article.price).toFixed(2) }}€</td>
+        <td class="align-middle">{{ (article.price * article.quantity).toFixed(2) }}€</td>
       </tr>
       <tr>
         <td class="text-center" colspan="5">
@@ -303,6 +305,10 @@ export default {
   background-color: #b1b5b8;
 }
 
-
+@media (max-width: 430px) {
+  .prezzo {
+    display: none;
+  }
+}
 
 </style>
