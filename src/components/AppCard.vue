@@ -29,12 +29,13 @@ export default {
         <div class="card">
 
             <!-- image -->
-            <img class="card-img-top w-100" :src="`${baseSrc}/${cardObj.image}`" alt="Card image cap">
+             <div class="w-100 img-container">
+                 <img class="card-img-top w-100" :src="`${baseSrc}/${cardObj.image}`" alt="Card image cap">
+             </div>
             <!-- /image -->
 
             <!-- card text -->
             <div class="card-body d-flex flex-column align-items-center p-0 mt-2">
-
 
                 <!-- name -->
                 <span class="card-title p-0 m-0 cutText d-flex justify-content-center font-size">

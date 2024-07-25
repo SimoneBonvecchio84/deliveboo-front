@@ -114,7 +114,7 @@ export default {
                     console.log(params);
 
                     // Esegue la chiamata API per inviare i dettagli del piatto
-                    axios.post('http://127.0.0.1:8000/api/dishordrs', params, {
+                    axios.post('http://127.0.0.1:8000/api/dishorders', params, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

@@ -22,3 +22,13 @@ img{
 .form-container{
     height: 50vh;
 }
+
+.img-container{
+    width: 100%;
+    img{
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+    }
+}
+
