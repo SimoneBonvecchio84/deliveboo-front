@@ -1,4 +1,5 @@
 <script>
+import { clearCart } from '../function.js';
 export default {
   data() {
     return {
@@ -99,7 +100,7 @@ export default {
           if (this.cart.items[dish_id].quantity <= 0) {
             delete this.cart.items[dish_id];
             if (Object.keys(this.cart.items).length === 0) {
-              this.clearCart();
+              clearCart(this.cart);
             }
           }
         }
@@ -111,20 +112,7 @@ export default {
       localStorage.setItem('cart', JSON.stringify(this.cart));
     },
 
-    clearCart() {
-      // Empty all items from the cart
-      this.cart.items = {};
-      // Reset the total quantity
-      this.cart.totalQuantity = 0;
-      // Reset the total price
-      this.cart.totalPrice = 0;
-
-      // Save the updated cart to localStorage
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-      localStorage.removeItem('restaurant_id');
-      localStorage.removeItem('slug');
-      console.log('Carrello svuotato.');
-    },
+   
 
     calculateTotalPrice() {
       // Calculate the total price of the cart
@@ -148,8 +136,11 @@ export default {
 
         // Rimuovi articoli specifici dal localStorage se il carrello è vuoto
         if (Object.keys(this.cart.items).length === 0) {
-            this.clearCart();
+            clearCart(this.cart);
         }
+    },
+    modalClearBtn() {
+      clearCart(this.cart);
     }
   }
 }
@@ -260,7 +251,7 @@ export default {
         </div>
         <div class="modal-footer d-flex justify-content-around">
           <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Annulla</button>
-          <button type="button" class="btn btn-primary w-25" @click.prevent="clearCart()"
+          <button type="button" class="btn btn-primary w-25" @click.prevent="modalClearBtn"
             data-dismiss="modal">Svuota</button>
         </div>
       </div>
