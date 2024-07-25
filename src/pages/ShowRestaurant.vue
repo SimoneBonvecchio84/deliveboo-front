@@ -226,15 +226,15 @@ export default {
         <div class="container mt-5 border-bottom py-4" v-if="restaurant">
 
             <!-- row -->
-            <div class="row justify-content-center  justify-content-sm-center">
+            <div class="row justify-content-center align-items-center justify-content-sm-center">
                 <!-- restaurant image -->
-                <div class="md_cont-img col-12 col-md-6 d-flex justify-content-sm-center justify-content-md-end">
+                <div class="md_cont-img col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-sm-center justify-content-md-end w-50">
                     <img :src="`${baseSrc}/${restaurant.image}`" class="md_img" alt="Restaurant image">
                 </div>
                 <!-- /restaurant image -->
 
                 <!-- restaurant description -->
-                <div class="col-6 col-sm-6 col-md-6 py-3">
+                <div class="col-7 col-sm-6 col-md-6 col-lg-6 py-3">
 
                     <!-- cont-restaurant-description -->
                     <div class="px-2">
@@ -289,7 +289,7 @@ export default {
 
                         <!-- image -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 py-3 d-flex justify-content-center">
-                            <img :src="`${baseSrc}/${curDish.image}`" class="w-75 rounded-circle" alt="immagine piatto">
+                            <img :src="`${baseSrc}/${curDish.image}`" class="w-75 rounded-circle md_img-dish" alt="immagine piatto">
                         </div>
                         <!-- /image -->
 
@@ -440,10 +440,21 @@ export default {
 }
 
 //CUSTOM IMG RESTAURANT
-.md_img {
-    width: 250px;
+.md_img-dish {
+    // width: 20.5vw; /* Existing width */
+    aspect-ratio: 1; /* Added height to maintain square aspect ratio */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+    display: block; /* Centers the image */
+    margin: auto; /* Centers the image horizontally */
 }
 
+.md_img{
+    width: 35vw; /* Existing width */
+    aspect-ratio: 1; /* Added height to maintain square aspect ratio */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+    display: block; /* Centers the image */
+    margin: auto; /* Centers the image horizontally */
+}
 //CUSTOM IMG CONTAINER
 .md_cont-img {
     justify-content: center;
