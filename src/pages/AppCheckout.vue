@@ -50,7 +50,9 @@ export default {
 
                 // Seconda chiamata per effettuare il pagamento
                 await axios.post('http://127.0.0.1:8000/api/makepayment',
-                    { ...this.paymentDetails },
+                    { ...this.paymentDetails,
+                        amount: this.cart.totalPrice //Nostro valore prezzo carrello
+                    },
                     { headers: { 'Content-type': 'multipart/form-data' } }).
                     then(response => {
                         console.log(response.data.success);
