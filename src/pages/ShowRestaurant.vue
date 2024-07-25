@@ -387,27 +387,23 @@ export default {
     </div>
     <!-- /container-show-restaurant -->
 
-     <!-- Modale di Bootstrap -->
-     <div class="modal fade" tabindex="-1" role="dialog" ref="confirmModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Conferma Azione</h5>
-            <button type="button" class="close" @click="hideModal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            {{ modalMessage }}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="handleCancel">Annulla</button>
-            <button type="button" class="btn btn-primary" @click="handleConfirm">Conferma</button>
-          </div>
+    <!-- Modal -->
+    <div class="modal fade" ref="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog text-center" role="document">
+            <div class="modal-content">
+                <div class="modal-body d-flex flex-column gap-4">
+                    <span class="modal-title text-danger fw-bold fs-3" id="exampleModalLabel"> ATTENZIONE!</span>
+                    <span class="fs-4">Sei sicuro di voler svuotare il carrello?</span>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button" class="btn btn-danger w-25" @click="handleCancel">Annulla</button>
+                    <button type="button" class="btn btn-primary w-25" @click="handleConfirm">Conferma</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  
+    <!-- END OF CART EMPTY MODAL -->
 
 
 </template>
