@@ -189,6 +189,12 @@ export default {
   z-index: 99;
 }
 
+@media (max-width: 768px) {
+    .cart-container {
+        top: 300px; /* Sposta il div più in basso */
+    }
+}
+
 .md_circle {
     width: 25px;
     height: 25px;

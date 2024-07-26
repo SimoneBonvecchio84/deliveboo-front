@@ -185,7 +185,7 @@ export default {
         },
         getCartItemsLength() {
             return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
-        }
+        },
     }
 }
 </script>
@@ -384,7 +384,7 @@ export default {
                 </div>
                 <div class="modal-footer d-flex justify-content-around">
                     <button type="button" class="btn btn-danger w-25" @click="handleCancel">Annulla</button>
-                    <button type="button" class="btn btn-primary w-25" @click="handleConfirm">Conferma</button>
+                    <button type="button" class="btn btn-primary w-25" @click="handleConfirm">Svuota</button>
                 </div>
             </div>
         </div>
@@ -413,6 +413,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 560px) {
+    .cart-container {
+        top: 300px; /* Sposta il div più in basso */
+    }
 }
 
 //******************* */

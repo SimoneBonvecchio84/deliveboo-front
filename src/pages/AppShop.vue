@@ -219,7 +219,7 @@ export default {
       <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center w-50 m-auto gap-2">
         <router-link :to="{ name: 'checkout' }" class="ms_checkout">
           <button class="btn btn-primary mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25">
-            Checkout
+            Paga ora
           </button>
         </router-link>
         <button type="button" class="btn btn-danger mb-2 mb-sm-0 w-100 w-sm-25 mb-5 w-25 text-nowrap"
