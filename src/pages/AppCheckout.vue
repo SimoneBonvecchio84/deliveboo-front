@@ -87,7 +87,7 @@ export default {
                 lastname: cleanedLastName,
                 phone_number: cleanedPhone,
                 email: this.email,
-                address: cleanedAddress,
+                address: this.address,
                 total_price: this.cart.totalPrice,
             };
 
