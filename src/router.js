@@ -3,6 +3,7 @@ import AppHomePage from './pages/AppHomePage.vue';
 import ShowRestaurant from './pages/ShowRestaurant.vue';
 import AppShop from "./pages/AppShop.vue";
 import AppCheckout from "./pages/AppCheckout.vue";
+import AppNotFound from "./pages/AppNotFound.vue";
 
 // modifica
 // export const routes = [
@@ -49,6 +50,11 @@ const router = createRouter({
       path: '/checkout',
       name: 'checkout',
       component: AppCheckout
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name:'paginanontrovata',
+      component: AppNotFound
     }
   ],
 });

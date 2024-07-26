@@ -44,12 +44,16 @@ export default {
         .then((response) => {
           this.isLoading = true;
           this.restaurantsList = response.data.result; // Update restaurantsList with API response
+          if(this.restaurantsList == null) {
+                       this.$router.push({ name: 'paginanontrovata' }); // redirect not found page 
+                    }
         })
         .catch((error) => {
           console.error(
             "Errore durante la chiamata API:",
             error.message || JSON.stringify(error)
           );
+          this.$router.push({ name: 'paginanontrovata' }); // redirect not found page
         });
     },
 

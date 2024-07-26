@@ -38,6 +38,7 @@ export default {
                 console.error("Errore durante la lettura del carrello:", error);
                 // In case of an error, set the cart to a default empty value
                 this.cart = {};
+               
             }
         } else {
             // If no cart exists, initialize a new empty object
@@ -56,9 +57,13 @@ export default {
                 .then(response => {
                     this.restaurant = response.data.result;
                     console.log(this.restaurant);
+                    if(this.restaurant == null) {
+                       this.$router.push({ name: 'paginanontrovata' }); // redirect not found page 
+                    }
                 })
                 .catch(error => {
                     console.error('Errore durante la chiamata API:', error.message || JSON.stringify(error));
+                    this.$router.push({ name: 'paginanontrovata' }); // redirect not found page
                 });
         },
         openModal(dish, value) {
