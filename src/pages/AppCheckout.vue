@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { store } from "../store";
 import { RouterLink } from 'vue-router';
 
 export default {
@@ -12,6 +13,10 @@ export default {
             email: '',
             cardNumber: '',
             expirationDate: '',
+            cartPrice: 0,
+            cart: '',
+            store,
+            // slug: "pippo",
             order_id: 0,
             errors: {},
             paymentDetails: {
@@ -19,9 +24,6 @@ export default {
                 card_expire_date: '',
                 payment_method_nonce: 'fake-valid-nonce',
             },
-            slug: "pippo",
-            cartPrice: 0,
-            cart: '',
             isSuccess: false,
             isLoading: false,
             isError: false,
@@ -42,7 +44,7 @@ export default {
             this.isLoading = true;
             try {
                 // First call to get the token
-                await axios.get('http://127.0.0.1:8000/api/generatetoken').then((resp) => {
+                await axios.get(`${store.apiMainUrl}/api/generatetoken`).then((resp) => {
                     
 
                     const token = resp.data.result;
@@ -50,7 +52,7 @@ export default {
                 })
 
                 // Second call to make the payment
-                await axios.post('http://127.0.0.1:8000/api/makepayment',
+                await axios.post(`${store.apiMainUrl}/api/makepayment`,
                     { ...this.paymentDetails,
                         amount: this.cart.totalPrice // Our cart price value
                     },
@@ -92,7 +94,7 @@ export default {
             };
 
             // Execute API call to send the order
-            axios.post('http://127.0.0.1:8000/api/orders', order, {
+            axios.post(`${store.apiMainUrl}/api/orders`, order, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -111,7 +113,7 @@ export default {
                     
 
                     // Execute API call to send the dish details
-                    axios.post('http://127.0.0.1:8000/api/dishorders', params, {
+                    axios.post(`${store.apiMainUrl}/api/dishorders`, params, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

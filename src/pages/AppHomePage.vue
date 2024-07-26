@@ -40,7 +40,7 @@ export default {
         JSON.stringify(this.selectedTypes)
       ); // Codifica l'array in una stringa URL
       axios
-        .get(`http://127.0.0.1:8000/api/restaurants?type=${selectedTypesJson}`)
+        .get(`${store.apiMainUrl}/api/restaurants?type=${selectedTypesJson}`)
         .then((response) => {
           this.isLoading = true;
           this.restaurantsList = response.data.result; // Update restaurantsList with API response
@@ -55,7 +55,7 @@ export default {
 
     CallTypes() {
       axios
-        .get("http://127.0.0.1:8000/api/types", {
+        .get(`${store.apiMainUrl}/api/types`, {
           params: {},
         })
         .then((response) => {

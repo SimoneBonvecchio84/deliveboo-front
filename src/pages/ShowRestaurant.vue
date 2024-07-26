@@ -52,7 +52,7 @@ export default {
             this.curSlug = this.$route.params.slug;
             this.slug = this.$route.params.slug;
             console.log(typeof this.store.slug, this.store.slug);
-            axios.get(`http://127.0.0.1:8000/api/restaurants/${this.slug}`)
+            axios.get(`${store.apiMainUrl}/api/restaurants/${this.slug}`)
                 .then(response => {
                     this.restaurant = response.data.result;
                     console.log(this.restaurant);
