@@ -110,7 +110,7 @@ export default {
     <!-- cart-container -->
 
     <!-- checkbox types -->
-    <div class="container w-50 mt-5">
+    <div class="container w-50 p-5">
       <div class="row justify-content-center align-items-center">
         <div v-for="curType in typesList" :key="curType.id"
           class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle">
@@ -176,7 +176,9 @@ export default {
 
 .ms-homepage {
   min-height: 60vh;
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
+  margin: 0;
+  background-color: #F8F7F4;
 }
 
 /* cart */
