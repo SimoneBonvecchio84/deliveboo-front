@@ -79,9 +79,7 @@ export default {
       }
       this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
     },
-    getCartItemsLength() {
-      return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
-    }
+
   },
 };
 </script>
@@ -95,19 +93,10 @@ export default {
 
 
   <div class="ms-homepage" v-if="isLoading">
-    <!-- cart-container -->
-    <div v-if="getCartItemsLength() > 0"
-      class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed end-0 ">
-      <!-- insert quantity cart-shop -->
-      <div class="md_circle">
-        <span>
-          {{ cart.totalQuantity }}
-        </span>
-      </div>
-      <!-- /insert quantity cart-shop -->
-      <AppLinkCart :slug="this.slug" />
-    </div>
-    <!-- cart-container -->
+    
+        <!-- cart-container -->
+        <AppLinkCart :quantity="cart.totalQuantity" />
+        <!-- /cart-container -->
 
     <!-- checkbox types -->
     <div class="container w-50 p-5">
@@ -181,36 +170,7 @@ export default {
   background-color: #F8F7F4;
 }
 
-/* cart */
-.cart-container {
-  background-color: #0072E5;
-  width: 50px;
-  top: 130px;
-  aspect-ratio: 1;
-  cursor: pointer;
-  z-index: 99;
-}
 
-@media (max-width: 768px) {
-    .cart-container {
-        top: 300px; /* Sposta il div più in basso */
-    }
-}
-
-.md_circle {
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 35px;
-    right: 35px;
-    font-size: 1rem;
-    background-color: orange;
-    color: white;
-}
-/* cart */
 
 /* Riduci la dimensione del testo rendendolo responsive per tutti i breakpoint */
 

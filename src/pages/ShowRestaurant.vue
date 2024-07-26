@@ -183,9 +183,6 @@ export default {
             }, 0);
 
         },
-        getCartItemsLength() {
-            return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
-        },
     }
 }
 </script>
@@ -198,19 +195,10 @@ export default {
 
     <!-- container-show-restaurant -->
     <div class="container-show-restaurant">
+
         <!-- cart-container -->
-        <div v-if="getCartItemsLength() > 0"
-            class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed bottom-5 end-0">
-            <!-- insert quantity cart-shop -->
-            <div class="md_circle">
-                <span>
-                    {{ cart.totalQuantity }}
-                </span>
-            </div>
-            <!-- /insert quantity cart-shop -->
-            <AppLinkCart :slug="this.slug" />
-        </div>
-        <!-- cart-container -->
+            <AppLinkCart :quantity="cart.totalQuantity" />
+        <!-- /cart-container -->
 
         <!-- container-title -->
         <div class>
