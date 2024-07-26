@@ -19,7 +19,7 @@ export default {
 
       <div class="container ps-5 pe-5 d-flex justify-content-between fixed-top red">
         <!-- logo -->
-        <div class="navbar-brand">
+        <div class="navbar-brand w-25">
           <router-link :to="{ name: 'home' }" href="http://127.0.0.1:8000/login">
             <img src="../assets/img/logo_top.png" alt="Logo" class="d-inline-block align-text-top" />
           </router-link>
@@ -48,18 +48,19 @@ export default {
             <!-- /Right side of Navbar -->
 
             <!-- Home Link -->
-            <li class="nav-item">
-              <router-link :to="{ name: 'home' }" class="nav-link text-light fs-4"
-                href="http://127.0.0.1:8000/login">Home</router-link>
-            </li>
+            <router-link :to="{ name: 'home' }" href="http://127.0.0.1:8000/login" class="text-decoration-none">
+            <li class="nav-item nav-link text-light fs-5">
+                Home
+              </li>
+            </router-link>
             <!-- /Home Link -->
 
             <!-- Login Link -->
-            <li class="nav-item">
-              <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/login">Accedi</a>
+            <li class="nav-item nav-link fs-5">
+              <a class="text-decoration-none text-light" href="http://127.0.0.1:8000/login">Accedi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-light fs-4" href="http://127.0.0.1:8000/register">Registrati</a>
+            <li class="nav-item nav-link fs-5">
+              <a class="text-decoration-none text-light" href="http://127.0.0.1:8000/register">Registrati</a>
             </li>
             <!-- /Login Link -->
 
