@@ -19,7 +19,7 @@ export default {
 
       <div class="container ps-5 pe-5 d-flex justify-content-between fixed-top red">
         <!-- logo -->
-        <div class="navbar-brand w-25">
+        <div class="navbar-brand">
           <router-link :to="{ name: 'home' }" href="http://127.0.0.1:8000/login">
             <img src="../assets/img/logo_top.png" alt="Logo" class="d-inline-block align-text-top" />
           </router-link>
