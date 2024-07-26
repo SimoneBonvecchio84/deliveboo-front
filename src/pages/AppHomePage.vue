@@ -79,6 +79,9 @@ export default {
       }
       this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
     },
+    getCartItemsLength() {
+            return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
+        }
 
   },
 };
@@ -95,7 +98,9 @@ export default {
   <div class="ms-homepage" v-if="isLoading">
     
         <!-- cart-container -->
-        <AppLinkCart :quantity="cart.totalQuantity" />
+        <div v-if="getCartItemsLength() > 0">
+           <AppLinkCart :quantity="cart.totalQuantity" />
+         </div>
         <!-- /cart-container -->
 
     <!-- checkbox types -->

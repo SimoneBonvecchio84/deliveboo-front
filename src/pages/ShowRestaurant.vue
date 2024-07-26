@@ -183,6 +183,9 @@ export default {
             }, 0);
 
         },
+        getCartItemsLength() {
+            return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
+        }
     }
 }
 </script>
@@ -197,7 +200,9 @@ export default {
     <div class="container-show-restaurant">
 
         <!-- cart-container -->
-            <AppLinkCart :quantity="cart.totalQuantity" />
+        <div v-if="getCartItemsLength() > 0">
+           <AppLinkCart :quantity="cart.totalQuantity" />
+         </div>
         <!-- /cart-container -->
 
         <!-- container-title -->

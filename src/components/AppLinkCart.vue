@@ -14,17 +14,14 @@ export default {
         this.cart = JSON.parse(localStorage.getItem('cart'));
     },
     methods: {
-        getCartItemsLength() {
-            return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
-        }
+
     }
 }
 </script>
 
 <template>
     <router-link :to="{ name: 'cartshopping', params: { slug: slug } }">
-        <div v-if="getCartItemsLength() > 0"
-            class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed end-0 ">
+        <div class="cart-container d-flex flex-column justify-content-center align-items-center position-fixed end-0 ">
             <!-- insert quantity cart-shop -->
             <div class="md_circle">
                 <span>
