@@ -111,7 +111,7 @@ export default {
     <div class="container w-50 p-5">
       <div class="row justify-content-center align-items-center">
         <div v-for="curType in typesList" :key="curType.id"
-          class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6 mb-2 gap-2 btn-group btn-group-toggle">
+          class="col-12 col-sm-6 col-md-6 col-lg-4 mb-2 btn-group btn-group-toggle">
           <input type="checkbox" class="btn-check" :id="'type-' + curType.id" name="types" :value="curType.id" @change="(event) => {
             SelectType(event.target.value, event.target.checked);
           }
