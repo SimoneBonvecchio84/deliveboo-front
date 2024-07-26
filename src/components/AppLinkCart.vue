@@ -19,7 +19,9 @@ export default{
 
             <!-- cart-shop router-link -->
             <router-link :to="{ name: 'cartshopping', params: { slug: slug } }">
-                <i class="fa-solid fa-cart-shopping text-white"></i>
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="fa-solid fa-cart-shopping text-white"></i>
+                </div>
             </router-link>
             <!-- /cart-shop router-link -->
 
@@ -27,6 +29,10 @@ export default{
 </template>
 
 <style scoped lang="scss">
+div{
+    width: 50px;
+    height: 50px;
+}
 
 /* cart */
 .carrello {
