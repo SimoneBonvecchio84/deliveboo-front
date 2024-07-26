@@ -34,6 +34,7 @@ export default {
     color: $white;
     height: 400px;
     margin-top: 100px;
+    overflow-x: hidden;
 }
 
 @media (min-width: 1300px) {
