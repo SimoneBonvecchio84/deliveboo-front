@@ -12,73 +12,57 @@ export default {
 </script>
 
 <template>
-  <header>
 
-    <!-- NavBar Management -->
-    <nav class="navbar navbar-expand-md fixed-top">
+    <!-- Navbar -->
 
-      <div class="container ps-5 pe-5 d-flex justify-content-between fixed-top red">
-        <!-- logo -->
-        <div class="navbar-brand">
-          <router-link :to="{ name: 'home' }" href="http://127.0.0.1:8000/login">
-            <img src="../assets/img/logo_top.png" alt="Logo" class="d-inline-block align-text-top" />
-          </router-link>
-        </div>
-        <!-- /logo -->
-
-
-        <!-- Hamburger menu -->
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <i class="fa-solid fa-bars text-white"></i>
-        </button>
-        <!-- /Hamburger menu -->
-
-
-        <!-- NAV Link -->
-        <div class="navbar-collapse collapse justify-content-end" id="navbarSupportedContent">
-
-          <!-- Left side of Navbar -->
-          <!-- Empty at the moment -->
-          <!-- /Left side of Navbar -->
-
-          <!-- Right side of Navbar -->
-          <ul class="navbar-nav d-flex align-items-center">
-            <!-- /Right side of Navbar -->
-
-            <!-- Home Link -->
-            <router-link :to="{ name: 'home' }" href="http://127.0.0.1:8000/login" class="text-decoration-none">
-            <li class="nav-item nav-link text-light fs-5">
-                Home
-              </li>
-            </router-link>
-            <!-- /Home Link -->
-
-            <!-- Login Link -->
-            <li class="nav-item nav-link fs-5">
-              <a class="text-decoration-none text-light" href="http://127.0.0.1:8000/login">Accedi</a>
-            </li>
-            <li class="nav-item nav-link fs-5">
-              <a class="text-decoration-none text-light" href="http://127.0.0.1:8000/register">Registrati</a>
-            </li>
-            <!-- /Login Link -->
-
-          </ul>
-
-        </div>
-        <!-- /NAV Link -->
-
+    <!-- logo -->
+    <nav class="navbar navbar-expand-sm">
+      <div class="logo-img">
+        <router-link :to="{ name: 'home' }">
+          <img src="../assets/img/logo_top.png" alt="Logo">
+        </router-link>
       </div>
+      <!-- /logo -->
 
+      <!-- menu hamburger  -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars text-white"></i>
+      </button>
+      <!-- /menu hamburger  -->
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav d-flex align-items-end gap-4">
+
+          <!-- Home Link -->
+          <router-link :to="{ name: 'home' }" class="text-decoration-none">
+            <li class="nav-item active">
+              <a class="text-decoration-none text-light">
+                Home
+              </a>
+            </li>
+          </router-link>
+          <!-- /Home Link -->
+
+          <!-- login -->
+          <li class="nav-item">
+            <a class="text-decoration-none text-light" href="http://127.0.0.1:8000/login">Accedi</a>
+          </li>
+          <!-- /login -->
+
+          <!-- register -->
+          <li class="nav-item">
+            <a class="text-decoration-none text-light" href="http://127.0.0.1:8000/register">Registrati</a>
+          </li>
+          <!-- /register -->
+        </ul>
+      </div>
     </nav>
-    <!-- /NavBar Management -->
+    <!-- /navbar -->
 
-  </header>
 </template>
 
 <style scoped lang="scss">
-
 /* Navbar and Logo Management */
 
 @use "../sass/colorpalette.scss" as *;
@@ -87,39 +71,42 @@ export default {
   max-width: 100%;
 }
 
-.navbar-brand {
-  height: 100px;
-
-  img {
-    width: 100%;
-  }
-}
-
-/* Header color */
-
-.navbar-expand-md {
-  background-color:$red;
-  color: $white;
-  height: 100px;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-left: 10px;
+  padding-right: 10px;
   width: 100%;
-}
-
-/* /Colore dell'header  */
-
-.navbar-toggler {
-  // border: 2px solid $white;
-  outline-width: 0;
-  --bs-navbar-toggler-focus-width: 0;
-}
-
-.navbar-collapse,
-.red {
   background-color: $red;
-}
+  color: $white;
+  z-index:1;
+  // px-3 position-fixed top-0 w-100
 
-/* /Header color */
-
-.navbar-expand-md img {
-  width: 130px;
+  .logo-img {
+    width: 70px;
+  }
+  .navbar-toggler {
+    border: 2px solid $white;
+    outline-width: 0;
+    --bs-navbar-toggler-focus-width: 0;
+  }
+  li {
+      color: $gray;
+      display: inline-block;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    li::after {
+      content: '';
+      display: block;
+      border-bottom: solid 3px #ffffff;
+      transform: scaleX(0);
+      transform-origin: 0% 50%; /* Origine della trasformazione a sinistra */
+      transition: transform 500ms ease-in-out;
+    }
+    li:hover::after {
+      transform: scaleX(1);
+    }
 }
 </style>

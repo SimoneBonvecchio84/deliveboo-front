@@ -33,7 +33,7 @@ export default {
     background-color:$red;
     color: $white;
     height: 400px;
-    margin-top: 100px;
+    margin-top: 61px;
     overflow-x: hidden;
 }
 

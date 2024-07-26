@@ -46,13 +46,14 @@ div {
 .cart-container {
     background-color: #0072E5;
     width: 50px;
+    border-radius: 50%;
     top: 130px;
     aspect-ratio: 1;
     cursor: pointer;
     z-index: 99;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     .cart-container {
         top: 300px;
         /* Sposta il div più in basso */

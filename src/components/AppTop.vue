@@ -37,6 +37,7 @@ export default {
     background-color: $red;
     font-weight: 700;
     width: 50px;
+    border-radius: 50%;
     aspect-ratio: 1;
     cursor: pointer;
     z-index: 99;
