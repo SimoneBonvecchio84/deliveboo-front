@@ -37,10 +37,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
-div {
-    width: 50px;
-    height: 50px;
-}
+// div {
+//     width: 50px;
+//     height: 50px;
+// }
 
 /* cart */
 .cart-container {
@@ -69,7 +69,7 @@ div {
     position: absolute;
     bottom: 35px;
     right: 35px;
-    font-size: 1rem;
+    font-size: 16px;
     background-color: orange;
     color: white;
 }
@@ -87,4 +87,31 @@ div {
 }
 
 /* cart */
+
+
+@media (max-width: 430px) {
+    .cart-container {
+        width: 40px;
+        aspect-ratio: 1;
+
+        span,
+        i {
+            font-size: 10px
+        }
+    }
+
+    .md_circle {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 25px;
+        right: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
 </style>

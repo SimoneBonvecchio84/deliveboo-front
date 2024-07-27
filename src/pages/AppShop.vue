@@ -179,7 +179,7 @@ export default {
             <!-- btn less -->
             <div @click.prevent="aggiorna(article, -1)"
               class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
-              <a class="text-decoration-none  text-white fw-bold"><i class="fa-solid fa-minus"></i></a>
+              <a class="text-decoration-none  text-white"><i class="fa-solid fa-minus"></i></a>
             </div>
             <!-- /btn less -->
             <span class="ms-3 me-3 d-flex justify-content-center align-items-center">
@@ -188,14 +188,14 @@ export default {
             <!-- btn add -->
             <div @click.prevent="aggiorna(article, 1)"
               class="btn btn-secondary ms-btn d-flex justify-content-center align-items-center border-0">
-              <a class="text-decoration-none text-white fw-bold"><i class="fa-solid fa-plus"></i></a>
+              <a class="text-decoration-none text-white"><i class="fa-solid fa-plus"></i></a>
             </div>
             <!-- /btn add -->
           </div>
         </td>
         <td class="align-middle hide-responsive">
           <div @click.prevent="removeAllItems(article)"
-            class="btn btn-danger ms-btn border-0">
+            class="btn btn-danger ms-btn-trash border-0">
             <a class="text-decoration-none text-white fw-bold"><i class="fa-solid fa-trash"></i></a>
           </div>
         </td>
@@ -277,8 +277,17 @@ export default {
 }
 
 .ms-btn {
-  width: 35px;
+  width: 30px;
   aspect-ratio: 1;
+  padding: 0;
+}
+
+.ms-btn-trash{
+  width: 30px;
+  aspect-ratio: 1;
+  line-height: 30px;
+  padding: 0;
+  padding-left: 0.3px;
 }
 
 @media (max-width: 768px) {

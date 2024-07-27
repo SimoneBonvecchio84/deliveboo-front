@@ -61,4 +61,14 @@ export default {
         transition: transform 0.3s ease;
     }
 }
+
+@media (max-width: 430px) {
+    .ms_aspect{
+        width: 40px;
+        aspect-ratio: 1;
+        span,i{
+            font-size: 10px
+        }
+    }
+}
 </style>

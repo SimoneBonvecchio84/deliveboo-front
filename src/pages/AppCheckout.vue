@@ -298,7 +298,7 @@ export default {
             <span @click="goBack()" class="btn bg-primary rounded-circle">
                 <i class="fa-solid fa-arrow-left text-white"></i>
             </span>
-            <h2 class="text-center">Procedi al checkout</h2>
+            <h2 class="text-center p-0 m-0">Procedi al checkout</h2>
         </div>
         <form id="checkoutform">
             <!-- User Details -->
@@ -366,16 +366,17 @@ export default {
                     <div v-if="errors.card_expire_date" class="text-danger">{{ errors.card_expire_date }}</div>
                 </div>
             </div>
-            <p class="mb-3">I campi contrassegnati con <span class="asterisco">*</span> sono obbligatori.</p>
+            <p class="mb-3 label">I campi contrassegnati con <span class="asterisco">*</span> sono obbligatori.</p>
             <div class="d-flex align-items-center gap-2">
                 <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click.prevent="validateForm()">
                     <span>Procedi al pagamento</span>
                     <span :class="isLoading === true ? 'spinner-border' : ''"></span>
                 </button>
-                <div class="ml-auto ms_cart d-flex flex-column">
+                <div class="ml-auto ms_cart d-flex flex-column flex-sm-row text-center">
                 <span class="fw-bold">Prezzo totale:</span>
-                <span class="text-center">{{ cartPrice.totalPrice.toFixed(2) }} €</span>
+                <span class="d-none d-sm-inline-block">&ensp;</span>
+                <span>{{ cartPrice.totalPrice.toFixed(2) }} €</span>
                 </div>
             </div>
         </form>
@@ -420,9 +421,14 @@ export default {
 }
 
 .ms_cart {
-    padding: 10px 5px;
+    padding: 5px 5px;
     border: 3px solid $red;
     border-radius: 10px;
+    font-size: clamp(10px,2vw,15px);
+}
+
+label,.label{
+    font-size: clamp(12px,2vw,15px);
 }
 
 @media (max-width: 1024px) {

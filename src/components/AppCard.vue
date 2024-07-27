@@ -35,38 +35,27 @@ export default {
             <!-- /image -->
 
             <!-- card text -->
-            <div class="card-body d-flex flex-column align-items-center p-0 mt-2">
+            <div class="card-body d-flex flex-column align-items-center gap-1 p-0 mt-2">
 
                 <!-- name -->
-                <span class="card-title p-0 m-0 cutText d-flex justify-content-center font-size">
+                <h5 class="card-title p-0 m-0 cutText d-flex justify-content-center font-size">
                     
                     <strong class="text-truncate">
                         {{ cardObj.name }}
                     </strong>
                     
-                </span>
+                </h5>
 
                 <!-- address -->
                 <span class="card-title p-0 m-0 cutText d-flex justify-content-center">{{ cardObj.address }}</span>
 
-                <!-- old types -->
-                <!-- <ul v-if="cardObj.types && cardObj.types.length > 0" class="list-unstyled mb-2">
-                    <li v-for="(type, index) in cardObj.types" :key="index">
-                        <strong>
-                            Cucina:
-                        </strong>
-                        <span class="badge bg-primary ms-1">
-                            {{ type.name }}
-                        </span>
-                    </li>
-                </ul> -->
-                <!-- old types -->
-
                 <!-- new types -->
-                <span v-if="typeNames" class="list-unstyled mb-2 text-types">
-                    <strong class="center">Cucina: </strong>
-                    <span class="badge bg-primary ms-1 margin">{{ typeNames }}</span>
-                </span>
+                <div v-if="typeNames" class="list-unstyled mb-2 text-types">
+                    <span>
+                        <strong>Cucina: </strong>
+                    </span>
+                    <span class="badge bg-primary text-wrap">{{ typeNames }}</span>
+                </div>
                 <!-- / new types -->
 
             </div>
@@ -114,22 +103,43 @@ export default {
     text-overflow: ellipsis;
 }
 
-.font-size {
-    font-size: 1.1rem;
+// .font-size {
+//     font-size: 1.1rem;
+// }
+
+h5{
+    font-size: clamp(13px,2vw,18px);
 }
+
+span{
+    font-size: clamp(10px,2vw,15px);
+}
+
+.badge{
+    font-weight: 500;
+    font-size: clamp(9px,2vw,13px);
+
+}
+
+
 
 @media (max-width: 768px) {
     .text-types {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .center {
         text-align: center;
     }
+}
 
-    .margin {
-        margin-left: 0;
+@media (max-width: 468px) {
+    .text-truncate{
+        text-wrap: wrap;
+        text-align: center;
     }
 }
 

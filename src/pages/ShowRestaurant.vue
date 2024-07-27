@@ -226,7 +226,7 @@ export default {
             <!-- row -->
             <div class="row justify-content-center align-items-center justify-content-sm-center">
                 <!-- restaurant image -->
-                <div class="md_cont-img col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-sm-center justify-content-md-end w-50">
+                <div class="md_cont-img col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-sm-center justify-content-md-end">
                     <img :src="`${baseSrc}/${restaurant.image}`" class="md_img" alt="Restaurant image">
                 </div>
                 <!-- /restaurant image -->
@@ -325,7 +325,9 @@ export default {
                                     <!-- btn less -->
                                     <div @click.prevent="aggiorna(curDish, -1)"
                                         class="btn btn-danger ms-btn d-flex justify-content-center align-items-center">
-                                        <a class="text-decoration-none text-white fw-bold">-</a>
+                                        <a class="text-decoration-none text-white fw-bold">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </a>
                                     </div>
                                     <!-- /btn less -->
 
@@ -340,7 +342,9 @@ export default {
                                     <!-- btn add -->
                                     <div @click.prevent="aggiorna(curDish, 1)"
                                         class="btn btn-primary ms-btn d-flex justify-content-center align-items-center ">
-                                        <a class="text-decoration-none text-white fw-bold">+</a>
+                                        <a class="text-decoration-none text-white fw-bold">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </a>
                                     </div>
                                     <!-- /btn add -->
                                 </div>
@@ -453,16 +457,13 @@ export default {
 }
 
 .md_img{
-    width: 35vw; /* Existing width */
+    width: 60%; /* Existing width */
     aspect-ratio: 1; /* Added height to maintain square aspect ratio */
     object-fit: cover; /* Ensures the image covers the area without stretching */
     display: block; /* Centers the image */
     margin: auto; /* Centers the image horizontally */
 }
 //CUSTOM IMG CONTAINER
-.md_cont-img {
-    justify-content: center;
-}
 
 //CUSTOM FONT
 .md_circle {
@@ -477,5 +478,9 @@ export default {
     font-size: 1rem;
     background-color: orange;
     color: $white;
+}
+
+dd,dt{
+    font-size: clamp(15px, 2vw, 25px);
 }
 </style>

@@ -70,19 +70,35 @@ export default {
         });
     },
 
+    // SelectType(id, isChecked) {
+    //   if (isChecked) {
+    //     // Add the type ID to the array if the checkbox is selected
+    //     this.selectedTypes.push(id);
+    //   } else {
+    //     // Remove the type ID from the array if the checkbox is deselected
+    //     const index = this.selectedTypes.indexOf(id);
+    //     if (index > -1) {
+    //       this.selectedTypes.splice(index, 1);
+    //     }
+    //   }
+    //   this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
+    // },
     SelectType(id, isChecked) {
-      if (isChecked) {
-        // Add the type ID to the array if the checkbox is selected
-        this.selectedTypes.push(id);
-      } else {
-        // Remove the type ID from the array if the checkbox is deselected
-        const index = this.selectedTypes.indexOf(id);
-        if (index > -1) {
-          this.selectedTypes.splice(index, 1);
-        }
+    const inputElement = document.getElementById('type-' + id);
+    if (isChecked) {
+      // Add the type ID to the array if the checkbox is selected
+      this.selectedTypes.push(id);
+      inputElement.classList.add('selected-checkbox');
+    } else {
+      // Remove the type ID from the array if the checkbox is deselected
+      const index = this.selectedTypes.indexOf(id);
+      if (index > -1) {
+        this.selectedTypes.splice(index, 1);
       }
-      this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
-    },
+      inputElement.classList.remove('selected-checkbox');
+    }
+    this.CallRestaurant(); // Remove the type ID from the array if the checkbox is deselected
+  },
     getCartItemsLength() {
             return this.cart && this.cart.items ? Object.keys(this.cart.items).length : 0;
         }
@@ -108,22 +124,23 @@ export default {
         <!-- /cart-container -->
 
     <!-- checkbox types -->
-    <div class="container w-50 pt-5">
+    <div class="container w-50 pt-5 pb-5">
       <div class="row justify-content-center align-items-center">
         <div v-for="curType in typesList" :key="curType.id"
-          class="col-6 col-sm-6 col-md-6 col-lg-4 mb-2 btn-group btn-group-toggle">
+          class="col-sm-6 col-md-6 col-lg-4 btn-group btn-group-toggle bnt-test d-flex justify-content-center align-items-center  provadelleprove">
           <input type="checkbox" class="btn-check" :id="'type-' + curType.id" name="types" :value="curType.id" @change="(event) => {
             SelectType(event.target.value, event.target.checked);
           }
             " />
-          <label class="btn btn-outline-primary w-25 p-1 rounded" :for="'type-' + curType.id">{{ curType.name }}</label>
+          <label class="checkbox-btn rounded"
+          :for="'type-' + curType.id">{{ curType.name }}</label>
         </div>
       </div>
     </div>
     <!-- /checkbox types -->
 
     <!-- card-container -->
-    <div class="container p-5">
+    <div class="container pb-5">
       <div class="row gap-4 justify-content-center" v-if="restaurantsList.length > 0">
         <!-- card -->
         <div v-for="curRestaurant in restaurantsList" :key="curRestaurant.id"
@@ -134,8 +151,8 @@ export default {
       </div>
 
       <!-- No match div for search -->
-      <div class="row align-items-center border rounded-5 py-3 px-4 text-center" v-else>
-        <p class="fw-bold fs-1 p-0 m-0">
+      <div class="row align-items-center border w-75 m-auto rounded-5 py-3 px-4 text-center" v-else>
+        <p class="fw-bold fs-4 p-0 m-0">
           Nessun ristorante corrispondente alla tua ricerca
         </p>
       </div>
@@ -151,6 +168,8 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@use "../sass/colorpalette.scss" as *;
+
 .main-content {
   padding: 20px 0;
 }
@@ -179,6 +198,20 @@ export default {
   background-color: #F8F7F4;
 }
 
+.checkbox-btn{
+  width: 150px;
+  min-width: 70px;
+  border: 1px solid $blue;
+  text-align: center;
+  color: $blue;
+  font-size: clamp(15px,2vw,20px);
+  padding: 5px 10px;
+}
+
+.selected-checkbox + .checkbox-btn {
+  background-color: $blue;
+  color: white;
+}
 
 
 /* Riduci la dimensione del testo rendendolo responsive per tutti i breakpoint */
