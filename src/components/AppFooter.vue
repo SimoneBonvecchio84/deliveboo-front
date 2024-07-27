@@ -75,6 +75,7 @@ export default {
 
 .copyright{
   align-self: flex-end;
+  font-size: clamp(12px, 2vw, 14px);
 }
 /* /footer style management */
 

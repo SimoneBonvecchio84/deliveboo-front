@@ -164,9 +164,9 @@ export default {
           <tr>
             <th scope="col">Piatto</th>
             <th scope="col">Quantita</th>
-            <th scope="col">Rimuovi</th>
-            <th class="prezzo" scope="col">Prezzo</th>
-            <th scope="col">Totale</th>
+            <th scope="col" class="hide-responsive">Rimuovi</th>
+            <th scope="col">Prezzo</th>
+            <th scope="col" class="hide-responsive">Totale</th>
           </tr>
         </thead>
 
@@ -193,15 +193,15 @@ export default {
             <!-- /btn add -->
           </div>
         </td>
-        <td class="align-middle">
+        <td class="align-middle hide-responsive">
           <div @click.prevent="removeAllItems(article)"
             class="btn btn-danger ms-btn border-0">
             <a class="text-decoration-none text-white fw-bold"><i class="fa-solid fa-trash"></i></a>
           </div>
         </td>
         
-        <td class="prezzo align-middle">{{ (article.price).toFixed(2) }}€</td>
-        <td class="align-middle">{{ (article.price * article.quantity).toFixed(2) }}€</td>
+        <td class="align-middle">{{ (article.price).toFixed(2) }}€</td>
+        <td class="align-middle hide-responsive">{{ (article.price * article.quantity).toFixed(2) }}€</td>
       </tr>
       <tr>
         <td class="text-center" colspan="5">
@@ -297,7 +297,7 @@ export default {
 }
 
 @media (max-width: 430px) {
-  .prezzo {
+  .hide-responsive {
     display: none;
   }
 }
