@@ -152,7 +152,7 @@ export default {
 
       <!-- No match div for search -->
       <div class="row align-items-center border w-75 m-auto rounded-5 py-3 px-4 text-center" v-else>
-        <p class="fw-bold fs-4 p-0 m-0">
+        <p class="fw-bold fs-5 p-0 m-0">
           Nessun ristorante corrispondente alla tua ricerca
         </p>
       </div>

@@ -230,11 +230,13 @@ export default {
 
     </div>
 
-    <div v-else class="form-container text-center">
-      <div class="border rounded-5 p-5">
-        <span>Il tuo carrello è vuoto</span>
+      <!-- No match div for search -->
+      <div class="row align-items-center border w-75 m-auto rounded-5 py-3 px-4 text-center" v-else>
+        <p class="fw-bold fs-5 p-0 m-0">
+          Il tuo carrello è vuoto
+        </p>
       </div>
-    </div>
+      <!-- /No match div for search -->
 
   </div>
 

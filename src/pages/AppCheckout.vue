@@ -202,7 +202,7 @@ export default {
             if (!this.paymentDetails.card_expire_date) {
                 this.errors.card_expire_date = 'La data di scadenza è obbligatoria.';
             } else if (!this.validExpirationDate(this.paymentDetails.card_expire_date)) {
-                this.errors.card_expire_date = 'La data di scadenza non è valida.';
+                this.errors.card_expire_date = 'La tua carta è scaduta.';
             }
 
             // If there are no errors, proceed with form submission
@@ -371,7 +371,7 @@ export default {
                 <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click.prevent="validateForm()">
                     <span>Procedi al pagamento</span>
-                    <span :class="isLoading === true ? 'spinner-border' : ''"></span>
+                    <span :class="isLoading === true ? 'spinner-border' : ''" class="spinner"></span>
                 </button>
                 <div class="ml-auto ms_cart d-flex flex-column flex-sm-row text-center">
                 <span class="fw-bold">Prezzo totale:</span>
@@ -429,6 +429,13 @@ export default {
 
 label,.label{
     font-size: clamp(12px,2vw,15px);
+}
+
+.spinner{
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
 }
 
 @media (max-width: 1024px) {
