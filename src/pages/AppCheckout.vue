@@ -303,7 +303,7 @@ export default {
         <form id="checkoutform">
             <!-- User Details -->
             <div class="form-group">
-                <h3>Dettagli Utente</h3>
+                <h3>Dettagli utente</h3>
             </div>
             <div class="form-row">
                 <!-- User Name -->
@@ -348,25 +348,25 @@ export default {
             </div>
             <!-- User Card Details -->
             <div class="form-group">
-                <h3>Dettagli della Carta</h3>
+                <h3>Dettagli della carta</h3>
             </div>
             <div class="form-row">
                 <!-- Card Number -->
                 <div class="form-group col-md-6">
-                    <label for="card-number">Numero Carta <span class="asterisco">*</span></label>
+                    <label for="card-number">Numero carta <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="card-number" v-model="paymentDetails.card_number"
                         required>
                     <div v-if="errors.card_number" class="text-danger">{{ errors.card_number }}</div>
                 </div>
                 <!-- Card Expiration Date -->
                 <div class="form-group col-md-6">
-                    <label for="card-expire">Data scadenza <span class="asterisco">*</span></label>
+                    <label for="card-expire">Data di scadenza <span class="asterisco">*</span></label>
                     <input type="text" class="form-control" id="card-expire" v-model="paymentDetails.card_expire_date"
                         required>
                     <div v-if="errors.card_expire_date" class="text-danger">{{ errors.card_expire_date }}</div>
                 </div>
             </div>
-            <p class="mb-3 label">I campi contrassegnati con <span class="asterisco">*</span> sono obbligatori.</p>
+            <p class="mb-3 label"><span class="asterisco">*</span> questi campi sono obbligatori.</p>
             <div class="d-flex align-items-center gap-2">
                 <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center gap-2"
                     @click.prevent="validateForm()">
