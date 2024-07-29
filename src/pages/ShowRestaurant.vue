@@ -382,7 +382,7 @@ export default {
             <div class="modal-content">
                 <div class="modal-body d-flex flex-column gap-4">
                     <span class="modal-title text-danger fw-bold fs-3" id="exampleModalLabel"> ATTENZIONE!</span>
-                    <span class="fs-4">Sei sicuro di voler svuotare il carrello?</span>
+                    <span class="fs-4">Stai cambiando ristorante. <br>Vuoi svuotare il carrello?</span>
                 </div>
                 <div class="modal-footer d-flex justify-content-around">
                     <button type="button" class="btn btn-danger w-25" @click="handleCancel">Annulla</button>
