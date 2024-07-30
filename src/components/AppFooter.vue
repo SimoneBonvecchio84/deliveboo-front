@@ -7,7 +7,7 @@ export default {
   },
   methods: {
     toTop: function () {
-      document.documentElement.scrollTop = 0;
+      document.documentElement.scrollTop = 600;
     },
     handleScroll: function () {
       this.show = window.scrollY > 500;
