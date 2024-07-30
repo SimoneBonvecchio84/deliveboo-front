@@ -252,7 +252,7 @@ export default {
           <span class="fs-4">Sei sicuro di voler svuotare il carrello?</span>
         </div>
         <div class="modal-footer d-flex justify-content-around">
-          <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Annulla</button>
+          <button type="button" class="btn btn-danger w-25 d-flex justify-content-center" data-dismiss="modal">Annulla</button>
           <button type="button" class="btn btn-primary w-25" @click.prevent="modalClearBtn"
             data-dismiss="modal">Svuota</button>
         </div>
